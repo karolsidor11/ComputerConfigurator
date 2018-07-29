@@ -2,9 +2,11 @@ package test;
 
 import frame.MainFrame;
 
+import javax.swing.*;
+
 
 public class test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
 
 
         MainFrame mainFrame = new MainFrame();

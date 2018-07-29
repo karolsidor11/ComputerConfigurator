@@ -1,7 +1,8 @@
 package frame;
 
+import panels.ComputerComponentPanel;
+import panels.ComputerSetPanel;
 import panels.CustomerPanel;
-
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,7 @@ public class MainFrame extends JFrame {
     private JPanel panel;
 
 
-    public MainFrame() {
+    public MainFrame() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
         customer = new JButton("Klienci");
         component = new JButton("Podzespoły");
         computerSet = new JButton("Zamówienia");
@@ -25,24 +26,36 @@ public class MainFrame extends JFrame {
         panel.add(computerSet);
 
         add(panel);
+        setLocationByPlatform(true);
         setSize(500, 500);
-        setTitle("Nowa Ramka");
+        setTitle("Computer Configurator");
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        SwingUtilities.updateComponentTreeUI(this);
+
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         actionListner();
 
     }
-    public void actionListner(){
+
+    public void actionListner() {
         customer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setContentPane( new CustomerPanel());
+                setContentPane(new CustomerPanel());
                 pack();
-
-               // getContentPane().add(new CustomerPanel());
-
-
             }
         });
+        component.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setContentPane(new ComputerComponentPanel());
+                pack();
+            }
+        });
+        computerSet.addActionListener((e) -> {
+            setContentPane(new ComputerSetPanel());
+            pack();
+        });
+
 
     }
 }

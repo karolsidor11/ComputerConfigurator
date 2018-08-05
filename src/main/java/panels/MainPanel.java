@@ -8,8 +8,7 @@ public class MainPanel extends JPanel {
 
     private JButton button;
     private JTextField text, jTextField;
-    private  JPanel panelCustomer;
-
+    private JPanel panelCustomer;
 
 
     public MainPanel() {

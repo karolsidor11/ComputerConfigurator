@@ -54,6 +54,8 @@ public class CustomerDAOTempImpl implements CustomerDAOTemp {
     }
 
     public void deleteCustomer(Integer id) {
-        customers.remove(id);
+        //customers.remove(id);
+        customersList.remove(id);
     }
+
 }

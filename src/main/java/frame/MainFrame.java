@@ -12,30 +12,46 @@ public class MainFrame extends JFrame {
     private JButton customer;
     private JButton component;
     private JButton computerSet;
+    private JLabel label;
     private JPanel panel;
+    private ImageIcon imageIcon;
 
 
     public MainFrame() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
-        customer = new JButton("Klienci");
-        component = new JButton("Podzespoły");
-        computerSet = new JButton("Zamówienia");
+        createFrame();
+        createComponent();
+        actionListner();
+        setVisible(true);
 
-        panel = new JPanel();
-        panel.add(customer);
-        panel.add(component);
-        panel.add(computerSet);
+    }
 
-        add(panel);
-        setLocationByPlatform(true);
-        setSize(500, 500);
+    private void createFrame() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
+
+        setSize(600, 580);
         setTitle("Computer Configurator");
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         SwingUtilities.updateComponentTreeUI(this);
-
-        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        actionListner();
+        setIconImage(new ImageIcon(getClass().getResource("/images.jpg")).getImage());
+        setLocationByPlatform(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
+    }
 
+    private void createComponent() {
+        panel = new JPanel();
+        customer = new JButton("Klienci");
+        component = new JButton("Podzespoły");
+        computerSet = new JButton("Zamówienia");
+        label = new JLabel();
+        imageIcon = new ImageIcon(MainFrame.class.getResource("/konfiguator.jpg"));
+        label.setIcon(imageIcon);
+
+        panel.add(customer);
+        panel.add(component);
+        panel.add(computerSet);
+        panel.add(label);
+        add(panel);
     }
 
     public void actionListner() {
@@ -55,7 +71,5 @@ public class MainFrame extends JFrame {
             setContentPane(new ComputerSetPanel());
             pack();
         });
-
-
     }
 }

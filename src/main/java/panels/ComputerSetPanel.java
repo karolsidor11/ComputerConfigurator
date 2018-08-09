@@ -17,10 +17,17 @@ public class ComputerSetPanel extends JPanel {
 
     private JButton addSet;
     private JButton deleteSet;
+    private JButton update;
     private JButton back;
     private JToolBar toolBar;
     private JTable tableSet;
     private JScrollPane jScrollPane;
+    private DefaultTableModel model;
+    private JDialog jDialog;
+    private JLabel insertId, insertSetName, insertSetDescription, insertPrice, insertCustomer;
+    private JTextField id, setName, setDescription, setPrice, Customer;
+    private JButton confirm;
+
 
     public ComputerSetPanel() {
         createComponent();
@@ -37,7 +44,7 @@ public class ComputerSetPanel extends JPanel {
 
     private void createTable() {
         String[] columnName = {"id", "Nazwa", "Opis", "Cena", "Klient"};
-        DefaultTableModel model = new DefaultTableModel(columnName, 0);
+        model = new DefaultTableModel(columnName, 0);
         ComputerSetDAOImpl dao = new ComputerSetDAOImpl();
         List<ComputerSet> computerSetList = dao.getAllComputerSets();
         for (int i = 0; i < computerSetList.size(); i++) {
@@ -61,54 +68,183 @@ public class ComputerSetPanel extends JPanel {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 JComponent jComponent = (JComponent) e.getSource();
                 Window window = SwingUtilities.getWindowAncestor(jComponent);
                 window.dispose();
-
-                try {
-
-                    MainFrame mainFrame = new MainFrame();
-                } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException e1) {
-                    e1.printStackTrace();
-                }
-
+                backToMyFrame();
+            }
+        });
+        addSet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createPanelAddComputerSet();
+            }
+        });
+        update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createPanelUpdateComputerSet();
             }
         });
         deleteSet.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog jDialog = new JDialog();
-                JButton jButton = new JButton();
-                JLabel jLabel = new JLabel();
-                JTextField jTextField = new JTextField();
-                jDialog.setTitle("Usuń zestaw komputerowy");
-                jDialog.setLayout(new FlowLayout());
-                jDialog.setResizable(false);
-                jDialog.setLocationByPlatform(true);
-                jButton.setText("Usuń");
-                jLabel.setText("Wprowadź id zestawu komputerowego");
-                jTextField.setPreferredSize(new Dimension(90, 20));
-                jButton.setPreferredSize(new Dimension(90, 25));
-                jDialog.add(jLabel);
-                jDialog.add(jTextField);
-                jDialog.add(jButton);
-                jDialog.pack();
-                jDialog.setVisible(true);
-
+                createPanelDeleteComputerSet();
             }
         });
+
+
     }
+
     private void createToolBarButton() {
-        addSet = new JButton("Dodaj zestaw");
-        deleteSet = new JButton("Usuń zestaw");
+        addSet = new JButton("Dodaj ");
+        update = new JButton("Modyfikuj");
+        deleteSet = new JButton("Usuń ");
         back = new JButton("Wstecz");
         toolBar = new JToolBar();
         toolBar.add(back);
         toolBar.add(addSet);
+        toolBar.add(update);
         toolBar.add(deleteSet);
         this.add(toolBar);
 
     }
 
+    private void backToMyFrame() {
+        try {
+            MainFrame mainFrame = new MainFrame();
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | InstantiationException | IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    private void createPanelAddComputerSet() {
+        jDialog = new JDialog();
+        id = new JTextField();
+        setName = new JTextField();
+        setDescription = new JTextField();
+        setPrice = new JTextField();
+        Customer = new JTextField();
+        insertId = new JLabel("Wprowadź id produktu: ");
+        insertSetName = new JLabel("Wprowadź nazwę produktu: ");
+        insertSetDescription = new JLabel("Wprowadź opis produktu: ");
+        insertPrice = new JLabel("Wprowadź cenę produktu: ");
+        insertCustomer = new JLabel("Wprowadż klienta: ");
+        confirm = new JButton("Zatwierdź");
+
+        setName.setColumns(10);
+        setDescription.setColumns(10);
+        setPrice.setColumns(10);
+        id.setColumns(10);
+        Customer.setColumns(10);
+
+
+        jDialog.setTitle("Panel dodawania zestawu komputerowego ");
+        jDialog.setSize(280, 300);
+        jDialog.setLocationRelativeTo(null);
+        jDialog.setLayout(new FlowLayout());
+
+        jDialog.add(insertId);
+        jDialog.add(id);
+        jDialog.add(insertSetName);
+        jDialog.add(setName);
+        jDialog.add(insertSetDescription);
+        jDialog.add(setDescription);
+        jDialog.add(insertPrice);
+        jDialog.add(setPrice);
+        jDialog.add(insertCustomer);
+        jDialog.add(Customer);
+        jDialog.add(confirm);
+
+
+        jDialog.setVisible(true);
+
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Object[] rows = new Object[5];
+                rows[0] = id.getText();
+                rows[1] = setName.getText();
+                rows[2] = setDescription.getText();
+                rows[3] = setPrice.getText();
+                rows[4] = Customer.getText();
+
+                model.addRow(rows);
+                jDialog.dispose();
+            }
+        });
+
+    }
+
+    private void createPanelUpdateComputerSet() {
+        jDialog = new JDialog();
+        id = new JTextField();
+        setName = new JTextField();
+        setDescription = new JTextField();
+        setPrice = new JTextField();
+        Customer = new JTextField();
+        insertId = new JLabel("Wprowadź id produktu: ");
+        insertSetName = new JLabel("Wprowadź nazwę produktu: ");
+        insertSetDescription = new JLabel("Wprowadź opis produktu: ");
+        insertPrice = new JLabel("Wprowadź cenę produktu: ");
+        insertCustomer = new JLabel("Wprowadż klienta: ");
+        confirm = new JButton("Zatwierdź");
+
+        setName.setColumns(10);
+        setDescription.setColumns(10);
+        setPrice.setColumns(10);
+        id.setColumns(10);
+        Customer.setColumns(10);
+
+
+        jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
+        jDialog.setSize(280, 300);
+        jDialog.setLocationRelativeTo(null);
+        jDialog.setLayout(new FlowLayout());
+
+        jDialog.add(insertId);
+        jDialog.add(id);
+        jDialog.add(insertSetName);
+        jDialog.add(setName);
+        jDialog.add(insertSetDescription);
+        jDialog.add(setDescription);
+        jDialog.add(insertPrice);
+        jDialog.add(setPrice);
+        jDialog.add(insertCustomer);
+        jDialog.add(Customer);
+        jDialog.add(confirm);
+
+
+        jDialog.setVisible(true);
+
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int i = tableSet.getSelectedRow();
+                model.setValueAt(id.getText(), i, 0);
+                model.setValueAt(setName.getText(), i, 1);
+                model.setValueAt(setDescription.getText(), i, 2);
+                model.setValueAt(setPrice.getText(), i, 3);
+                model.setValueAt(Customer.getText(), i, 4);
+
+                jDialog.dispose();
+
+            }
+        });
+
+    }
+
+    private void createPanelDeleteComputerSet() {
+
+        int i = tableSet.getSelectedRow();
+        if (i >= 0) {
+            model.removeRow(i);
+        } else {
+            JOptionPane.showMessageDialog(this, "Błąd usuwania zestawu komputerowego");
+        }
+
+    }
 }

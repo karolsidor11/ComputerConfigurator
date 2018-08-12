@@ -83,7 +83,11 @@ public class ComputerSetPanel extends JPanel {
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createPanelUpdateComputerSet();
+                if (tableSet.isRowSelected(tableSet.getSelectedRow()) == true) {
+                    createPanelUpdateComputerSet();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Wybierz zestaw komputerowy do modyfikacji!");
+                }
             }
         });
         deleteSet.addActionListener(new ActionListener() {
@@ -93,8 +97,6 @@ public class ComputerSetPanel extends JPanel {
                 createPanelDeleteComputerSet();
             }
         });
-
-
     }
 
     private void createToolBarButton() {
@@ -141,7 +143,7 @@ public class ComputerSetPanel extends JPanel {
 
 
         jDialog.setTitle("Panel dodawania zestawu komputerowego ");
-        jDialog.setSize(280, 300);
+        jDialog.setSize(320, 300);
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
 
@@ -198,9 +200,17 @@ public class ComputerSetPanel extends JPanel {
         id.setColumns(10);
         Customer.setColumns(10);
 
+        int a = tableSet.getSelectedRow();
+
+        id.setText(String.valueOf(model.getValueAt(a, 0)));
+        setName.setText((String) model.getValueAt(a, 1));
+        setDescription.setText((String) model.getValueAt(a, 2));
+        setPrice.setText(String.valueOf(model.getValueAt(a, 3)));
+        Customer.setText((String) model.getValueAt(a, 4));
+
 
         jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
-        jDialog.setSize(280, 300);
+        jDialog.setSize(320, 300);
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
 
@@ -243,7 +253,7 @@ public class ComputerSetPanel extends JPanel {
         if (i >= 0) {
             model.removeRow(i);
         } else {
-            JOptionPane.showMessageDialog(this, "Błąd usuwania zestawu komputerowego");
+            JOptionPane.showMessageDialog(this, "Wybierz zestaw komputerowy do usunięcia !");
         }
 
     }

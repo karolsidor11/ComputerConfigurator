@@ -1,12 +1,11 @@
-package test;
+package main;
 
 import frame.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
 
-
-public class test {
+public class Main {
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
 
         EventQueue.invokeLater(new Runnable() {
@@ -19,8 +18,6 @@ public class test {
                 }
             }
         });
-
-
 
 
 //        CustomerDAOTempImpl customerDAOTemp = new CustomerDAOTempImpl();

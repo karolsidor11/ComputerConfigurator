@@ -89,8 +89,11 @@ public class CustomerPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                createPanelUpdateCustomer();
-
+                if (tableCustomers.isRowSelected(tableCustomers.getSelectedRow()) == true) {
+                    createPanelUpdateCustomer();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Wybierz klienta do modyfikacji !");
+                }
 
             }
         });
@@ -138,6 +141,7 @@ public class CustomerPanel extends JPanel {
         jDialog.setTitle("Panel dodawania klienta");
         jDialog.setLocationRelativeTo(null);
 
+
         jDialog.add(insertID);
         jDialog.add(id);
         jDialog.add(insertName);
@@ -167,6 +171,7 @@ public class CustomerPanel extends JPanel {
     }
 
     private void createPanelUpdateCustomer() {
+
         JDialog jDialog = new JDialog();
 
         insertID = new JLabel("Wprowadż id : ");
@@ -189,6 +194,16 @@ public class CustomerPanel extends JPanel {
         jDialog.setSize(250, 300);
         jDialog.setTitle("Panel modyfikacji klienta");
         jDialog.setLocationRelativeTo(null);
+
+
+        int a = tableCustomers.getSelectedRow();
+
+
+        id.setText(String.valueOf((Integer) modelCustomer.getValueAt(a, 0)));
+        name.setText((String) modelCustomer.getValueAt(a, 1));
+        lastName.setText((String) modelCustomer.getValueAt(a, 2));
+        adres.setText((String) modelCustomer.getValueAt(a, 3));
+
 
         jDialog.add(insertID);
         jDialog.add(id);
@@ -224,7 +239,7 @@ public class CustomerPanel extends JPanel {
         if (i >= 0) {
             modelCustomer.removeRow(i);
         } else {
-            JOptionPane.showMessageDialog(this, "Błąd usuwania klienta");
+            JOptionPane.showMessageDialog(this, "Wybierz klienta do usunięcia !");
         }
 
     }

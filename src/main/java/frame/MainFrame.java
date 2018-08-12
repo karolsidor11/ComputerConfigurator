@@ -5,6 +5,7 @@ import panels.ComputerSetPanel;
 import panels.CustomerPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +13,7 @@ public class MainFrame extends JFrame {
     private JButton customer;
     private JButton component;
     private JButton computerSet;
+    private JButton aboutProgram;
     private JLabel label;
     private JPanel panel;
     private ImageIcon imageIcon;
@@ -43,15 +45,30 @@ public class MainFrame extends JFrame {
         customer = new JButton("Klienci");
         component = new JButton("Podzespoły");
         computerSet = new JButton("Zamówienia");
+        aboutProgram = new JButton("Info");
         label = new JLabel();
         imageIcon = new ImageIcon(MainFrame.class.getResource("/konfiguator.jpg"));
         label.setIcon(imageIcon);
 
-        panel.add(customer);
-        panel.add(component);
-        panel.add(computerSet);
-        panel.add(label);
+        panel.setLayout(new BorderLayout());
+        JPanel panels = new JPanel();
+        panels.add(customer);
+        panels.add(component);
+        panels.add(computerSet);
+
+        JPanel about = new JPanel();
+        about.add(aboutProgram);
+
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new BorderLayout());
+        panel2.add(panels, BorderLayout.CENTER);
+        panel2.add(about, BorderLayout.EAST);
+
+        panel.add(panel2, BorderLayout.NORTH);
+        panel.add(label, BorderLayout.CENTER);
+
         add(panel);
+
     }
 
     public void actionListner() {
@@ -71,5 +88,8 @@ public class MainFrame extends JFrame {
             setContentPane(new ComputerSetPanel());
             pack();
         });
+        aboutProgram.addActionListener((e ->
+        JOptionPane.showMessageDialog(this, "     Computer Configurator \n Wersja demonstracyjna: v1.0" +
+                "\n Development by: Karol Sidor")));
     }
 }

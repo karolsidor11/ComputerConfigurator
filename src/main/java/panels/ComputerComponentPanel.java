@@ -100,7 +100,13 @@ public class ComputerComponentPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                createPanelUpdateComputerComponent();
+
+                if (tableComponent.isRowSelected(tableComponent.getSelectedRow()) == true) {
+                    createPanelUpdateComputerComponent();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Wybierz podzespół komputera do modyfikacji !");
+                }
+
             }
         });
 
@@ -120,7 +126,7 @@ public class ComputerComponentPanel extends JPanel {
         if (i >= 0) {
             model.removeRow(i);
         } else {
-            JOptionPane.showMessageDialog(this, "Błąd usuwania podzespołu komputerowego");
+            JOptionPane.showMessageDialog(this, "Wybierz podzespół komputera do usunięcia !");
         }
     }
 
@@ -144,7 +150,7 @@ public class ComputerComponentPanel extends JPanel {
 
 
         jDialog.setTitle("Panel dodawania komponentu komputera");
-        jDialog.setSize(280, 300);
+        jDialog.setSize(320, 300);
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
 
@@ -195,8 +201,15 @@ public class ComputerComponentPanel extends JPanel {
         id.setColumns(10);
 
 
+        int a = tableComponent.getSelectedRow();
+        id.setText(String.valueOf((Integer) model.getValueAt(a, 0)));
+        componentName.setText((String) model.getValueAt(a, 1));
+        componentDescription.setText((String) model.getValueAt(a, 2));
+        componentPrice.setText(String.valueOf((BigDecimal) model.getValueAt(a, 3)));
+
+
         jDialog.setTitle("Panel modyfikacji komponentu komputera");
-        jDialog.setSize(280, 300);
+        jDialog.setSize(320, 300);
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
 

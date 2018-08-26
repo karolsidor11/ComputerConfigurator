@@ -349,6 +349,7 @@ public class ComputerSetPanel extends JPanel {
         int rowCount = model.getRowCount();
         int number = rowCount + 1;
         jTextField.setText(String.valueOf(number));
+        jTextField.setEnabled(false);
 
         comboComponent.addActionListener(new ActionListener() {
             @Override
@@ -405,12 +406,11 @@ public class ComputerSetPanel extends JPanel {
         }
         int selectedRow = tableSet.getSelectedRow();
         Object valueAt = model.getValueAt(selectedRow, 4);
-        System.out.println(valueAt);
         klient.setSelectedItem(valueAt);
 
         ComputerComponentDAOImpl computerComponentDAO = new ComputerComponentDAOImpl();
         List<ComputerComponent> allComputerComponents = computerComponentDAO.getAllComputerComponents();
-        for(ComputerComponent elements : allComputerComponents){
+        for (ComputerComponent elements : allComputerComponents) {
             element.addItem(elements.getComponentName());
         }
 
@@ -442,7 +442,6 @@ public class ComputerSetPanel extends JPanel {
         setName.setText((String) model.getValueAt(a, 1));
         setDescription.setText((String) model.getValueAt(a, 2));
         setPrice.setText(String.valueOf(model.getValueAt(a, 3)));
-
 
 
         jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
@@ -478,9 +477,27 @@ public class ComputerSetPanel extends JPanel {
                 model.setValueAt(setName.getText(), i, 1);
                 model.setValueAt(setDescription.getText(), i, 2);
                 model.setValueAt(setPrice.getText(), i, 3);
-                model.setValueAt(Customer.getText(), i, 4);
+                model.setValueAt(klient.getSelectedItem(), i, 4);
 
                 jDialog.dispose();
+
+            }
+        });
+        element.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Object selectedItem = element.getSelectedItem();
+
+                List<ComputerComponent> allComputerComponents1 = computerComponentDAO.getAllComputerComponents();
+
+
+                for (ComputerComponent a : allComputerComponents1) {
+                    if (a.getComponentName().equals(selectedItem) == true) {
+                        setPrice.setText(a.getPrice().toString());
+                    }
+                }
+
 
             }
         });

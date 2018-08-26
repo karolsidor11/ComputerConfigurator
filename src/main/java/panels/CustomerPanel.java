@@ -154,6 +154,11 @@ public class CustomerPanel extends JPanel {
 
         jDialog.setVisible(true);
 
+
+        int rowCount = modelCustomer.getRowCount();
+        int number = rowCount + 1;
+        id.setText(String.valueOf(number));
+        id.setEnabled(false);
         Object[] row = new Object[4];
 
         confirm.addActionListener(new ActionListener() {
@@ -217,6 +222,7 @@ public class CustomerPanel extends JPanel {
 
         jDialog.setVisible(true);
 
+        id.setEnabled(false);
 
         confirm.addActionListener(new ActionListener() {
             @Override

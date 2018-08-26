@@ -167,6 +167,10 @@ public class ComputerComponentPanel extends JPanel {
 
         jDialog.setVisible(true);
 
+        int rowCount = model.getRowCount();
+        int number = rowCount + 1;
+        id.setText(String.valueOf(number));
+        id.setEnabled(false);
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -226,6 +230,7 @@ public class ComputerComponentPanel extends JPanel {
 
         jDialog.setVisible(true);
 
+        id.setEnabled(false);
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

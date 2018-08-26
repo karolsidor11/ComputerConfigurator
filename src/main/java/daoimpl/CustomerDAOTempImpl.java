@@ -20,13 +20,16 @@ public class CustomerDAOTempImpl implements CustomerDAOTemp {
         Customer customer = new Customer(1, "Jan", "Kowalski", "Lublin");
         Customer customer1 = new Customer(2, "Janina", "Kowalska", "Lublin");
         Customer customer2 = new Customer(3, "Piotr", "Kowalska", "Lublin");
+        Customer customer3 = new Customer(4, "Witold", "Jakiś", "Warszwa");
         customers.put(customer.getId(), customer);
         customers.put(customer1.getId(), customer1);
         customers.put(customer2.getId(), customer2);
+        customers.put(customer3.getId(), customer3);
 
         customersList.add(customer);
         customersList.add(customer1);
         customersList.add(customer2);
+        customersList.add(customer3);
     }
 
     public Map<Integer, Customer> getAllCustomer() {

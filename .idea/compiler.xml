@@ -9,5 +9,8 @@
         <module name="ComputerConfigurator" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ComputerConfigurator" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

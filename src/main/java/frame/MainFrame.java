@@ -34,7 +34,7 @@ public class MainFrame extends JFrame {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         SwingUtilities.updateComponentTreeUI(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setIconImage(new ImageIcon(getClass().getResource("/images.jpg")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/images/images.jpg")).getImage());
         setLocationByPlatform(true);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
         computerSet = new JButton("Zamówienia");
         aboutProgram = new JButton("Info");
         label = new JLabel();
-        imageIcon = new ImageIcon(MainFrame.class.getResource("/konfiguator.jpg"));
+        imageIcon = new ImageIcon(MainFrame.class.getResource("/images/konfiguator.jpg"));
         label.setIcon(imageIcon);
 
         panel.setLayout(new BorderLayout());

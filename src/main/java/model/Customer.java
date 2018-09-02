@@ -1,14 +1,31 @@
 package model;
 
+import com.sun.istack.internal.NotNull;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+
+@Entity
+@Table(name = "Klienci")
 public class Customer {
 
+    @Id
+    @GeneratedValue
+    @NotNull
+    @Min(value = 1)
     private Integer id;
+    @Column(name = "Imie")
+    @NotNull
     private String name;
+    @Column(name = "Nazwisko")
+    @NotNull
     private String lastname;
+    @Column(name = "Adres")
+    @NotNull
     private String adres;
 
 
-    public Customer(Integer id, String name, String lastname, String adres) {
+    public Customer(@NotNull Integer id, @NotNull String name, @NotNull String lastname, @NotNull String adres) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;

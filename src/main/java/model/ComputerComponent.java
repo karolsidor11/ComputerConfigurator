@@ -1,21 +1,34 @@
 package model;
 
+import com.sun.istack.internal.NotNull;
 
-
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
-
+@Entity
+@Table(name = "Podzespoly")
 public class ComputerComponent {
-    private Integer id;
-    private String componentName;
-    private String componentDescribe;
-    private BigDecimal price;
 
+    @Id
+    @GeneratedValue
+    @NotNull
+    @Min(value = 1)
+    private Integer id;
+    @Column(name = "Nazwa")
+    @NotNull
+    private String componentName;
+    @Column(name = "Opis")
+    @NotNull
+    private String componentDescribe;
+    @Column(name = "Cena")
+    @NotNull
+    private BigDecimal price;
 
     public ComputerComponent() {
     }
 
-    public ComputerComponent(Integer id, String componentName, String componentDescribe, BigDecimal price) {
+    public ComputerComponent(@NotNull Integer id, @NotNull String componentName, @NotNull String componentDescribe, @NotNull BigDecimal price) {
         this.id = id;
         this.componentName = componentName;
         this.componentDescribe = componentDescribe;

@@ -14,6 +14,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
+        addCustomers();
+        addComputerComponent();
+        addComputerSet();
+    }
+
+    private static void addCustomers() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -21,7 +28,7 @@ public class Main {
         List<Customer> allCustomerList = customerDAOTemp.getAllCustomerList();
 
         for (Customer customers : allCustomerList) {
-            entity.Customer customer = new entity.Customer();
+            Customer customer = new Customer();
             customer.setName(customers.getName());
             customer.setLastname(customers.getLastname());
             customer.setAdres(customers.getAdres());
@@ -30,37 +37,55 @@ public class Main {
             entityManager.persist(customer);
             entityManager.getTransaction().commit();
         }
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    private static void addComputerComponent() {
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         ComputerComponentDAOImpl computerComponentDAO = new ComputerComponentDAOImpl();
         List<ComputerComponent> allComputerComponents = computerComponentDAO.getAllComputerComponents();
-        for (ComputerComponent components : allComputerComponents) {
-            entity.ComputerComponent computerComponent = new entity.ComputerComponent();
-            computerComponent.setComponentName(components.getComponentName());
-            computerComponent.setComponentDescribe(components.getComponentDescribe());
-            computerComponent.setPrice(components.getPrice());
+
+        for (ComputerComponent computerComponent : allComputerComponents) {
+
+            ComputerComponent computerComponent1 = new ComputerComponent();
+            computerComponent1.setComponentName(computerComponent.getComponentName());
+            computerComponent1.setComponentDescribe(computerComponent.getComponentDescribe());
+            computerComponent1.setPrice(computerComponent.getPrice());
+
             entityManager.getTransaction().begin();
-            entityManager.persist(computerComponent);
+            entityManager.persist(computerComponent1);
             entityManager.getTransaction().commit();
         }
+        entityManager.close();
+        entityManagerFactory.close();
+    }
+
+    private static void addComputerSet() {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         ComputerSetDAOImpl computerSetDAO = new ComputerSetDAOImpl();
         List<ComputerSet> allComputerSets = computerSetDAO.getAllComputerSets();
 
 
-        for (ComputerSet set : allComputerSets) {
-            entity.ComputerSet computerSet = new entity.ComputerSet();
-            computerSet.setComputerSetName(set.getComputerSetName());
-            computerSet.setComputerSetDescribe(set.getComputerSetDescribe());
-            computerSet.setComputerPrice(set.getComputerPrice());
-            computerSet.setCustomer(set.getCustomer().getName());
+        for (ComputerSet computer : allComputerSets) {
 
-            // Tutaj nie wiem jak  dodac do bazy danych komponent który jest przechowywany w liście
+            ComputerSet computerSet = new ComputerSet();
+            computerSet.setComputerSetName(computer.getComputerSetName());
+            computerSet.setComputerSetDescribe(computer.getComputerSetDescribe());
+            computerSet.setComputerPrice(computer.getComputerPrice());
+            computerSet.setCustomer(computer.getCustomer());
+            computerSet.setComputerComponentList(computer.getComputerComponentList());
 
 
             entityManager.getTransaction().begin();
+
             entityManager.persist(computerSet);
             entityManager.getTransaction().commit();
-
         }
 
 
@@ -68,3 +93,5 @@ public class Main {
         entityManagerFactory.close();
     }
 }
+
+

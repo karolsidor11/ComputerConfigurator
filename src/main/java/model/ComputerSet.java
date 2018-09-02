@@ -1,19 +1,45 @@
 package model;
 
+import com.sun.istack.internal.NotNull;
+
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Entity
+@Table(name = "Zamówienia")
 public class ComputerSet {
+
+    @Id
+    @GeneratedValue
+    @NotNull
+    @Min(value = 1)
     private Integer id;
+    @NotNull
+    @Column(name = "Nazwa")
     private String computerSetName;
+    @Column(name = "Opis")
+    @NotNull
     private String computerSetDescribe;
+    @Column(name = "Cena")
+    @NotNull
     private BigDecimal computerPrice;
+
+    @OneToOne
+    @JoinColumn(name = "id_klienta")
+    @Valid
     private Customer customer;
+
+    @OneToMany
+    @Valid
     private List<ComputerComponent> computerComponentList = new ArrayList<ComputerComponent>();
 
-    public ComputerSet(Integer id, String computerSetName, String computerSetDescribe, BigDecimal computerPrice, Customer customer, List<ComputerComponent> computerComponentList) {
+    public ComputerSet(@NotNull Integer id, @NotNull String computerSetName, @NotNull String computerSetDescribe,
+                       @NotNull BigDecimal computerPrice, @Valid Customer customer, @Valid List<ComputerComponent> computerComponentList) {
         this.id = id;
         this.computerSetName = computerSetName;
         this.computerSetDescribe = computerSetDescribe;

@@ -1,12 +1,12 @@
 package panels;
 
+import daoHibernate.ComputerSetJPA;
 import daoimpl.ComputerComponentDAOImpl;
 import daoimpl.ComputerSetDAOImpl;
 import daoimpl.CustomerDAOTempImpl;
 import frame.MainFrame;
 import model.ComputerComponent;
 import model.ComputerSet;
-import model.Customer;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -32,13 +32,11 @@ public class ComputerSetPanel extends JPanel {
     private JTextField id, setName, setDescription, setPrice, Customer;
     private JButton confirm;
 
-
     public ComputerSetPanel() {
         createComponent();
         createTable();
         createToolBarButton();
         createActionListner();
-
     }
 
     private void createComponent() {
@@ -50,16 +48,33 @@ public class ComputerSetPanel extends JPanel {
         String[] columnName = {"id", "Nazwa", "Opis", "Cena", "Klient"};
         model = new DefaultTableModel(columnName, 0);
         ComputerSetDAOImpl dao = new ComputerSetDAOImpl();
-        List<ComputerSet> computerSetList = dao.getAllComputerSets();
-        for (int i = 0; i < computerSetList.size(); i++) {
-            Integer id = computerSetList.get(i).getId();
-            String computerSetName = computerSetList.get(i).getComputerSetName();
-            String computerSetDescribe = computerSetList.get(i).getComputerSetDescribe();
-            BigDecimal computerPrice = computerSetList.get(i).getComputerPrice();
-            Customer customer = computerSetList.get(i).getCustomer();
-            Object[] obj = {id, computerSetName, computerSetDescribe, computerPrice, customer.getName()};
-            model.addRow(obj);
+
+        ComputerSetJPA computerSetJPA = new ComputerSetJPA();
+        List<ComputerSet> computerSets = computerSetJPA.allList();
+
+//        List<ComputerSet> computerSetList = dao.getAllComputerSets();
+//        for (int i = 0; i < computerSetList.size(); i++) {
+//            Integer id = computerSetList.get(i).getId();
+//            String computerSetName = computerSetList.get(i).getComputerSetName();
+//            String computerSetDescribe = computerSetList.get(i).getComputerSetDescribe();
+//            BigDecimal computerPrice = computerSetList.get(i).getComputerPrice();
+//            Customer customer = computerSetList.get(i).getCustomer();
+//            Object[] obj = {id, computerSetName, computerSetDescribe, computerPrice, customer.getName()};
+//            model.addRow(obj);
+//        }
+
+        model = new DefaultTableModel(columnName, 0);
+        for (int i = 0; i < computerSets.size(); i++) {
+            Integer id = computerSets.get(i).getId();
+            String computerSetName = computerSets.get(i).getComputerSetName();
+            String computerSetDescribe = computerSets.get(i).getComputerSetDescribe();
+            BigDecimal computerPrice = computerSets.get(i).getComputerPrice();
+            model.Customer customer = computerSets.get(i).getCustomer();
+            Object[] objects = {id, computerSetName, computerSetDescribe, computerPrice, customer};
+
+            model.addRow(objects);
         }
+
         tableSet = new JTable(model);
         tableSet.setBackground(Color.YELLOW);
         tableSet.setPreferredScrollableViewportSize(new Dimension(300, 300));
@@ -258,6 +273,8 @@ public class ComputerSetPanel extends JPanel {
         int i = tableSet.getSelectedRow();
         if (i >= 0) {
             model.removeRow(i);
+            ComputerSetJPA computerSetJPA = new ComputerSetJPA();
+            computerSetJPA.removeSetById(i + 1);
         } else {
             JOptionPane.showMessageDialog(this, "Wybierz zestaw komputerowy do usunięcia !");
         }
@@ -325,7 +342,6 @@ public class ComputerSetPanel extends JPanel {
 
 
         jTextField.setCaretPosition(0);
-        // allPrice.setText(" zł");
         comboClient.setPreferredSize(new Dimension(130, 22));
         comboComponent.setPreferredSize(new Dimension(130, 22));
 
@@ -362,7 +378,7 @@ public class ComputerSetPanel extends JPanel {
 
                     if (componentName.equals(selectedItem)) {
                         BigDecimal price = allComputerComponent.getPrice();
-                        allPrice.setText(price.toString() + " zł");
+                        allPrice.setText(price.toString());
                     }
                 }
             }
@@ -370,8 +386,6 @@ public class ComputerSetPanel extends JPanel {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println(number);
 
                 Object[] rows = new Object[5];
 
@@ -382,6 +396,13 @@ public class ComputerSetPanel extends JPanel {
                 rows[4] = comboClient.getSelectedItem();
 
                 model.addRow(rows);
+                ComputerSetJPA computerSetJPA = new ComputerSetJPA();
+                ComputerSet computerSet = new ComputerSet();
+                computerSet.setComputerSetName(nazwaSet.getText());
+                computerSet.setComputerSetDescribe(nameSet.getText());
+                computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
+//                computerSet.setCustomer((model.Customer) comboClient.getSelectedItem());
+                computerSetJPA.addComputerSet(computerSet);
                 jDialog.dispose();
 
 

@@ -24,7 +24,6 @@ public class MainFrame extends JFrame {
         createComponent();
         actionListner();
         setVisible(true);
-
     }
 
     private void createFrame() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
@@ -89,7 +88,7 @@ public class MainFrame extends JFrame {
             pack();
         });
         aboutProgram.addActionListener((e ->
-        JOptionPane.showMessageDialog(this, "     Computer Configurator \n Wersja demonstracyjna: v1.0" +
-                "\n Development by: Karol Sidor")));
+                JOptionPane.showMessageDialog(this, "     Computer Configurator \n Wersja demonstracyjna: v1.0" +
+                        "\n Development by: Karol Sidor")));
     }
 }

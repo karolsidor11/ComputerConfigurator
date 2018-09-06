@@ -15,12 +15,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        addCustomers();
-        addComputerComponent();
-        addComputerSet();
+//        addCustomers();
+//        addComputerComponent();
+//        addComputerSet();
     }
 
-    private static void addCustomers() {
+    public void addCustomers() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -41,7 +41,7 @@ public class Main {
         entityManagerFactory.close();
     }
 
-    private static void addComputerComponent() {
+    public void addComputerComponent() {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -64,7 +64,7 @@ public class Main {
         entityManagerFactory.close();
     }
 
-    private static void addComputerSet() {
+    public void addComputerSet() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -92,6 +92,14 @@ public class Main {
         entityManager.close();
         entityManagerFactory.close();
     }
+
+    public void initData() {
+        Main main = new Main();
+        main.addCustomers();
+        main.addComputerComponent();
+        main.addComputerSet();
+    }
+
 }
 
 

@@ -1,5 +1,6 @@
 package panels;
 
+import daoHibernate.ComputerComponentJPA;
 import daoimpl.ComputerComponentDAOImpl;
 import frame.MainFrame;
 import model.ComputerComponent;
@@ -42,16 +43,32 @@ public class ComputerComponentPanel extends JPanel {
     private void createTable() {
         String[] columnNames = {"id", "Nazwa ", "Opis", "Cena"};
         ComputerComponentDAOImpl dao = new ComputerComponentDAOImpl();
-        List<ComputerComponent> allComputerComponent = dao.getAllComputerComponents();
+        ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+        List<ComputerComponent> computerComponents = computerComponentJPA.allComputerComponent();
+
+//        List<ComputerComponent> allComputerComponent = dao.getAllComputerComponents();
+//        model = new DefaultTableModel(columnNames, 0);
+//        for (int i = 0; i < allComputerComponent.size(); i++) {
+//            Integer id = allComputerComponent.get(i).getId();
+//            String name = allComputerComponent.get(i).getComponentName();
+//            String componentDescribe = allComputerComponent.get(i).getComponentDescribe();
+//            BigDecimal price = allComputerComponent.get(i).getPrice();
+//            Object[] component = {id, name, componentDescribe, price};
+//            model.addRow(component);
+//        }
         model = new DefaultTableModel(columnNames, 0);
-        for (int i = 0; i < allComputerComponent.size(); i++) {
-            Integer id = allComputerComponent.get(i).getId();
-            String name = allComputerComponent.get(i).getComponentName();
-            String componentDescribe = allComputerComponent.get(i).getComponentDescribe();
-            BigDecimal price = allComputerComponent.get(i).getPrice();
-            Object[] component = {id, name, componentDescribe, price};
-            model.addRow(component);
+        for (int i = 0; i < computerComponents.size(); i++) {
+            Integer id = computerComponents.get(i).getId();
+            String componentName = computerComponents.get(i).getComponentName();
+            String componentDescribe = computerComponents.get(i).getComponentDescribe();
+            BigDecimal price = computerComponents.get(i).getPrice();
+
+            Object[] objects = {id, componentName, componentDescribe, price};
+
+            model.addRow(objects);
         }
+
+
         tableComponent = new JTable(model);
         tableComponent.setBackground(Color.YELLOW);
         tableComponent.setPreferredScrollableViewportSize(new Dimension(300, 300));
@@ -125,6 +142,10 @@ public class ComputerComponentPanel extends JPanel {
         int i = tableComponent.getSelectedRow();
         if (i >= 0) {
             model.removeRow(i);
+            ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+            computerComponentJPA.removeComponentById(i + 1);
+
+
         } else {
             JOptionPane.showMessageDialog(this, "Wybierz podzespół komputera do usunięcia !");
         }
@@ -181,6 +202,14 @@ public class ComputerComponentPanel extends JPanel {
                 rows[3] = componentPrice.getText();
 
                 model.addRow(rows);
+
+                ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+                ComputerComponent computerComponent = new ComputerComponent();
+                computerComponent.setComponentName(componentName.getText());
+                computerComponent.setComponentDescribe(componentDescription.getText());
+                computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
+
+                computerComponentJPA.addComputerComponent(computerComponent);
                 jDialog.dispose();
 
             }
@@ -240,6 +269,15 @@ public class ComputerComponentPanel extends JPanel {
                 model.setValueAt(componentName.getText(), i, 1);
                 model.setValueAt(componentDescription.getText(), i, 2);
                 model.setValueAt(componentPrice.getText(), i, 3);
+
+                ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+                ComputerComponent computerComponent = new ComputerComponent();
+
+                computerComponent.setComponentName(componentName.getText());
+                computerComponent.setComponentDescribe(componentDescription.getText());
+                computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
+
+                computerComponentJPA.mergeComponent(computerComponent);
 
                 jDialog.dispose();
             }

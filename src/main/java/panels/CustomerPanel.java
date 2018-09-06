@@ -1,5 +1,6 @@
 package panels;
 
+import daoHibernate.CustomerJPA;
 import daoimpl.CustomerDAOTempImpl;
 import frame.MainFrame;
 import model.Customer;
@@ -29,7 +30,6 @@ public class CustomerPanel extends JPanel {
     private JButton confirm;
     private DefaultTableModel modelCustomer;
 
-
     public CustomerPanel() {
         createComponent();
         createTable();
@@ -39,7 +39,6 @@ public class CustomerPanel extends JPanel {
 
     private void createComponent() {
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-
     }
 
     private void createToolBarButton() {
@@ -58,15 +57,30 @@ public class CustomerPanel extends JPanel {
     private void createTable() {
         CustomerDAOTempImpl dao = new CustomerDAOTempImpl();
         List<Customer> allCustomerList = dao.getAllCustomerList();
+
+        CustomerJPA customerJPA = new CustomerJPA();
+        List<Customer> customers = customerJPA.allCustomer();
+
         String[] columnNames = {"id", "imię", "nazwisko", "adres"};
         modelCustomer = new DefaultTableModel(columnNames, 0);
-        for (int i = 0; i < allCustomerList.size(); i++) {
-            Integer id = allCustomerList.get(i).getId();
-            String name = allCustomerList.get(i).getName();
-            String lastname = allCustomerList.get(i).getLastname();
-            String adres = allCustomerList.get(i).getAdres();
-            Object[] customer = {id, name, lastname, adres};
-            modelCustomer.addRow(customer);
+//        for (int i = 0; i < allCustomerList.size(); i++) {
+//            Integer id = allCustomerList.get(i).getId();
+//            String name = allCustomerList.get(i).getName();
+//            String lastname = allCustomerList.get(i).getLastname();
+//            String adres = allCustomerList.get(i).getAdres();
+//            Object[] customer = {id, name, lastname, adres};
+//            modelCustomer.addRow(customer);
+//        }
+
+        for (int i = 0; i < customers.size(); i++) {
+            Integer id = customers.get(i).getId();
+            String name = customers.get(i).getName();
+            String lastName = customers.get(i).getLastname();
+            String adress = customers.get(i).getAdres();
+
+            Object[] objects = {id, name, lastName, adress};
+
+            modelCustomer.addRow(objects);
         }
 
         tableCustomers = new JTable(modelCustomer);
@@ -170,6 +184,13 @@ public class CustomerPanel extends JPanel {
                 row[3] = adres.getText();
 
                 modelCustomer.addRow(row);
+
+                CustomerJPA customerJPA = new CustomerJPA();
+                Customer customer = new Customer();
+                customer.setName(name.getText());
+                customer.setLastname(lastName.getText());
+                customer.setAdres(adres.getText());
+                customerJPA.addCustomer(customer);
                 jDialog.dispose();
             }
         });
@@ -204,7 +225,7 @@ public class CustomerPanel extends JPanel {
         int a = tableCustomers.getSelectedRow();
 
 
-        id.setText(String.valueOf((Integer) modelCustomer.getValueAt(a, 0)));
+        // id.setText(String.valueOf((Integer) modelCustomer.getValueAt(a, 0)));
         name.setText((String) modelCustomer.getValueAt(a, 1));
         lastName.setText((String) modelCustomer.getValueAt(a, 2));
         adres.setText((String) modelCustomer.getValueAt(a, 3));
@@ -235,15 +256,31 @@ public class CustomerPanel extends JPanel {
                 modelCustomer.setValueAt(lastName.getText(), i, 2);
                 modelCustomer.setValueAt(adres.getText(), i, 3);
 
+
+                CustomerJPA customerJPA = new CustomerJPA();
+                Customer customer = new Customer();
+
+                customer.setName(name.getText());
+                customer.setLastname(lastName.getText());
+                customer.setAdres(adres.getText());
+                customerJPA.mergeCustomer(customer);
+
                 jDialog.dispose();
             }
         });
     }
 
     private void createPanelDeleteCustomer() {
-        int i = tableCustomers.getSelectedRow();
+        Integer i = tableCustomers.getSelectedRow();
         if (i >= 0) {
             modelCustomer.removeRow(i);
+
+            // Usuwanie klienta po ID - problem
+            CustomerJPA customerJPA = new CustomerJPA();
+            Customer byId = customerJPA.getById(i + 1);
+            System.out.println(byId.getName());
+
+
         } else {
             JOptionPane.showMessageDialog(this, "Wybierz klienta do usunięcia !");
         }

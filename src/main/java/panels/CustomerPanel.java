@@ -120,7 +120,7 @@ public class CustomerPanel extends JPanel {
     private void createPanelAddCustomer() {
         JDialog jDialog = new JDialog();
 
-        insertID = new JLabel("Wprowadż id : ");
+        insertID = new JLabel("Wprowadfdfdż id : ");
         insertName = new JLabel("Wprowadź imię :");
         insertLastName = new JLabel("Wprowadź nazwisko");
         insertAdress = new JLabel("Wprowadź adres : ");

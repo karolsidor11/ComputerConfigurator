@@ -15,9 +15,7 @@ import java.util.List;
 public class ComputerSet {
 
     @Id
-    @GeneratedValue
-    @NotNull
-    @Min(value = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotNull
     @Column(name = "Nazwa")

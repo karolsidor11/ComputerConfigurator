@@ -11,9 +11,7 @@ import java.math.BigDecimal;
 public class ComputerComponent {
 
     @Id
-    @GeneratedValue
-    @NotNull
-    @Min(value = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "Nazwa")
     @NotNull

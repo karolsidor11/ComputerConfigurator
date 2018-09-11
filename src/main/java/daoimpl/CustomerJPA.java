@@ -1,5 +1,6 @@
-package daoHibernate;
+package daoimpl;
 
+import dao.CustomerDAO;
 import model.Customer;
 
 import javax.persistence.EntityManager;

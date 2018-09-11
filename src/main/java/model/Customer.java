@@ -4,24 +4,26 @@ import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Klienci")
 public class Customer {
 
     @Id
-    @GeneratedValue
-    @NotNull
-    @Min(value = 1)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "Imie")
     @NotNull
+    @Size(min=3)
     private String name;
     @Column(name = "Nazwisko")
     @NotNull
+    @Size(min=3)
     private String lastname;
     @Column(name = "Adres")
     @NotNull
+    @Size(min=3)
     private String adres;
 
 

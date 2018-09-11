@@ -1,87 +1,63 @@
-package daoHibernate;
+package daoimpl;
 
-import model.ComputerSet;
+import dao.ComputerComponentDAO;
+import model.ComputerComponent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class ComputerSetJPA implements ComputerSetDAO {
+public class ComputerComponentJPA implements ComputerComponentDAO {
 
-    private static ComputerSetJPA instance;
+
+    private static ComputerComponentJPA instance;
     protected EntityManager entityManager;
 
 
-    public ComputerSetJPA() {
+    public ComputerComponentJPA() {
         entityManager = getEntityManager();
 
     }
 
-    private EntityManager getEntityManager() {
+    private static ComputerComponentJPA getInstance() {
+        if (instance == null) {
+            instance = new ComputerComponentJPA();
+        }
+        return instance;
+    }
 
+    private EntityManager getEntityManager() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
+
         if (entityManager == null) {
+
             entityManager = entityManagerFactory.createEntityManager();
         }
         return entityManager;
     }
 
-    private ComputerSetJPA getInstance() {
-        if (instance == null) {
-            instance = new ComputerSetJPA();
+    @Override
+    public ComputerComponent getById(Integer id) {
 
-        }
-        return instance;
+        return entityManager.find(ComputerComponent.class, id);
 
     }
 
     @Override
-    public ComputerSet getSetById(Integer id) {
-        return entityManager.find(ComputerSet.class, id);
+    @SuppressWarnings("unchecked")
+    public List<ComputerComponent> allComputerComponent() {
+
+        return entityManager.createQuery("FROM " + ComputerComponent.class.getName()).getResultList();
     }
 
     @Override
-    public List<ComputerSet> allList() {
-        return entityManager.createQuery("FROM " + ComputerSet.class.getName()).getResultList();
-    }
-
-    @Override
-    public void addComputerSet(ComputerSet computerSet) {
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(computerSet);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            entityManager.getTransaction().rollback();
-        }
-
-    }
-
-    @Override
-    public void mergeComputerSet(ComputerSet computerSet) {
+    public void addComputerComponent(ComputerComponent computerComponent) {
 
         try {
 
             entityManager.getTransaction().begin();
-            entityManager.merge(computerSet);
-            entityManager.getTransaction().commit();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            entityManager.getTransaction().rollback();
-        }
-    }
-
-    @Override
-    public void removeSet(ComputerSet computerSet) {
-
-        try {
-
-            entityManager.getTransaction().begin();
-            ComputerSet computerSet1 = entityManager.find(ComputerSet.class, computerSet.getId());
-            entityManager.remove(computerSet1);
+            entityManager.persist(computerComponent);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,12 +66,45 @@ public class ComputerSetJPA implements ComputerSetDAO {
     }
 
     @Override
-    public void removeSetById(Integer id) {
+    public void mergeComponent(ComputerComponent computerComponent) {
 
         try {
-            ComputerSet computerSet = getSetById(id);
-            entityManager.remove(computerSet);
 
+            entityManager.getTransaction().begin();
+            entityManager.merge(computerComponent);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }
+
+    }
+
+    @Override
+    public void removeComputerComponent(ComputerComponent computerComponent) {
+
+        try {
+
+            ComputerComponent computerComponent1 = entityManager.find(ComputerComponent.class, computerComponent.getId());
+
+            entityManager.getTransaction().begin();
+            entityManager.remove(computerComponent1);
+            entityManager.getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            entityManager.getTransaction().rollback();
+        }
+
+    }
+
+    @Override
+    public void removeComponentById(Integer id) {
+
+        try {
+            ComputerComponent computerComponent = getById(id);
+            entityManager.remove(computerComponent);
         } catch (Exception e) {
             e.printStackTrace();
             entityManager.getTransaction().rollback();

@@ -1,7 +1,6 @@
 package panels;
 
-import daoHibernate.ComputerComponentJPA;
-import daoimpl.ComputerComponentDAOImpl;
+import daoimpl.ComputerComponentJPA;
 import frame.MainFrame;
 import model.ComputerComponent;
 
@@ -24,8 +23,8 @@ public class ComputerComponentPanel extends JPanel {
     private JScrollPane jScrollPane;
     private DefaultTableModel model;
     private JDialog jDialog;
-    private JLabel insertId, insertComponentName, insertComponentDescription, insertPrice;
-    private JTextField id, componentName, componentDescription, componentPrice;
+    private JLabel insertComponentName, insertComponentDescription, insertPrice;
+    private JTextField componentName, componentDescription, componentPrice;
     private JButton confirm;
 
 
@@ -42,20 +41,10 @@ public class ComputerComponentPanel extends JPanel {
 
     private void createTable() {
         String[] columnNames = {"id", "Nazwa ", "Opis", "Cena"};
-        ComputerComponentDAOImpl dao = new ComputerComponentDAOImpl();
+
         ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
         List<ComputerComponent> computerComponents = computerComponentJPA.allComputerComponent();
 
-//        List<ComputerComponent> allComputerComponent = dao.getAllComputerComponents();
-//        model = new DefaultTableModel(columnNames, 0);
-//        for (int i = 0; i < allComputerComponent.size(); i++) {
-//            Integer id = allComputerComponent.get(i).getId();
-//            String name = allComputerComponent.get(i).getComponentName();
-//            String componentDescribe = allComputerComponent.get(i).getComponentDescribe();
-//            BigDecimal price = allComputerComponent.get(i).getPrice();
-//            Object[] component = {id, name, componentDescribe, price};
-//            model.addRow(component);
-//        }
         model = new DefaultTableModel(columnNames, 0);
         for (int i = 0; i < computerComponents.size(); i++) {
             Integer id = computerComponents.get(i).getId();
@@ -141,10 +130,14 @@ public class ComputerComponentPanel extends JPanel {
 
         int i = tableComponent.getSelectedRow();
         if (i >= 0) {
-            model.removeRow(i);
-            ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
-            computerComponentJPA.removeComponentById(i + 1);
 
+            ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+            String valueAt = tableComponent.getModel().getValueAt(i, 0).toString();
+
+            ComputerComponent byId = computerComponentJPA.getById(Integer.parseInt(valueAt));
+            computerComponentJPA.removeComputerComponent(byId);
+
+            model.removeRow(i);
 
         } else {
             JOptionPane.showMessageDialog(this, "Wybierz podzespół komputera do usunięcia !");
@@ -154,11 +147,9 @@ public class ComputerComponentPanel extends JPanel {
     private void createPanelAddComputerComponent() {
 
         jDialog = new JDialog();
-        id = new JTextField();
         componentName = new JTextField();
         componentDescription = new JTextField();
         componentPrice = new JTextField();
-        insertId = new JLabel("Wprowadź id produktu: ");
         insertComponentName = new JLabel("Wprowadź nazwę produktu: ");
         insertComponentDescription = new JLabel("Wprowadź opis produktu: ");
         insertPrice = new JLabel("Wprowadź cenę produktu: ");
@@ -167,7 +158,6 @@ public class ComputerComponentPanel extends JPanel {
         componentName.setColumns(10);
         componentDescription.setColumns(10);
         componentPrice.setColumns(10);
-        id.setColumns(10);
 
 
         jDialog.setTitle("Panel dodawania komponentu komputera");
@@ -175,8 +165,6 @@ public class ComputerComponentPanel extends JPanel {
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
 
-        jDialog.add(insertId);
-        jDialog.add(id);
         jDialog.add(insertComponentName);
         jDialog.add(componentName);
         jDialog.add(insertComponentDescription);
@@ -188,20 +176,9 @@ public class ComputerComponentPanel extends JPanel {
 
         jDialog.setVisible(true);
 
-        int rowCount = model.getRowCount();
-        int number = rowCount + 1;
-        id.setText(String.valueOf(number));
-        id.setEnabled(false);
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Object[] rows = new Object[4];
-                rows[0] = id.getText();
-                rows[1] = componentName.getText();
-                rows[2] = componentDescription.getText();
-                rows[3] = componentPrice.getText();
-
-                model.addRow(rows);
 
                 ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
                 ComputerComponent computerComponent = new ComputerComponent();
@@ -210,6 +187,14 @@ public class ComputerComponentPanel extends JPanel {
                 computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
 
                 computerComponentJPA.addComputerComponent(computerComponent);
+
+                Object[] rows = new Object[4];
+                rows[0] = computerComponent.getId();
+                rows[1] = componentName.getText();
+                rows[2] = componentDescription.getText();
+                rows[3] = componentPrice.getText();
+
+                model.addRow(rows);
                 jDialog.dispose();
 
             }
@@ -218,11 +203,9 @@ public class ComputerComponentPanel extends JPanel {
 
     private void createPanelUpdateComputerComponent() {
         jDialog = new JDialog();
-        id = new JTextField();
         componentName = new JTextField();
         componentDescription = new JTextField();
         componentPrice = new JTextField();
-        insertId = new JLabel("Wprowadź id produktu: ");
         insertComponentName = new JLabel("Wprowadź nazwę produktu: ");
         insertComponentDescription = new JLabel("Wprowadź opis produktu: ");
         insertPrice = new JLabel("Wprowadź cenę produktu: ");
@@ -231,11 +214,9 @@ public class ComputerComponentPanel extends JPanel {
         componentName.setColumns(10);
         componentDescription.setColumns(10);
         componentPrice.setColumns(10);
-        id.setColumns(10);
 
 
         int a = tableComponent.getSelectedRow();
-        id.setText(String.valueOf((Integer) model.getValueAt(a, 0)));
         componentName.setText((String) model.getValueAt(a, 1));
         componentDescription.setText((String) model.getValueAt(a, 2));
         componentPrice.setText(String.valueOf((BigDecimal) model.getValueAt(a, 3)));
@@ -246,8 +227,7 @@ public class ComputerComponentPanel extends JPanel {
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
 
-        jDialog.add(insertId);
-        jDialog.add(id);
+
         jDialog.add(insertComponentName);
         jDialog.add(componentName);
         jDialog.add(insertComponentDescription);
@@ -259,29 +239,29 @@ public class ComputerComponentPanel extends JPanel {
 
         jDialog.setVisible(true);
 
-        id.setEnabled(false);
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i = tableComponent.getSelectedRow();
 
-                model.setValueAt(id.getText(), i, 0);
+                ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+                String valueAt = tableComponent.getModel().getValueAt(i, 0).toString();
+
+                ComputerComponent byId = computerComponentJPA.getById(Integer.parseInt(valueAt));
+
+                byId.setComponentName(componentName.getText());
+                byId.setComponentDescribe(componentDescription.getText());
+                byId.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
+
+                computerComponentJPA.mergeComponent(byId);
+
+                model.setValueAt(byId.getId(), i, 0);
                 model.setValueAt(componentName.getText(), i, 1);
                 model.setValueAt(componentDescription.getText(), i, 2);
                 model.setValueAt(componentPrice.getText(), i, 3);
 
-                ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
-                ComputerComponent computerComponent = new ComputerComponent();
-
-                computerComponent.setComponentName(componentName.getText());
-                computerComponent.setComponentDescribe(componentDescription.getText());
-                computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
-
-                computerComponentJPA.mergeComponent(computerComponent);
-
                 jDialog.dispose();
             }
         });
-
     }
 }

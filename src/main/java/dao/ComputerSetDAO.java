@@ -1,4 +1,4 @@
-package daoHibernate;
+package dao;
 
 import model.ComputerSet;
 

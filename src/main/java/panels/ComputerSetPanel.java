@@ -1,12 +1,12 @@
 package panels;
 
-import daoHibernate.ComputerSetJPA;
-import daoimpl.ComputerComponentDAOImpl;
-import daoimpl.ComputerSetDAOImpl;
-import daoimpl.CustomerDAOTempImpl;
+import daoimpl.ComputerComponentJPA;
+import daoimpl.ComputerSetJPA;
+import daoimpl.CustomerJPA;
 import frame.MainFrame;
 import model.ComputerComponent;
 import model.ComputerSet;
+import model.Customer;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 public class ComputerSetPanel extends JPanel {
@@ -47,7 +46,6 @@ public class ComputerSetPanel extends JPanel {
     private void createTable() {
         String[] columnName = {"id", "Nazwa", "Opis", "Cena", "Klient"};
         model = new DefaultTableModel(columnName, 0);
-        ComputerSetDAOImpl dao = new ComputerSetDAOImpl();
 
         ComputerSetJPA computerSetJPA = new ComputerSetJPA();
         List<ComputerSet> computerSets = computerSetJPA.allList();
@@ -272,9 +270,14 @@ public class ComputerSetPanel extends JPanel {
 
         int i = tableSet.getSelectedRow();
         if (i >= 0) {
-            model.removeRow(i);
+
             ComputerSetJPA computerSetJPA = new ComputerSetJPA();
-            computerSetJPA.removeSetById(i + 1);
+
+            String valueAt = tableSet.getModel().getValueAt(i, 0).toString();
+            ComputerSet setById = computerSetJPA.getSetById(Integer.parseInt(valueAt));
+            computerSetJPA.removeSet(setById);
+
+            model.removeRow(i);
         } else {
             JOptionPane.showMessageDialog(this, "Wybierz zestaw komputerowy do usunięcia !");
         }
@@ -293,23 +296,11 @@ public class ComputerSetPanel extends JPanel {
         jDialog.setVisible(true);
 
 
-        JLabel label = new JLabel("Wprowadź id zamówienia :");
         JLabel nazwa = new JLabel("Wprowadź nazwę zamówienia :");
-        JLabel name = new JLabel("Wprowadź opis zamówienia : ");
-        JLabel client = new JLabel("Wybierz klienta :");
-        JLabel component = new JLabel("Wybierz podzespół PC  :");
+        JLabel name = new JLabel("Wprowadź opis zamówienia :");
+        JLabel client = new JLabel("Wybierz klienta : ");
+        JLabel component = new JLabel("Wybierz podzespół PC :");
         JLabel priceSet = new JLabel("Cena zestawu komputerowego :");
-
-
-        CustomerDAOTempImpl customerDAOTemp = new CustomerDAOTempImpl();
-        List<model.Customer> allCustomerList = customerDAOTemp.getAllCustomerList();
-
-        ComputerComponentDAOImpl computerComponentDAO = new ComputerComponentDAOImpl();
-        List<ComputerComponent> allComputerComponents = computerComponentDAO.getAllComputerComponents();
-
-
-        String clientPC;
-        String componentPC;
 
         JTextField nameSet = new JTextField();
         JTextField jTextField = new JTextField();
@@ -319,17 +310,25 @@ public class ComputerSetPanel extends JPanel {
         JComboBox comboComponent = new JComboBox();
 
 
-        for (model.Customer customer : allCustomerList) {
-            clientPC = customer.getName();
-            comboClient.setSelectedItem(null);
-            comboClient.addItem(clientPC);
-        }
+        CustomerJPA customerJPA = new CustomerJPA();
+        List<model.Customer> customers = customerJPA.allCustomer();
 
-        for (ComputerComponent allComputerComponent : allComputerComponents) {
-            componentPC = allComputerComponent.getComponentName();
-            comboComponent.setSelectedItem(null);
-            comboComponent.addItem(componentPC);
+        for (Customer a : customers) {
+            String customerName = a.getName();
+            comboClient.addItem(customerName);
         }
+        comboClient.setSelectedItem(null);
+
+        ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+
+        List<ComputerComponent> computerComponents = computerComponentJPA.allComputerComponent();
+
+        for (ComputerComponent components : computerComponents) {
+            String componentName = components.getComponentName();
+            comboComponent.addItem(componentName);
+        }
+        comboComponent.setSelectedItem(null);
+
 
         JButton jButton = new JButton("Zatwierdź");
 
@@ -338,16 +337,11 @@ public class ComputerSetPanel extends JPanel {
         allPrice.setColumns(13);
         nazwaSet.setColumns(13);
 
-        LocalDate localDate = LocalDate.now();
-
 
         jTextField.setCaretPosition(0);
         comboClient.setPreferredSize(new Dimension(130, 22));
         comboComponent.setPreferredSize(new Dimension(130, 22));
 
-
-        jDialog.add(label);
-        jDialog.add(jTextField);
         jDialog.add(nazwa);
         jDialog.add(nazwaSet);
         jDialog.add(name);
@@ -362,10 +356,6 @@ public class ComputerSetPanel extends JPanel {
 
         jDialog.add(jButton);
 
-        int rowCount = model.getRowCount();
-        int number = rowCount + 1;
-        jTextField.setText(String.valueOf(number));
-        jTextField.setEnabled(false);
 
         comboComponent.addActionListener(new ActionListener() {
             @Override
@@ -373,12 +363,17 @@ public class ComputerSetPanel extends JPanel {
 
                 Object selectedItem = comboComponent.getSelectedItem();
 
-                for (ComputerComponent allComputerComponent : allComputerComponents) {
-                    String componentName = allComputerComponent.getComponentName();
+                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
+                List<ComputerComponent> computerComponents1 = computerComponentJPA1.allComputerComponent();
 
-                    if (componentName.equals(selectedItem)) {
-                        BigDecimal price = allComputerComponent.getPrice();
-                        allPrice.setText(price.toString());
+                System.out.println(selectedItem);
+
+                for (ComputerComponent component : computerComponents1) {
+                    if (component.getComponentName().equals(selectedItem) == true) {
+
+                        BigDecimal price = component.getPrice();
+                        int i = price.intValue();
+                        allPrice.setText(String.valueOf(i));
                     }
                 }
             }
@@ -387,25 +382,28 @@ public class ComputerSetPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                ComputerSetJPA computerSetJPA = new ComputerSetJPA();
+
+                ComputerSet computerSet = new ComputerSet();
+                computerSet.setComputerSetName(nazwaSet.getText());
+                computerSet.setComputerSetDescribe(nameSet.getText());
+                computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
+
+                //computerSet.setCustomer();
+                //computerSet.setComputerComponentList();
+
+                computerSetJPA.addComputerSet(computerSet);
+
                 Object[] rows = new Object[5];
 
-                rows[0] = number;
+                rows[0] = computerSet.getId();
                 rows[1] = nazwaSet.getText();
                 rows[2] = nameSet.getText();
                 rows[3] = allPrice.getText();
                 rows[4] = comboClient.getSelectedItem();
 
                 model.addRow(rows);
-                ComputerSetJPA computerSetJPA = new ComputerSetJPA();
-                ComputerSet computerSet = new ComputerSet();
-                computerSet.setComputerSetName(nazwaSet.getText());
-                computerSet.setComputerSetDescribe(nameSet.getText());
-                computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
-//                computerSet.setCustomer((model.Customer) comboClient.getSelectedItem());
-                computerSetJPA.addComputerSet(computerSet);
                 jDialog.dispose();
-
-
             }
         });
 
@@ -418,24 +416,6 @@ public class ComputerSetPanel extends JPanel {
         JLabel podzespół = new JLabel("Wybierz podzespół :");
 
 
-        ComputerSetDAOImpl computerSetDAO = new ComputerSetDAOImpl();
-        List<ComputerSet> allComputerSets = computerSetDAO.getAllComputerSets();
-
-        for (ComputerSet customer : allComputerSets) {
-
-            klient.addItem(customer.getCustomer().getName());
-        }
-        int selectedRow = tableSet.getSelectedRow();
-        Object valueAt = model.getValueAt(selectedRow, 4);
-        klient.setSelectedItem(valueAt);
-
-        ComputerComponentDAOImpl computerComponentDAO = new ComputerComponentDAOImpl();
-        List<ComputerComponent> allComputerComponents = computerComponentDAO.getAllComputerComponents();
-        for (ComputerComponent elements : allComputerComponents) {
-            element.addItem(elements.getComponentName());
-        }
-
-
         klient.setPreferredSize(new Dimension(130, 22));
         element.setPreferredSize(new Dimension(130, 22));
 
@@ -444,7 +424,6 @@ public class ComputerSetPanel extends JPanel {
         setName = new JTextField();
         setDescription = new JTextField();
         setPrice = new JTextField();
-        insertId = new JLabel("Wprowadź id produktu: ");
         insertSetName = new JLabel("Wprowadź nazwę produktu: ");
         insertSetDescription = new JLabel("Wprowadź opis produktu: ");
         insertPrice = new JLabel("Wprowadź cenę produktu: ");
@@ -454,15 +433,30 @@ public class ComputerSetPanel extends JPanel {
         setName.setColumns(10);
         setDescription.setColumns(10);
         setPrice.setColumns(10);
-        id.setColumns(10);
-
 
         int a = tableSet.getSelectedRow();
 
-        id.setText(String.valueOf(model.getValueAt(a, 0)));
+        CustomerJPA customerJPA = new CustomerJPA();
+        List<model.Customer> customers = customerJPA.allCustomer();
+        ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+        List<ComputerComponent> computerComponents = computerComponentJPA.allComputerComponent();
+
+        BigDecimal valueAt = (BigDecimal) model.getValueAt(a, 3);
+        int i = valueAt.intValue();
+
         setName.setText((String) model.getValueAt(a, 1));
         setDescription.setText((String) model.getValueAt(a, 2));
-        setPrice.setText(String.valueOf(model.getValueAt(a, 3)));
+        setPrice.setText(String.valueOf(i));
+        // setPrice.setText(String.valueOf(model.getValueAt(a, 3)));
+
+        for (Customer cusom : customers) {
+            String name = cusom.getName();
+            klient.addItem(name);
+        }
+        for (ComputerComponent component : computerComponents) {
+            String componentName = component.getComponentName();
+            element.addItem(componentName);
+        }
 
 
         jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
@@ -470,8 +464,6 @@ public class ComputerSetPanel extends JPanel {
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
 
-        jDialog.add(insertId);
-        jDialog.add(id);
         jDialog.add(insertSetName);
         jDialog.add(setName);
         jDialog.add(insertSetDescription);
@@ -487,14 +479,26 @@ public class ComputerSetPanel extends JPanel {
 
         jDialog.setVisible(true);
 
-        id.setEnabled(false);
 
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                int selectedRow = tableSet.getSelectedRow();
+
+                ComputerSetJPA computerSetJPA = new ComputerSetJPA();
+                String valueAt = tableSet.getModel().getValueAt(selectedRow, 0).toString();
+                ComputerSet setById = computerSetJPA.getSetById(Integer.parseInt(valueAt));
+
+                setById.setId(Integer.parseInt(valueAt));
+                setById.setComputerSetName(setName.getText());
+                setById.setComputerSetDescribe(setDescription.getText());
+                setById.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(setPrice.getText())));
+
+                computerSetJPA.mergeComputerSet(setById);
+
                 int i = tableSet.getSelectedRow();
-                model.setValueAt(id.getText(), i, 0);
+                model.setValueAt(setById.getId(), i, 0);
                 model.setValueAt(setName.getText(), i, 1);
                 model.setValueAt(setDescription.getText(), i, 2);
                 model.setValueAt(setPrice.getText(), i, 3);
@@ -508,17 +512,22 @@ public class ComputerSetPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Object selectedItem = element.getSelectedItem();
 
-                List<ComputerComponent> allComputerComponents1 = computerComponentDAO.getAllComputerComponents();
+                String selectedItem = element.getModel().getSelectedItem().toString();
 
+                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
 
-                for (ComputerComponent a : allComputerComponents1) {
-                    if (a.getComponentName().equals(selectedItem) == true) {
-                        setPrice.setText(a.getPrice().toString());
+                List<ComputerComponent> computerComponents1 = computerComponentJPA1.allComputerComponent();
+
+                for (ComputerComponent component : computerComponents1) {
+
+                    if (component.getComponentName().equals(selectedItem) == true) {
+
+                        BigDecimal price = component.getPrice();
+                        int i = price.intValue();
+                        setPrice.setText(String.valueOf(i));
                     }
                 }
-
 
             }
         });

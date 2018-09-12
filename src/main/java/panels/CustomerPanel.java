@@ -2,6 +2,7 @@ package panels;
 
 import daoimpl.CustomerJPA;
 import frame.MainFrame;
+import model.Adres;
 import model.Customer;
 
 import javax.swing.*;
@@ -24,8 +25,8 @@ public class CustomerPanel extends JPanel {
     private JScrollPane scrollBar;
     private JToolBar toolBarButton;
 
-    private JLabel insertName, insertLastName, insertAdress;
-    private JTextField name, lastName, adres;
+    private JLabel insertName, insertLastName, insertAdress, insertZipCode, insertStreet, insertNumber;
+    private JTextField name, lastName, adres, zipCode, street, number;
     private JButton confirm;
     private DefaultTableModel modelCustomer;
 
@@ -65,7 +66,7 @@ public class CustomerPanel extends JPanel {
             Integer id = customers.get(i).getId();
             String name = customers.get(i).getName();
             String lastName = customers.get(i).getLastname();
-            String adress = customers.get(i).getAdres();
+            String adress = customers.get(i).getAdres().getLocality();
 
             Object[] objects = {id, name, lastName, adress};
 
@@ -125,16 +126,25 @@ public class CustomerPanel extends JPanel {
 
         insertName = new JLabel("Wprowadź imię :");
         insertLastName = new JLabel("Wprowadź nazwisko");
-        insertAdress = new JLabel("Wprowadź adres : ");
+        insertAdress = new JLabel("Wprowadź miejscowość : ");
+        insertStreet= new JLabel("Wprowadź ulicę :");
+        insertNumber= new JLabel("Wprowadź  numer :");
+        insertZipCode = new JLabel("Wprowadź kod pocztowy :");
 
         name = new JTextField();
         lastName = new JTextField();
         adres = new JTextField();
+        zipCode= new JTextField();
+        number = new JTextField();
+        street= new JTextField();
         confirm = new JButton("Zatwierdź");
 
         name.setColumns(10);
         lastName.setColumns(10);
         adres.setColumns(10);
+        number.setColumns(10);
+        zipCode.setColumns(10);
+        street.setColumns(10);
 
         jDialog.setLayout(new FlowLayout());
         jDialog.setSize(250, 300);
@@ -147,6 +157,12 @@ public class CustomerPanel extends JPanel {
         jDialog.add(lastName);
         jDialog.add(insertAdress);
         jDialog.add(adres);
+        jDialog.add(insertStreet);
+        jDialog.add(street);
+        jDialog.add(insertNumber);
+        jDialog.add(number);
+        jDialog.add(insertZipCode);
+        jDialog.add(zipCode);
         jDialog.add(confirm);
 
         jDialog.setVisible(true);
@@ -158,10 +174,16 @@ public class CustomerPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 CustomerJPA customerJPA = new CustomerJPA();
+                Adres adress = new Adres();
                 Customer customer = new Customer();
                 customer.setName(name.getText());
                 customer.setLastname(lastName.getText());
-                customer.setAdres(adres.getText());
+
+                adress.setLocality(adres.getText());
+                adress.setStreet(street.getText());
+                adress.setStreetNumber(Integer.parseInt(number.getText()));
+                adress.setZipCode( zipCode.getText());
+                customer.setAdres(adress);
                 customerJPA.addCustomer(customer);
 
                 row[0] = customer.getId();
@@ -225,6 +247,7 @@ public class CustomerPanel extends JPanel {
 
                 CustomerJPA customerJPA = new CustomerJPA();
                 Customer customer = new Customer();
+                Adres adress = new Adres();
 
                 int selectedRow = tableCustomers.getSelectedRow();
                 String valueAt1 = tableCustomers.getModel().getValueAt(selectedRow, 0).toString();
@@ -232,7 +255,9 @@ public class CustomerPanel extends JPanel {
 
                 byId.setName(name.getText());
                 byId.setLastname(lastName.getText());
-                byId.setAdres(adres.getText());
+
+                adress.setLocality(adres.getText());
+                byId.setAdres(adress);
                 customerJPA.mergeCustomer(byId);
 
                 int i = tableCustomers.getSelectedRow();

@@ -1,6 +1,7 @@
 package daoimpl;
 
 import dao.CustomerDAO;
+import model.Adres;
 import model.Customer;
 
 import javax.persistence.EntityManager;
@@ -51,7 +52,6 @@ public class CustomerJPA implements CustomerDAO {
     public void addCustomer(Customer customer) {
 
         try {
-
             entityManager.getTransaction().begin();
             entityManager.persist(customer);
             entityManager.getTransaction().commit();

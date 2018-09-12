@@ -2,6 +2,7 @@ package connectionProvider;
 
 import daoimpl.ComputerComponentJPA;
 import daoimpl.CustomerJPA;
+import model.Adres;
 import model.ComputerComponent;
 import model.Customer;
 
@@ -23,14 +24,24 @@ public class Test {
 //        customerJPA.removeById(1);
 //         Customer cc= new Customer();
 
-        ComputerComponentJPA  computerComponentJPA = new ComputerComponentJPA();
-
-        ComputerComponent byId = computerComponentJPA.getById(21);
-
-     //computerComponentJPA.removeComputerComponent(byId);
 
 
-//        customerJPA.mergeCustomer();
+        CustomerJPA customerJPA = new CustomerJPA();
+
+        Customer customer = new Customer();
+        Adres adres = new Adres();
+
+
+        customer.setName("Karol");
+        customer.setLastname("Sidor");
+        customer.setAdres(adres);
+        adres.setLocality("Lublin");
+        adres.setZipCode("sdsfs");
+        adres.setStreetNumber(22);
+        adres.setStreet("dfsdfs");
+
+        customerJPA.addCustomer(customer);
+
 
 
     }

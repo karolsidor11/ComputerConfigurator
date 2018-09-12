@@ -3,7 +3,6 @@ package model;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -15,19 +14,20 @@ public class Customer {
     private Integer id;
     @Column(name = "Imie")
     @NotNull
-    @Size(min=3)
+    @Size(min = 3)
     private String name;
     @Column(name = "Nazwisko")
     @NotNull
-    @Size(min=3)
+    @Size(min = 3)
     private String lastname;
+
+    @Embedded
     @Column(name = "Adres")
     @NotNull
-    @Size(min=3)
-    private String adres;
+    private Adres adres;
 
 
-    public Customer(@NotNull Integer id, @NotNull String name, @NotNull String lastname, @NotNull String adres) {
+    public Customer(@NotNull Integer id, @NotNull String name, @NotNull String lastname, @NotNull Adres adres) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -61,11 +61,11 @@ public class Customer {
         this.lastname = lastname;
     }
 
-    public String getAdres() {
+    public Adres getAdres() {
         return adres;
     }
 
-    public void setAdres(String adres) {
+    public void setAdres(Adres adres) {
         this.adres = adres;
     }
 }

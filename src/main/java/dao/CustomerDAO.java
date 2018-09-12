@@ -1,5 +1,6 @@
 package dao;
 
+import model.Adres;
 import model.Customer;
 
 import java.util.List;

@@ -315,7 +315,7 @@ public class ComputerSetPanel extends JPanel {
 
         for (Customer a : customers) {
             String customerName = a.getName();
-            comboClient.addItem(customerName);
+            comboClient.addItem(a);
         }
         comboClient.setSelectedItem(null);
 
@@ -389,8 +389,9 @@ public class ComputerSetPanel extends JPanel {
                 computerSet.setComputerSetDescribe(nameSet.getText());
                 computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
 
-                //computerSet.setCustomer();
+                computerSet.setCustomer((model.Customer)comboClient.getSelectedItem());
                 //computerSet.setComputerComponentList();
+
 
                 computerSetJPA.addComputerSet(computerSet);
 

@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Table(name = "Klienci")
 public class Customer {
 
-    @Id
+    @Id()
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "Imie")

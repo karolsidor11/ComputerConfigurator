@@ -5,6 +5,7 @@ import com.sun.istack.internal.NotNull;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,11 @@ public class ComputerSet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NotNull
+    @NotBlank
     @Column(name = "Nazwa")
     private String computerSetName;
     @Column(name = "Opis")
-    @NotNull
+    @NotBlank
     private String computerSetDescribe;
     @Column(name = "Cena")
     @NotNull

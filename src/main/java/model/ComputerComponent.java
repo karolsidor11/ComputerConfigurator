@@ -3,7 +3,7 @@ package model;
 import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
@@ -14,10 +14,10 @@ public class ComputerComponent {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "Nazwa")
-    @NotNull
+    @NotBlank
     private String componentName;
     @Column(name = "Opis")
-    @NotNull
+    @NotBlank
     private String componentDescribe;
     @Column(name = "Cena")
     @NotNull

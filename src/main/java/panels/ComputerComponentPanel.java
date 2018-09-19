@@ -106,7 +106,6 @@ public class ComputerComponentPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-
                 if (tableComponent.isRowSelected(tableComponent.getSelectedRow()) == true) {
                     createPanelUpdateComputerComponent();
                 } else {
@@ -182,20 +181,26 @@ public class ComputerComponentPanel extends JPanel {
 
                 ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
                 ComputerComponent computerComponent = new ComputerComponent();
-                computerComponent.setComponentName(componentName.getText());
-                computerComponent.setComponentDescribe(componentDescription.getText());
-                computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
 
-                computerComponentJPA.addComputerComponent(computerComponent);
+                try {
+                    computerComponent.setComponentName(componentName.getText());
+                    computerComponent.setComponentDescribe(componentDescription.getText());
+                    computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
 
-                Object[] rows = new Object[4];
-                rows[0] = computerComponent.getId();
-                rows[1] = componentName.getText();
-                rows[2] = componentDescription.getText();
-                rows[3] = componentPrice.getText();
+                    computerComponentJPA.addComputerComponent(computerComponent);
 
-                model.addRow(rows);
-                jDialog.dispose();
+                    Object[] rows = new Object[4];
+                    rows[0] = computerComponent.getId();
+                    rows[1] = componentName.getText();
+                    rows[2] = componentDescription.getText();
+                    rows[3] = componentPrice.getText();
+
+                    model.addRow(rows);
+                    jDialog.dispose();
+
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!!");
+                }
 
             }
         });
@@ -249,18 +254,31 @@ public class ComputerComponentPanel extends JPanel {
 
                 ComputerComponent byId = computerComponentJPA.getById(Integer.parseInt(valueAt));
 
-                byId.setComponentName(componentName.getText());
-                byId.setComponentDescribe(componentDescription.getText());
-                byId.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
+                try {
+                    byId.setComponentName(componentName.getText());
+                    byId.setComponentDescribe(componentDescription.getText());
+                    byId.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
 
-                computerComponentJPA.mergeComponent(byId);
 
-                model.setValueAt(byId.getId(), i, 0);
-                model.setValueAt(componentName.getText(), i, 1);
-                model.setValueAt(componentDescription.getText(), i, 2);
-                model.setValueAt(componentPrice.getText(), i, 3);
+                    if (!componentName.getText().equals("") && !componentDescription.getText().equals("")) {
 
-                jDialog.dispose();
+                        computerComponentJPA.mergeComponent(byId);
+
+                        model.setValueAt(byId.getId(), i, 0);
+                        model.setValueAt(componentName.getText(), i, 1);
+                        model.setValueAt(componentDescription.getText(), i, 2);
+                        model.setValueAt(componentPrice.getText(), i, 3);
+
+                        jDialog.dispose();
+
+                    } else {
+                        JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!! ");
+                    }
+
+
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!!");
+                }
             }
         });
     }

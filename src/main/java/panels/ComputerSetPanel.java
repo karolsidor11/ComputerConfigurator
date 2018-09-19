@@ -383,28 +383,41 @@ public class ComputerSetPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 ComputerSetJPA computerSetJPA = new ComputerSetJPA();
-
                 ComputerSet computerSet = new ComputerSet();
-                computerSet.setComputerSetName(nazwaSet.getText());
-                computerSet.setComputerSetDescribe(nameSet.getText());
-                computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
 
-                computerSet.setCustomer((model.Customer)comboClient.getSelectedItem());
-                //computerSet.setComputerComponentList();
+                try {
+
+                    computerSet.setComputerSetName(nazwaSet.getText());
+                    computerSet.setComputerSetDescribe(nameSet.getText());
+                    computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
+
+                    computerSet.setCustomer((model.Customer) comboClient.getSelectedItem());
+                    //computerSet.setComputerComponentList();
 
 
-                computerSetJPA.addComputerSet(computerSet);
+                    if (!computerSet.getComputerSetName().equals("") && !computerSet.getComputerSetDescribe().equals("")) {
 
-                Object[] rows = new Object[5];
+                        computerSetJPA.addComputerSet(computerSet);
 
-                rows[0] = computerSet.getId();
-                rows[1] = nazwaSet.getText();
-                rows[2] = nameSet.getText();
-                rows[3] = allPrice.getText();
-                rows[4] = comboClient.getSelectedItem();
+                        Object[] rows = new Object[5];
 
-                model.addRow(rows);
-                jDialog.dispose();
+                        rows[0] = computerSet.getId();
+                        rows[1] = nazwaSet.getText();
+                        rows[2] = nameSet.getText();
+                        rows[3] = allPrice.getText();
+                        rows[4] = comboClient.getSelectedItem();
+
+                        model.addRow(rows);
+
+                        jDialog.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!! ");
+                    }
+
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!! ");
+                }
+
             }
         });
 

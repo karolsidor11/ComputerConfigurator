@@ -10,6 +10,16 @@ public class Adres {
     private String street;
     private int streetNumber;
 
+    public Adres(String locality, String zipCode, String street, int streetNumber) {
+        this.locality = locality;
+        this.zipCode = zipCode;
+        this.street = street;
+        this.streetNumber = streetNumber;
+    }
+
+    public Adres() {
+    }
+
     public String getLocality() {
         return locality;
     }

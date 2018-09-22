@@ -289,7 +289,7 @@ public class ComputerSetPanel extends JPanel {
 
         JDialog jDialog = new JDialog();
         jDialog.setTitle("Panel tworzenia zamówienia");
-        jDialog.setSize(new Dimension(300, 400));
+        jDialog.setSize(new Dimension(340, 400));
         jDialog.setLocationByPlatform(true);
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new FlowLayout());
@@ -302,12 +302,14 @@ public class ComputerSetPanel extends JPanel {
         JLabel component = new JLabel("Wybierz podzespół PC :");
         JLabel priceSet = new JLabel("Cena zestawu komputerowego :");
 
+
         JTextField nameSet = new JTextField();
         JTextField jTextField = new JTextField();
         JTextField nazwaSet = new JTextField();
         JTextField allPrice = new JTextField();
         JComboBox comboClient = new JComboBox();
         JComboBox comboComponent = new JComboBox();
+        JButton button = new JButton("+");
 
 
         CustomerJPA customerJPA = new CustomerJPA();
@@ -341,6 +343,7 @@ public class ComputerSetPanel extends JPanel {
         jTextField.setCaretPosition(0);
         comboClient.setPreferredSize(new Dimension(130, 22));
         comboComponent.setPreferredSize(new Dimension(130, 22));
+        button.setPreferredSize(new Dimension(42, 22));
 
         jDialog.add(nazwa);
         jDialog.add(nazwaSet);
@@ -350,6 +353,7 @@ public class ComputerSetPanel extends JPanel {
         jDialog.add(comboClient);
         jDialog.add(component);
         jDialog.add(comboComponent);
+        jDialog.add(button);
         jDialog.add(priceSet);
         jDialog.add(allPrice);
 
@@ -392,6 +396,7 @@ public class ComputerSetPanel extends JPanel {
                     computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
 
                     computerSet.setCustomer((model.Customer) comboClient.getSelectedItem());
+
                     //computerSet.setComputerComponentList();
 
 
@@ -504,21 +509,36 @@ public class ComputerSetPanel extends JPanel {
                 String valueAt = tableSet.getModel().getValueAt(selectedRow, 0).toString();
                 ComputerSet setById = computerSetJPA.getSetById(Integer.parseInt(valueAt));
 
-                setById.setId(Integer.parseInt(valueAt));
-                setById.setComputerSetName(setName.getText());
-                setById.setComputerSetDescribe(setDescription.getText());
-                setById.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(setPrice.getText())));
 
-                computerSetJPA.mergeComputerSet(setById);
+                try {
 
-                int i = tableSet.getSelectedRow();
-                model.setValueAt(setById.getId(), i, 0);
-                model.setValueAt(setName.getText(), i, 1);
-                model.setValueAt(setDescription.getText(), i, 2);
-                model.setValueAt(setPrice.getText(), i, 3);
-                model.setValueAt(klient.getSelectedItem(), i, 4);
+                    setById.setId(Integer.parseInt(valueAt));
+                    setById.setComputerSetName(setName.getText());
+                    setById.setComputerSetDescribe(setDescription.getText());
+                    setById.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(setPrice.getText())));
 
-                jDialog.dispose();
+
+                    if (!setById.getComputerSetName().equals("") && !setById.getComputerSetDescribe().equals("")
+                            && !setById.getCustomer().equals("")) {
+                        computerSetJPA.mergeComputerSet(setById);
+
+                        int i = tableSet.getSelectedRow();
+                        model.setValueAt(setById.getId(), i, 0);
+                        model.setValueAt(setName.getText(), i, 1);
+                        model.setValueAt(setDescription.getText(), i, 2);
+                        model.setValueAt(setPrice.getText(), i, 3);
+                        model.setValueAt(klient.getSelectedItem(), i, 4);
+
+                        jDialog.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!! ");
+                    }
+
+                } catch (Exception e1) {
+
+                    JOptionPane.showMessageDialog(jDialog, "Wprowadź prawidłowe dane !!! ");
+                }
+
 
             }
         });

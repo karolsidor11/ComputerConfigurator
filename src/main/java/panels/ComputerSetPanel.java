@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComputerSetPanel extends JPanel {
@@ -30,6 +31,7 @@ public class ComputerSetPanel extends JPanel {
     private JLabel insertId, insertSetName, insertSetDescription, insertPrice, insertCustomer;
     private JTextField id, setName, setDescription, setPrice, Customer;
     private JButton confirm;
+    private List<ComputerComponent> zamowienie = new ArrayList<>();
 
     public ComputerSetPanel() {
         createComponent();
@@ -49,17 +51,6 @@ public class ComputerSetPanel extends JPanel {
 
         ComputerSetJPA computerSetJPA = new ComputerSetJPA();
         List<ComputerSet> computerSets = computerSetJPA.allList();
-
-//        List<ComputerSet> computerSetList = dao.getAllComputerSets();
-//        for (int i = 0; i < computerSetList.size(); i++) {
-//            Integer id = computerSetList.get(i).getId();
-//            String computerSetName = computerSetList.get(i).getComputerSetName();
-//            String computerSetDescribe = computerSetList.get(i).getComputerSetDescribe();
-//            BigDecimal computerPrice = computerSetList.get(i).getComputerPrice();
-//            Customer customer = computerSetList.get(i).getCustomer();
-//            Object[] obj = {id, computerSetName, computerSetDescribe, computerPrice, customer.getName()};
-//            model.addRow(obj);
-//        }
 
         model = new DefaultTableModel(columnName, 0);
         for (int i = 0; i < computerSets.size(); i++) {
@@ -281,7 +272,6 @@ public class ComputerSetPanel extends JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Wybierz zestaw komputerowy do usunięcia !");
         }
-
     }
 
 
@@ -338,6 +328,8 @@ public class ComputerSetPanel extends JPanel {
         nameSet.setColumns(13);
         allPrice.setColumns(13);
         nazwaSet.setColumns(13);
+        button.setToolTipText("Dodaj nowy podzespół");
+        jButton.setToolTipText("Zatwierdź");
 
 
         jTextField.setCaretPosition(0);
@@ -361,6 +353,41 @@ public class ComputerSetPanel extends JPanel {
         jDialog.add(jButton);
 
 
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                String selectedItem = (String) comboComponent.getModel().getSelectedItem();
+                Integer id = 0;
+                int cena = 0;
+
+
+                for (ComputerComponent B : computerComponents) {
+
+                    if (B.getComponentName().equals(selectedItem)) {
+                        id = B.getId();
+                    }
+                }
+                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
+                ComputerComponent byId = computerComponentJPA1.getById(id);
+
+                zamowienie.add(byId);
+
+                for (ComputerComponent cp : zamowienie) {
+
+                    int componentPrice = cp.getPrice().intValue();
+                    cena = cena + componentPrice;
+
+                    System.out.println(cena);
+                    allPrice.setText(String.valueOf(cena));
+                    comboComponent.setSelectedItem(null);
+                }
+
+            }
+        });
+
+
         comboComponent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -370,16 +397,14 @@ public class ComputerSetPanel extends JPanel {
                 ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
                 List<ComputerComponent> computerComponents1 = computerComponentJPA1.allComputerComponent();
 
-                System.out.println(selectedItem);
-
-                for (ComputerComponent component : computerComponents1) {
-                    if (component.getComponentName().equals(selectedItem) == true) {
-
-                        BigDecimal price = component.getPrice();
-                        int i = price.intValue();
-                        allPrice.setText(String.valueOf(i));
-                    }
-                }
+//                for (ComputerComponent component : computerComponents1) {
+//                    if (component.getComponentName().equals(selectedItem) == true) {
+//
+//                        BigDecimal price = component.getPrice();
+//                        int i = price.intValue();
+//                        allPrice.setText(String.valueOf(i));
+//                    }
+                //}
             }
         });
         jButton.addActionListener(new ActionListener() {
@@ -394,11 +419,13 @@ public class ComputerSetPanel extends JPanel {
                     computerSet.setComputerSetName(nazwaSet.getText());
                     computerSet.setComputerSetDescribe(nameSet.getText());
                     computerSet.setComputerPrice(BigDecimal.valueOf(Integer.parseInt(allPrice.getText())));
-
                     computerSet.setCustomer((model.Customer) comboClient.getSelectedItem());
 
-                    //computerSet.setComputerComponentList();
+                    //Wyrzuca błędy !!!! ->
 
+                    //computerSet.setComputerComponentList(zamowienie);
+
+                    // <-
 
                     if (!computerSet.getComputerSetName().equals("") && !computerSet.getComputerSetDescribe().equals("")) {
 
@@ -421,22 +448,25 @@ public class ComputerSetPanel extends JPanel {
 
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!! ");
+                    e1.printStackTrace();
                 }
 
             }
         });
-
     }
 
     private void newUpdate() {
 
         JComboBox klient = new JComboBox();
         JComboBox element = new JComboBox();
+        JButton addComponent = new JButton("+");
         JLabel podzespół = new JLabel("Wybierz podzespół :");
 
 
         klient.setPreferredSize(new Dimension(130, 22));
         element.setPreferredSize(new Dimension(130, 22));
+        addComponent.setSize(new Dimension(42, 22));
+        addComponent.setToolTipText("Dodaj nowy podzespół");
 
         jDialog = new JDialog();
         id = new JTextField();
@@ -452,6 +482,7 @@ public class ComputerSetPanel extends JPanel {
         setName.setColumns(10);
         setDescription.setColumns(10);
         setPrice.setColumns(10);
+        confirm.setToolTipText("Zatwierdź");
 
         int a = tableSet.getSelectedRow();
 
@@ -461,12 +492,13 @@ public class ComputerSetPanel extends JPanel {
         List<ComputerComponent> computerComponents = computerComponentJPA.allComputerComponent();
 
         BigDecimal valueAt = (BigDecimal) model.getValueAt(a, 3);
+
         int i = valueAt.intValue();
+
 
         setName.setText((String) model.getValueAt(a, 1));
         setDescription.setText((String) model.getValueAt(a, 2));
         setPrice.setText(String.valueOf(i));
-        // setPrice.setText(String.valueOf(model.getValueAt(a, 3)));
 
         for (Customer cusom : customers) {
             String name = cusom.getName();
@@ -491,6 +523,7 @@ public class ComputerSetPanel extends JPanel {
         jDialog.add(klient);
         jDialog.add(podzespół);
         jDialog.add(element);
+        jDialog.add(addComponent);
         jDialog.add(insertPrice);
         jDialog.add(setPrice);
         jDialog.add(confirm);
@@ -520,6 +553,7 @@ public class ComputerSetPanel extends JPanel {
 
                     if (!setById.getComputerSetName().equals("") && !setById.getComputerSetDescribe().equals("")
                             && !setById.getCustomer().equals("")) {
+
                         computerSetJPA.mergeComputerSet(setById);
 
                         int i = tableSet.getSelectedRow();
@@ -536,10 +570,42 @@ public class ComputerSetPanel extends JPanel {
 
                 } catch (Exception e1) {
 
-                    JOptionPane.showMessageDialog(jDialog, "Wprowadź prawidłowe dane !!! ");
+                    JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!! ");
                 }
 
 
+            }
+        });
+
+        addComponent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                String selectedItem = (String) element.getModel().getSelectedItem();
+                Integer id = 0;
+                int cena = 0;
+
+                for (ComputerComponent B : computerComponents) {
+
+                    if (B.getComponentName().equals(selectedItem)) {
+                        id = B.getId();
+                    }
+                }
+                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
+                ComputerComponent byId = computerComponentJPA1.getById(id);
+
+                zamowienie.add(byId);
+
+                for (ComputerComponent cp : zamowienie) {
+
+                    int componentPrice = cp.getPrice().intValue();
+                    cena = cena + componentPrice;
+
+                    System.out.println(cena);
+                    setPrice.setText(String.valueOf(cena));
+                    element.setSelectedItem(null);
+                }
             }
         });
         element.addActionListener(new ActionListener() {
@@ -547,21 +613,21 @@ public class ComputerSetPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
 
-                String selectedItem = element.getModel().getSelectedItem().toString();
-
-                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
-
-                List<ComputerComponent> computerComponents1 = computerComponentJPA1.allComputerComponent();
-
-                for (ComputerComponent component : computerComponents1) {
-
-                    if (component.getComponentName().equals(selectedItem) == true) {
-
-                        BigDecimal price = component.getPrice();
-                        int i = price.intValue();
-                        setPrice.setText(String.valueOf(i));
-                    }
-                }
+//                String selectedItem = element.getModel().getSelectedItem().toString();
+//
+//                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
+//
+//                List<ComputerComponent> computerComponents1 = computerComponentJPA1.allComputerComponent();
+//
+//                for (ComputerComponent component : computerComponents1) {
+//
+//                    if (component.getComponentName().equals(selectedItem) == true) {
+//
+//                        BigDecimal price = component.getPrice();
+//                        int i = price.intValue();
+//                        setPrice.setText(String.valueOf(i));
+//                    }
+//                }
 
             }
         });

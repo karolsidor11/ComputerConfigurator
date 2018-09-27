@@ -17,6 +17,7 @@ public class MainFrame extends JFrame {
     private JLabel label;
     private JPanel panel;
     private ImageIcon imageIcon;
+    private Font font;
 
 
     public MainFrame() throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
@@ -37,6 +38,8 @@ public class MainFrame extends JFrame {
         setLocationByPlatform(true);
         setResizable(false);
         setLocationRelativeTo(null);
+
+
     }
 
     private void createComponent() {
@@ -48,6 +51,12 @@ public class MainFrame extends JFrame {
         label = new JLabel();
         imageIcon = new ImageIcon(MainFrame.class.getResource("/images/konfiguator.jpg"));
         label.setIcon(imageIcon);
+        font = new Font(Font.DIALOG, Font.PLAIN, 12);
+
+        customer.setFont(font);
+        component.setFont(font);
+        computerSet.setFont(font);
+        aboutProgram.setFont(font);
 
         panel.setLayout(new BorderLayout());
         JPanel panels = new JPanel();

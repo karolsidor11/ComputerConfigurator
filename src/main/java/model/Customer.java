@@ -69,4 +69,9 @@ public class Customer {
     public void setAdres(Adres adres) {
         this.adres = adres;
     }
+
+    @Override
+    public String toString() {
+        return name+" "+lastname;
+    }
 }

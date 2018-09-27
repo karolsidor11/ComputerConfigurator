@@ -33,7 +33,8 @@ public class ComputerSet {
     @Valid
     private Customer customer;
 
-    @OneToMany
+    @ManyToMany
+    // Join Table (parametry)
     @Valid
     private List<ComputerComponent> computerComponentList = new ArrayList<ComputerComponent>();
 

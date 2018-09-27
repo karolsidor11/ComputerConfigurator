@@ -26,6 +26,8 @@ public class ComputerComponentPanel extends JPanel {
     private JLabel insertComponentName, insertComponentDescription, insertPrice;
     private JTextField componentName, componentDescription, componentPrice;
     private JButton confirm;
+    private Font font ;
+
 
 
     public ComputerComponentPanel() {
@@ -70,6 +72,11 @@ public class ComputerComponentPanel extends JPanel {
         deleteComputerComponent = new JButton("Usuń ");
         update = new JButton("Modyfikuj");
         back = new JButton("Wstecz");
+        font= new Font(Font.DIALOG, Font.PLAIN, 12);
+        addComputerComponent.setFont(font);
+        deleteComputerComponent.setFont(font);
+        update.setFont(font);
+        back.setFont(font);
         toolBarButton = new JToolBar();
         toolBarButton.add(back);
         toolBarButton.add(addComputerComponent);
@@ -154,26 +161,55 @@ public class ComputerComponentPanel extends JPanel {
         insertPrice = new JLabel("Wprowadź cenę produktu: ");
         confirm = new JButton("Zatwierdź");
 
-        componentName.setColumns(10);
-        componentDescription.setColumns(10);
-        componentPrice.setColumns(10);
+        componentName.setColumns(15);
+        componentDescription.setColumns(15);
+        componentPrice.setColumns(15);
 
 
         jDialog.setTitle("Panel dodawania komponentu komputera");
-        jDialog.setSize(320, 300);
+        jDialog.setSize(400, 200);
         jDialog.setLocationRelativeTo(null);
-        jDialog.setLayout(new FlowLayout());
+        jDialog.setResizable(false);
+        jDialog.setLayout(new GridBagLayout());
+        // jDialog.setLayout(new FlowLayout());
 
-        jDialog.add(insertComponentName);
-        jDialog.add(componentName);
-        jDialog.add(insertComponentDescription);
-        jDialog.add(componentDescription);
-        jDialog.add(insertPrice);
-        jDialog.add(componentPrice);
-        jDialog.add(confirm);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
+
+        jDialog.add(insertComponentName, gbc);
+        gbc.gridx++;
+        jDialog.add(componentName, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertComponentDescription, gbc);
+        gbc.gridx++;
+        jDialog.add(componentDescription, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertPrice, gbc);
+        gbc.gridx++;
+        jDialog.add(componentPrice, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.weighty = 1;
+        gbc.insets = new Insets(15, 0, 15, 5);
+        gbc.anchor = GridBagConstraints.NORTH;
+
+        jDialog.add(confirm, gbc);
 
         jDialog.setVisible(true);
+        jDialog.pack();
+        jDialog.setResizable(false);
 
         confirm.addActionListener(new ActionListener() {
             @Override
@@ -216,9 +252,9 @@ public class ComputerComponentPanel extends JPanel {
         insertPrice = new JLabel("Wprowadź cenę produktu: ");
         confirm = new JButton("Zatwierdź");
 
-        componentName.setColumns(10);
-        componentDescription.setColumns(10);
-        componentPrice.setColumns(10);
+        componentName.setColumns(15);
+        componentDescription.setColumns(15);
+        componentPrice.setColumns(15);
 
 
         int a = tableComponent.getSelectedRow();
@@ -228,21 +264,49 @@ public class ComputerComponentPanel extends JPanel {
 
 
         jDialog.setTitle("Panel modyfikacji komponentu komputera");
-        jDialog.setSize(320, 300);
+        jDialog.setSize(400, 200);
         jDialog.setLocationRelativeTo(null);
-        jDialog.setLayout(new FlowLayout());
+        // jDialog.setLayout(new FlowLayout());
+        jDialog.setResizable(false);
+        jDialog.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(4, 4, 4, 4);
 
 
-        jDialog.add(insertComponentName);
-        jDialog.add(componentName);
-        jDialog.add(insertComponentDescription);
-        jDialog.add(componentDescription);
-        jDialog.add(insertPrice);
-        jDialog.add(componentPrice);
-        jDialog.add(confirm);
+        jDialog.add(insertComponentName, gbc);
+        gbc.gridx++;
+        jDialog.add(componentName, gbc);
 
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertComponentDescription, gbc);
+        gbc.gridx++;
+        jDialog.add(componentDescription, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertPrice, gbc);
+        gbc.gridx++;
+        jDialog.add(componentPrice, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.weighty ++;
+        gbc.insets = new Insets(15, 0, 15, 5);
+        gbc.anchor = GridBagConstraints.NORTH;
+
+        jDialog.add(confirm, gbc);
 
         jDialog.setVisible(true);
+        jDialog.setResizable(false);
+        jDialog.pack();
 
         confirm.addActionListener(new ActionListener() {
             @Override

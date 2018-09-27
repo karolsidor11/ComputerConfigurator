@@ -2,6 +2,7 @@ package panels;
 
 import daoimpl.CustomerJPA;
 import frame.MainFrame;
+import javafx.scene.layout.Border;
 import model.Adres;
 import model.Customer;
 
@@ -29,6 +30,7 @@ public class CustomerPanel extends JPanel {
     private JTextField name, lastName, adres, zipCode, street, number;
     private JButton confirm;
     private DefaultTableModel modelCustomer;
+    private  Font font;
 
     public CustomerPanel() {
         createComponent();
@@ -46,6 +48,11 @@ public class CustomerPanel extends JPanel {
         deleteButton = new JButton("Usuń ");
         back = new JButton("Wstecz");
         update = new JButton("Modyfikuj");
+        font= new Font(Font.DIALOG, Font.PLAIN, 12);
+        addButton.setFont(font);
+        deleteButton.setFont(font);
+        back.setFont(font);
+        update.setFont(font);
         toolBarButton = new JToolBar();
         toolBarButton.add(back);
         toolBarButton.add(addButton);
@@ -124,8 +131,16 @@ public class CustomerPanel extends JPanel {
     private void createPanelAddCustomer() {
         JDialog jDialog = new JDialog();
 
+        jDialog.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(4, 4, 4, 4);
+
         insertName = new JLabel("Wprowadź imię :");
-        insertLastName = new JLabel("Wprowadź nazwisko");
+        insertLastName = new JLabel("Wprowadź nazwisko :");
         insertAdress = new JLabel("Wprowadź miejscowość : ");
         insertStreet = new JLabel("Wprowadź ulicę :");
         insertNumber = new JLabel("Wprowadź  numer :");
@@ -139,33 +154,69 @@ public class CustomerPanel extends JPanel {
         street = new JTextField();
         confirm = new JButton("Zatwierdź");
 
-        name.setColumns(10);
-        lastName.setColumns(10);
-        adres.setColumns(10);
-        number.setColumns(10);
-        zipCode.setColumns(10);
-        street.setColumns(10);
+        name.setColumns(12);
+        lastName.setColumns(12);
+        adres.setColumns(12);
+        number.setColumns(12);
+        zipCode.setColumns(12);
+        street.setColumns(12);
 
-        jDialog.setLayout(new FlowLayout());
-        jDialog.setSize(250, 300);
+        // jDialog.setLayout(new FlowLayout());
+        jDialog.setSize(280, 280);
         jDialog.setTitle("Panel dodawania klienta");
         jDialog.setLocationRelativeTo(null);
+        jDialog.setResizable(false);
 
-        jDialog.add(insertName);
-        jDialog.add(name);
-        jDialog.add(insertLastName);
-        jDialog.add(lastName);
-        jDialog.add(insertAdress);
-        jDialog.add(adres);
-        jDialog.add(insertStreet);
-        jDialog.add(street);
-        jDialog.add(insertNumber);
-        jDialog.add(number);
-        jDialog.add(insertZipCode);
-        jDialog.add(zipCode);
-        jDialog.add(confirm);
+        jDialog.add(insertName, gbc);
+        gbc.gridx++;
+        jDialog.add(name, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertLastName, gbc);
+        gbc.gridx++;
+        jDialog.add(lastName, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+
+        jDialog.add(insertAdress, gbc);
+        gbc.gridx++;
+        jDialog.add(adres, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+
+        jDialog.add(insertStreet, gbc);
+        gbc.gridx++;
+        jDialog.add(street, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertNumber, gbc);
+        gbc.gridx++;
+        jDialog.add(number, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertZipCode, gbc);
+        gbc.gridx++;
+        jDialog.add(zipCode, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.weighty++;
+        gbc.insets= new Insets(15,0,15,5);
+
+        jDialog.add(confirm, gbc);
 
         jDialog.setVisible(true);
+        jDialog.pack();
 
         Object[] row = new Object[4];
 
@@ -204,13 +255,22 @@ public class CustomerPanel extends JPanel {
     private void createPanelUpdateCustomer() {
 
         JDialog jDialog = new JDialog();
+        jDialog.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(4, 4, 4, 4);
+
 
         JTextField ulica;
         JTextField code;
         JTextField numbers;
 
         insertName = new JLabel("Wprowadź imię :");
-        insertLastName = new JLabel("Wprowadź nazwisko");
+        insertLastName = new JLabel("Wprowadź nazwisko :");
         insertAdress = new JLabel("Wprowadź miejscowość : ");
         insertStreet = new JLabel("Wprowadź ulicę :");
         insertNumber = new JLabel("Wprowadź  numer :");
@@ -225,17 +285,18 @@ public class CustomerPanel extends JPanel {
         code = new JTextField();
         confirm = new JButton("Zatwierdź");
 
-        name.setColumns(10);
-        lastName.setColumns(10);
-        adres.setColumns(10);
-        ulica.setColumns(10);
-        numbers.setColumns(10);
-        code.setColumns(10);
+        name.setColumns(12);
+        lastName.setColumns(12);
+        adres.setColumns(12);
+        ulica.setColumns(12);
+        numbers.setColumns(12);
+        code.setColumns(12);
 
-        jDialog.setLayout(new FlowLayout());
-        jDialog.setSize(250, 300);
+        //   jDialog.setLayout(new FlowLayout());
+        jDialog.setSize(280, 280);
         jDialog.setTitle("Panel modyfikacji klienta");
         jDialog.setLocationRelativeTo(null);
+        jDialog.setResizable(false);
 
 
         int a = tableCustomers.getSelectedRow();
@@ -260,21 +321,55 @@ public class CustomerPanel extends JPanel {
             }
         }
 
-        jDialog.add(insertName);
-        jDialog.add(name);
-        jDialog.add(insertLastName);
-        jDialog.add(lastName);
-        jDialog.add(insertAdress);
-        jDialog.add(adres);
-        jDialog.add(insertStreet);
-        jDialog.add(ulica);
-        jDialog.add(insertNumber);
-        jDialog.add(numbers);
-        jDialog.add(insertZipCode);
-        jDialog.add(code);
+        jDialog.add(insertName, gbc);
+        gbc.gridx++;
+        jDialog.add(name, gbc);
 
-        jDialog.add(confirm);
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+
+        jDialog.add(insertLastName, gbc);
+        gbc.gridx++;
+        jDialog.add(lastName, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertAdress, gbc);
+        gbc.gridx++;
+        jDialog.add(adres, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertStreet, gbc);
+        gbc.gridx++;
+        jDialog.add(ulica, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertNumber, gbc);
+        gbc.gridx++;
+        jDialog.add(numbers, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertZipCode, gbc);
+        gbc.gridx++;
+        jDialog.add(code, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.insets= new Insets(15,0,15,5);
+
+
+        jDialog.add(confirm, gbc);
         jDialog.setVisible(true);
+        jDialog.pack();
+
 
 
         confirm.addActionListener(new ActionListener() {

@@ -31,6 +31,7 @@ public class ComputerSetPanel extends JPanel {
     private JLabel insertId, insertSetName, insertSetDescription, insertPrice, insertCustomer;
     private JTextField id, setName, setDescription, setPrice, Customer;
     private JButton confirm;
+    private Font font;
     private List<ComputerComponent> zamowienie = new ArrayList<>();
 
     public ComputerSetPanel() {
@@ -114,6 +115,11 @@ public class ComputerSetPanel extends JPanel {
         update = new JButton("Modyfikuj");
         deleteSet = new JButton("Usuń ");
         back = new JButton("Wstecz");
+        font = new Font(Font.DIALOG, Font.PLAIN, 12);
+        addSet.setFont(font);
+        update.setFont(font);
+        deleteSet.setFont(font);
+        back.setFont(font);
         toolBar = new JToolBar();
         toolBar.add(back);
         toolBar.add(addSet);
@@ -279,10 +285,10 @@ public class ComputerSetPanel extends JPanel {
 
         JDialog jDialog = new JDialog();
         jDialog.setTitle("Panel tworzenia zamówienia");
-        jDialog.setSize(new Dimension(340, 400));
+        jDialog.setSize(new Dimension(340, 300));
         jDialog.setLocationByPlatform(true);
         jDialog.setLocationRelativeTo(null);
-        jDialog.setLayout(new FlowLayout());
+        jDialog.setLayout(new GridBagLayout());
         jDialog.setVisible(true);
 
 
@@ -299,6 +305,7 @@ public class ComputerSetPanel extends JPanel {
         JTextField allPrice = new JTextField();
         JComboBox comboClient = new JComboBox();
         JComboBox comboComponent = new JComboBox();
+        JTextArea jTextArea = new JTextArea();
         JButton button = new JButton("+");
 
 
@@ -324,33 +331,78 @@ public class ComputerSetPanel extends JPanel {
 
         JButton jButton = new JButton("Zatwierdź");
 
-        jTextField.setColumns(13);
-        nameSet.setColumns(13);
-        allPrice.setColumns(13);
-        nazwaSet.setColumns(13);
+        jTextField.setColumns(15);
+        nameSet.setColumns(15);
+        allPrice.setColumns(15);
+        nazwaSet.setColumns(15);
         button.setToolTipText("Dodaj nowy podzespół");
         jButton.setToolTipText("Zatwierdź");
+        jTextArea.setColumns(15);
+        jTextArea.setRows(8);
+        jTextArea.setFont(font);
+        jTextArea.setEnabled(false);
 
 
         jTextField.setCaretPosition(0);
-        comboClient.setPreferredSize(new Dimension(130, 22));
+        comboClient.setPreferredSize(new Dimension(230, 22));
         comboComponent.setPreferredSize(new Dimension(130, 22));
-        button.setPreferredSize(new Dimension(42, 22));
-
-        jDialog.add(nazwa);
-        jDialog.add(nazwaSet);
-        jDialog.add(name);
-        jDialog.add(nameSet);
-        jDialog.add(client);
-        jDialog.add(comboClient);
-        jDialog.add(component);
-        jDialog.add(comboComponent);
-        jDialog.add(button);
-        jDialog.add(priceSet);
-        jDialog.add(allPrice);
+        button.setPreferredSize(new Dimension(42, 20));
 
 
-        jDialog.add(jButton);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0;
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+
+        jDialog.add(nazwa, gbc);
+        gbc.gridx++;
+        jDialog.add(nazwaSet, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(name, gbc);
+        gbc.gridx++;
+        jDialog.add(nameSet, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(client, gbc);
+        gbc.gridx++;
+        jDialog.add(comboClient, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(component, gbc);
+        gbc.gridx++;
+        jDialog.add(comboComponent, gbc);
+        gbc.gridx++;
+        jDialog.add(button, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+
+        jDialog.add(jTextArea, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(priceSet, gbc);
+        gbc.gridx++;
+        jDialog.add(allPrice, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.weighty++;
+        gbc.insets = new Insets(12, 0, 12, 0);
+        jDialog.add(jButton, gbc);
+        jDialog.setResizable(false);
+        jDialog.pack();
 
 
         button.addActionListener(new ActionListener() {
@@ -361,6 +413,7 @@ public class ComputerSetPanel extends JPanel {
                 String selectedItem = (String) comboComponent.getModel().getSelectedItem();
                 Integer id = 0;
                 int cena = 0;
+                int componentPrice = 0;
 
 
                 for (ComputerComponent B : computerComponents) {
@@ -376,13 +429,15 @@ public class ComputerSetPanel extends JPanel {
 
                 for (ComputerComponent cp : zamowienie) {
 
-                    int componentPrice = cp.getPrice().intValue();
+                    componentPrice = cp.getPrice().intValue();
                     cena = cena + componentPrice;
 
                     System.out.println(cena);
                     allPrice.setText(String.valueOf(cena));
                     comboComponent.setSelectedItem(null);
                 }
+
+                jTextArea.insert(selectedItem + "-" + componentPrice + "zł" + "\n", 0);
 
             }
         });
@@ -423,7 +478,7 @@ public class ComputerSetPanel extends JPanel {
 
                     //Wyrzuca błędy !!!! ->
 
-                    //computerSet.setComputerComponentList(zamowienie);
+                    computerSet.setComputerComponentList(zamowienie);
 
                     // <-
 
@@ -457,18 +512,27 @@ public class ComputerSetPanel extends JPanel {
 
     private void newUpdate() {
 
+        JDialog jDialog = new JDialog();
+        jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
+        jDialog.setSize(new Dimension(340, 300));
+        jDialog.setLocationRelativeTo(null);
+        jDialog.setLocationByPlatform(true);
+        jDialog.setLayout(new GridBagLayout());
+        jDialog.setVisible(true);
+
+
         JComboBox klient = new JComboBox();
         JComboBox element = new JComboBox();
         JButton addComponent = new JButton("+");
         JLabel podzespół = new JLabel("Wybierz podzespół :");
+        JTextArea jTextArea = new JTextArea();
 
 
-        klient.setPreferredSize(new Dimension(130, 22));
+        klient.setPreferredSize(new Dimension(230, 22));
         element.setPreferredSize(new Dimension(130, 22));
         addComponent.setSize(new Dimension(42, 22));
         addComponent.setToolTipText("Dodaj nowy podzespół");
 
-        jDialog = new JDialog();
         id = new JTextField();
         setName = new JTextField();
         setDescription = new JTextField();
@@ -479,10 +543,14 @@ public class ComputerSetPanel extends JPanel {
         insertCustomer = new JLabel("Wprowadż klienta: ");
         confirm = new JButton("Zatwierdź");
 
-        setName.setColumns(10);
-        setDescription.setColumns(10);
-        setPrice.setColumns(10);
+        setName.setColumns(15);
+        setDescription.setColumns(15);
+        setPrice.setColumns(15);
         confirm.setToolTipText("Zatwierdź");
+        jTextArea.setEnabled(false);
+        jTextArea.setRows(8);
+        jTextArea.setColumns(15);
+        jTextArea.setFont(font);
 
         int a = tableSet.getSelectedRow();
 
@@ -509,27 +577,68 @@ public class ComputerSetPanel extends JPanel {
             element.addItem(componentName);
         }
 
+        for (ComputerComponent comp : computerComponents) {
 
-        jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
-        jDialog.setSize(320, 300);
-        jDialog.setLocationRelativeTo(null);
-        jDialog.setLayout(new FlowLayout());
-
-        jDialog.add(insertSetName);
-        jDialog.add(setName);
-        jDialog.add(insertSetDescription);
-        jDialog.add(setDescription);
-        jDialog.add(insertCustomer);
-        jDialog.add(klient);
-        jDialog.add(podzespół);
-        jDialog.add(element);
-        jDialog.add(addComponent);
-        jDialog.add(insertPrice);
-        jDialog.add(setPrice);
-        jDialog.add(confirm);
+            jTextArea.insert(comp.getComponentName() + "-" + comp.getPrice() + " zł" + "\n", 0);
+        }
 
 
-        jDialog.setVisible(true);
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weighty = 0;
+        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+
+        jDialog.add(insertSetName, gbc);
+        gbc.gridx++;
+        jDialog.add(setName, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertSetDescription, gbc);
+        gbc.gridx++;
+        jDialog.add(setDescription, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertCustomer, gbc);
+        gbc.gridx++;
+        jDialog.add(klient, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(podzespół, gbc);
+        gbc.gridx++;
+        jDialog.add(element, gbc);
+        gbc.gridx++;
+        jDialog.add(addComponent, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy++;
+
+        jDialog.add(jTextArea, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 0;
+
+        jDialog.add(insertPrice, gbc);
+        gbc.gridx++;
+        jDialog.add(setPrice, gbc);
+
+        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.weighty++;
+        gbc.insets = new Insets(12, 0, 12, 0);
+
+        jDialog.add(confirm, gbc);
+        jDialog.setResizable(false);
+        jDialog.pack();
 
 
         confirm.addActionListener(new ActionListener() {
@@ -596,16 +705,21 @@ public class ComputerSetPanel extends JPanel {
                 ComputerComponent byId = computerComponentJPA1.getById(id);
 
                 zamowienie.add(byId);
+                int componentPrice = 0;
 
                 for (ComputerComponent cp : zamowienie) {
 
-                    int componentPrice = cp.getPrice().intValue();
+                    componentPrice = cp.getPrice().intValue();
                     cena = cena + componentPrice;
 
                     System.out.println(cena);
                     setPrice.setText(String.valueOf(cena));
                     element.setSelectedItem(null);
+
                 }
+
+                jTextArea.insert(selectedItem + "-" + zamowienie.get(0).getPrice() + " zł" + "\n", 0);
+
             }
         });
         element.addActionListener(new ActionListener() {

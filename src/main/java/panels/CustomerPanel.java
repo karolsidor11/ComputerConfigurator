@@ -2,7 +2,6 @@ package panels;
 
 import daoimpl.CustomerJPA;
 import frame.MainFrame;
-import javafx.scene.layout.Border;
 import model.Adres;
 import model.Customer;
 
@@ -28,9 +27,9 @@ public class CustomerPanel extends JPanel {
 
     private JLabel insertName, insertLastName, insertAdress, insertZipCode, insertStreet, insertNumber;
     private JTextField name, lastName, adres, zipCode, street, number;
-    private JButton confirm;
+    private JButton confirm = new JButton();
     private DefaultTableModel modelCustomer;
-    private  Font font;
+    private Font font;
 
     public CustomerPanel() {
         createComponent();
@@ -48,7 +47,7 @@ public class CustomerPanel extends JPanel {
         deleteButton = new JButton("Usuń ");
         back = new JButton("Wstecz");
         update = new JButton("Modyfikuj");
-        font= new Font(Font.DIALOG, Font.PLAIN, 12);
+        font = new Font(Font.DIALOG, Font.PLAIN, 12);
         addButton.setFont(font);
         deleteButton.setFont(font);
         back.setFont(font);
@@ -66,7 +65,7 @@ public class CustomerPanel extends JPanel {
         CustomerJPA customerJPA = new CustomerJPA();
         List<Customer> customers = customerJPA.allCustomer();
 
-        String[] columnNames = {"id", "imię", "nazwisko", "adres"};
+        String[] columnNames = {"id", "Imię", "Nazwisko", "Adres"};
         modelCustomer = new DefaultTableModel(columnNames, 0);
 
         for (int i = 0; i < customers.size(); i++) {
@@ -81,8 +80,9 @@ public class CustomerPanel extends JPanel {
         }
 
         tableCustomers = new JTable(modelCustomer);
+        tableCustomers.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
         tableCustomers.setBackground(Color.YELLOW);
-        tableCustomers.setPreferredScrollableViewportSize(new Dimension(300, 300));
+        tableCustomers.setPreferredScrollableViewportSize(new Dimension(400, 350));
         scrollBar = new JScrollPane(tableCustomers);
         this.add(scrollBar);
     }
@@ -92,6 +92,12 @@ public class CustomerPanel extends JPanel {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         createPanelAddCustomer();
+
+                        // Ta implementacja nie działa !!!
+
+//                        AddCustomerPanel addCustomerPanel = new AddCustomerPanel();
+//                        addCustomerPanel.createActionListner(confirm,modelCustomer);
+
                     }
                 }
         );
@@ -105,7 +111,6 @@ public class CustomerPanel extends JPanel {
                 } else {
                     JOptionPane.showMessageDialog(null, "Wybierz klienta do modyfikacji !");
                 }
-
             }
         });
 
@@ -161,7 +166,6 @@ public class CustomerPanel extends JPanel {
         zipCode.setColumns(12);
         street.setColumns(12);
 
-        // jDialog.setLayout(new FlowLayout());
         jDialog.setSize(280, 280);
         jDialog.setTitle("Panel dodawania klienta");
         jDialog.setLocationRelativeTo(null);
@@ -211,7 +215,7 @@ public class CustomerPanel extends JPanel {
         gbc.gridy++;
         gbc.gridx = 1;
         gbc.weighty++;
-        gbc.insets= new Insets(15,0,15,5);
+        gbc.insets = new Insets(15, 0, 15, 5);
 
         jDialog.add(confirm, gbc);
 
@@ -363,13 +367,12 @@ public class CustomerPanel extends JPanel {
 
         gbc.gridy++;
         gbc.gridx = 1;
-        gbc.insets= new Insets(15,0,15,5);
+        gbc.insets = new Insets(15, 0, 15, 5);
 
 
         jDialog.add(confirm, gbc);
         jDialog.setVisible(true);
         jDialog.pack();
-
 
 
         confirm.addActionListener(new ActionListener() {

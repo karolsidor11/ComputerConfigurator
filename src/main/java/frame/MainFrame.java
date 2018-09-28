@@ -14,6 +14,7 @@ public class MainFrame extends JFrame {
     private JButton component;
     private JButton computerSet;
     private JButton aboutProgram;
+    private JButton search;
     private JLabel label;
     private JPanel panel;
     private ImageIcon imageIcon;
@@ -47,6 +48,7 @@ public class MainFrame extends JFrame {
         customer = new JButton("Klienci");
         component = new JButton("Podzespoły");
         computerSet = new JButton("Zamówienia");
+        search = new JButton("Wyszukaj");
         aboutProgram = new JButton("Info");
         label = new JLabel();
         imageIcon = new ImageIcon(MainFrame.class.getResource("/images/konfiguator.jpg"));
@@ -57,12 +59,14 @@ public class MainFrame extends JFrame {
         component.setFont(font);
         computerSet.setFont(font);
         aboutProgram.setFont(font);
+        search.setFont(font);
 
         panel.setLayout(new BorderLayout());
         JPanel panels = new JPanel();
         panels.add(customer);
         panels.add(component);
         panels.add(computerSet);
+        panels.add(search);
 
         JPanel about = new JPanel();
         about.add(aboutProgram);

@@ -61,8 +61,9 @@ public class ComputerComponentPanel extends JPanel {
 
 
         tableComponent = new JTable(model);
+        tableComponent.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
         tableComponent.setBackground(Color.YELLOW);
-        tableComponent.setPreferredScrollableViewportSize(new Dimension(300, 300));
+        tableComponent.setPreferredScrollableViewportSize(new Dimension(400, 350));
         jScrollPane = new JScrollPane(tableComponent);
         this.add(jScrollPane);
     }

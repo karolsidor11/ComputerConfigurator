@@ -66,8 +66,9 @@ public class ComputerSetPanel extends JPanel {
         }
 
         tableSet = new JTable(model);
+        tableSet.setFont(new Font(Font.DIALOG, Font.PLAIN, 12));
         tableSet.setBackground(Color.YELLOW);
-        tableSet.setPreferredScrollableViewportSize(new Dimension(300, 300));
+        tableSet.setPreferredScrollableViewportSize(new Dimension(400, 350));
         jScrollPane = new JScrollPane(tableSet);
         this.add(jScrollPane);
 
@@ -86,7 +87,6 @@ public class ComputerSetPanel extends JPanel {
         addSet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // createPanelAddComputerSet();
                 createNewSet();
             }
         });
@@ -94,7 +94,6 @@ public class ComputerSetPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tableSet.isRowSelected(tableSet.getSelectedRow()) == true) {
-                    // createPanelUpdateComputerSet();
                     newUpdate();
                 } else {
                     JOptionPane.showMessageDialog(null, "Wybierz zestaw komputerowy do modyfikacji!");
@@ -137,131 +136,131 @@ public class ComputerSetPanel extends JPanel {
         }
     }
 
-    private void createPanelAddComputerSet() {
-        jDialog = new JDialog();
-        id = new JTextField();
-        setName = new JTextField();
-        setDescription = new JTextField();
-        setPrice = new JTextField();
-        Customer = new JTextField();
-        insertId = new JLabel("Wprowadź id produktu: ");
-        insertSetName = new JLabel("Wprowadź nazwę produktu: ");
-        insertSetDescription = new JLabel("Wprowadź opis produktu: ");
-        insertPrice = new JLabel("Wprowadź cenę produktu: ");
-        insertCustomer = new JLabel("Wprowadż klienta: ");
-        confirm = new JButton("Zatwierdź");
-
-        setName.setColumns(10);
-        setDescription.setColumns(10);
-        setPrice.setColumns(10);
-        id.setColumns(10);
-        Customer.setColumns(10);
-
-
-        jDialog.setTitle("Panel dodawania zestawu komputerowego ");
-        jDialog.setSize(320, 300);
-        jDialog.setLocationRelativeTo(null);
-        jDialog.setLayout(new FlowLayout());
-
-        jDialog.add(insertId);
-        jDialog.add(id);
-        jDialog.add(insertSetName);
-        jDialog.add(setName);
-        jDialog.add(insertSetDescription);
-        jDialog.add(setDescription);
-        jDialog.add(insertPrice);
-        jDialog.add(setPrice);
-        jDialog.add(insertCustomer);
-        jDialog.add(Customer);
-        jDialog.add(confirm);
-
-
-        jDialog.setVisible(true);
-
-        confirm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Object[] rows = new Object[5];
-                rows[0] = id.getText();
-                rows[1] = setName.getText();
-                rows[2] = setDescription.getText();
-                rows[3] = setPrice.getText();
-                rows[4] = Customer.getText();
-
-                model.addRow(rows);
-                jDialog.dispose();
-            }
-        });
-
-    }
-
-    private void createPanelUpdateComputerSet() {
-        jDialog = new JDialog();
-        id = new JTextField();
-        setName = new JTextField();
-        setDescription = new JTextField();
-        setPrice = new JTextField();
-        Customer = new JTextField();
-        insertId = new JLabel("Wprowadź id produktu: ");
-        insertSetName = new JLabel("Wprowadź nazwę produktu: ");
-        insertSetDescription = new JLabel("Wprowadź opis produktu: ");
-        insertPrice = new JLabel("Wprowadź cenę produktu: ");
-        insertCustomer = new JLabel("Wprowadż klienta: ");
-        confirm = new JButton("Zatwierdź");
-
-        setName.setColumns(10);
-        setDescription.setColumns(10);
-        setPrice.setColumns(10);
-        id.setColumns(10);
-        Customer.setColumns(10);
-
-        int a = tableSet.getSelectedRow();
-
-        id.setText(String.valueOf(model.getValueAt(a, 0)));
-        setName.setText((String) model.getValueAt(a, 1));
-        setDescription.setText((String) model.getValueAt(a, 2));
-        setPrice.setText(String.valueOf(model.getValueAt(a, 3)));
-        Customer.setText((String) model.getValueAt(a, 4));
-
-
-        jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
-        jDialog.setSize(320, 300);
-        jDialog.setLocationRelativeTo(null);
-        jDialog.setLayout(new FlowLayout());
-
-        jDialog.add(insertId);
-        jDialog.add(id);
-        jDialog.add(insertSetName);
-        jDialog.add(setName);
-        jDialog.add(insertSetDescription);
-        jDialog.add(setDescription);
-        jDialog.add(insertPrice);
-        jDialog.add(setPrice);
-        jDialog.add(insertCustomer);
-        jDialog.add(Customer);
-        jDialog.add(confirm);
-
-
-        jDialog.setVisible(true);
-
-        confirm.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                int i = tableSet.getSelectedRow();
-                model.setValueAt(id.getText(), i, 0);
-                model.setValueAt(setName.getText(), i, 1);
-                model.setValueAt(setDescription.getText(), i, 2);
-                model.setValueAt(setPrice.getText(), i, 3);
-                model.setValueAt(Customer.getText(), i, 4);
-
-                jDialog.dispose();
-
-            }
-        });
-
-    }
+//    private void createPanelAddComputerSet() {
+//        jDialog = new JDialog();
+//        id = new JTextField();
+//        setName = new JTextField();
+//        setDescription = new JTextField();
+//        setPrice = new JTextField();
+//        Customer = new JTextField();
+//        insertId = new JLabel("Wprowadź id produktu: ");
+//        insertSetName = new JLabel("Wprowadź nazwę produktu: ");
+//        insertSetDescription = new JLabel("Wprowadź opis produktu: ");
+//        insertPrice = new JLabel("Wprowadź cenę produktu: ");
+//        insertCustomer = new JLabel("Wprowadż klienta: ");
+//        confirm = new JButton("Zatwierdź");
+//
+//        setName.setColumns(10);
+//        setDescription.setColumns(10);
+//        setPrice.setColumns(10);
+//        id.setColumns(10);
+//        Customer.setColumns(10);
+//
+//
+//        jDialog.setTitle("Panel dodawania zestawu komputerowego ");
+//        jDialog.setSize(320, 300);
+//        jDialog.setLocationRelativeTo(null);
+//        jDialog.setLayout(new FlowLayout());
+//
+//        jDialog.add(insertId);
+//        jDialog.add(id);
+//        jDialog.add(insertSetName);
+//        jDialog.add(setName);
+//        jDialog.add(insertSetDescription);
+//        jDialog.add(setDescription);
+//        jDialog.add(insertPrice);
+//        jDialog.add(setPrice);
+//        jDialog.add(insertCustomer);
+//        jDialog.add(Customer);
+//        jDialog.add(confirm);
+//
+//
+//        jDialog.setVisible(true);
+//
+//        confirm.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//                Object[] rows = new Object[5];
+//                rows[0] = id.getText();
+//                rows[1] = setName.getText();
+//                rows[2] = setDescription.getText();
+//                rows[3] = setPrice.getText();
+//                rows[4] = Customer.getText();
+//
+//                model.addRow(rows);
+//                jDialog.dispose();
+//            }
+//        });
+//
+//    }
+//
+//    private void createPanelUpdateComputerSet() {
+//        jDialog = new JDialog();
+//        id = new JTextField();
+//        setName = new JTextField();
+//        setDescription = new JTextField();
+//        setPrice = new JTextField();
+//        Customer = new JTextField();
+//        insertId = new JLabel("Wprowadź id produktu: ");
+//        insertSetName = new JLabel("Wprowadź nazwę produktu: ");
+//        insertSetDescription = new JLabel("Wprowadź opis produktu: ");
+//        insertPrice = new JLabel("Wprowadź cenę produktu: ");
+//        insertCustomer = new JLabel("Wprowadż klienta: ");
+//        confirm = new JButton("Zatwierdź");
+//
+//        setName.setColumns(10);
+//        setDescription.setColumns(10);
+//        setPrice.setColumns(10);
+//        id.setColumns(10);
+//        Customer.setColumns(10);
+//
+//        int a = tableSet.getSelectedRow();
+//
+//        id.setText(String.valueOf(model.getValueAt(a, 0)));
+//        setName.setText((String) model.getValueAt(a, 1));
+//        setDescription.setText((String) model.getValueAt(a, 2));
+//        setPrice.setText(String.valueOf(model.getValueAt(a, 3)));
+//        Customer.setText((String) model.getValueAt(a, 4));
+//
+//
+//        jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
+//        jDialog.setSize(320, 300);
+//        jDialog.setLocationRelativeTo(null);
+//        jDialog.setLayout(new FlowLayout());
+//
+//        jDialog.add(insertId);
+//        jDialog.add(id);
+//        jDialog.add(insertSetName);
+//        jDialog.add(setName);
+//        jDialog.add(insertSetDescription);
+//        jDialog.add(setDescription);
+//        jDialog.add(insertPrice);
+//        jDialog.add(setPrice);
+//        jDialog.add(insertCustomer);
+//        jDialog.add(Customer);
+//        jDialog.add(confirm);
+//
+//
+//        jDialog.setVisible(true);
+//
+//        confirm.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//                int i = tableSet.getSelectedRow();
+//                model.setValueAt(id.getText(), i, 0);
+//                model.setValueAt(setName.getText(), i, 1);
+//                model.setValueAt(setDescription.getText(), i, 2);
+//                model.setValueAt(setPrice.getText(), i, 3);
+//                model.setValueAt(Customer.getText(), i, 4);
+//
+//                jDialog.dispose();
+//
+//            }
+//        });
+//
+//    }
 
     private void createPanelDeleteComputerSet() {
 
@@ -285,7 +284,7 @@ public class ComputerSetPanel extends JPanel {
 
         JDialog jDialog = new JDialog();
         jDialog.setTitle("Panel tworzenia zamówienia");
-        jDialog.setSize(new Dimension(340, 300));
+        jDialog.setSize(new Dimension(457, 360));
         jDialog.setLocationByPlatform(true);
         jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new GridBagLayout());
@@ -404,7 +403,6 @@ public class ComputerSetPanel extends JPanel {
         jDialog.setResizable(false);
         jDialog.pack();
 
-
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -443,25 +441,25 @@ public class ComputerSetPanel extends JPanel {
         });
 
 
-        comboComponent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Object selectedItem = comboComponent.getSelectedItem();
-
-                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
-                List<ComputerComponent> computerComponents1 = computerComponentJPA1.allComputerComponent();
-
-//                for (ComputerComponent component : computerComponents1) {
-//                    if (component.getComponentName().equals(selectedItem) == true) {
+//        comboComponent.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
 //
-//                        BigDecimal price = component.getPrice();
-//                        int i = price.intValue();
-//                        allPrice.setText(String.valueOf(i));
-//                    }
-                //}
-            }
-        });
+//                Object selectedItem = comboComponent.getSelectedItem();
+//
+//                ComputerComponentJPA computerComponentJPA1 = new ComputerComponentJPA();
+//                List<ComputerComponent> computerComponents1 = computerComponentJPA1.allComputerComponent();
+//
+////                for (ComputerComponent component : computerComponents1) {
+////                    if (component.getComponentName().equals(selectedItem) == true) {
+////
+////                        BigDecimal price = component.getPrice();
+////                        int i = price.intValue();
+////                        allPrice.setText(String.valueOf(i));
+////                    }
+//                //}
+//            }
+//        });
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -514,9 +512,9 @@ public class ComputerSetPanel extends JPanel {
 
         JDialog jDialog = new JDialog();
         jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
-        jDialog.setSize(new Dimension(340, 300));
-        jDialog.setLocationRelativeTo(null);
+        jDialog.setSize(new Dimension(457, 360));
         jDialog.setLocationByPlatform(true);
+        jDialog.setLocationRelativeTo(null);
         jDialog.setLayout(new GridBagLayout());
         jDialog.setVisible(true);
 

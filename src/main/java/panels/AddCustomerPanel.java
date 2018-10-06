@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class AddCustomerPanel extends JDialog {
 
@@ -18,56 +19,23 @@ public class AddCustomerPanel extends JDialog {
     private JButton confirm;
     private JDialog jDialog;
     private GridBagConstraints gbc;
+    private JTable tableCustomers;
+    private DefaultTableModel modelCustomer;
+    private String status;
 
 
-    public AddCustomerPanel() {
+    public AddCustomerPanel(JTable tableCustomers, DefaultTableModel tableModel, String status, String title) {
+
+        this.tableCustomers = tableCustomers;
+        this.modelCustomer = tableModel;
+        this.status = status;
 
         createFrame();
         createComponent();
         addComponents();
-
-    }
-
-    public void createActionListner(JButton jButton, DefaultTableModel tableModel) {
-
-        String[] columnNames = {"id", "Imię", "Nazwisko", "Adres"};
-        jButton= new JButton();
-        tableModel= new DefaultTableModel(columnNames,0);
-
-        DefaultTableModel finalTableModel = tableModel;
-        jButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                System.out.println("Witaj w ADD APANEL");
-
-                CustomerJPA customerJPA = new CustomerJPA();
-                Adres adress = new Adres();
-                Customer customer = new Customer();
-
-                try {
-                    customer.setName(name.getText());
-                    customer.setLastname(lastName.getText());
-                    adress.setLocality(adres.getText());
-                    adress.setStreet(street.getText());
-                    adress.setStreetNumber(Integer.parseInt(number.getText()));
-                    adress.setZipCode(zipCode.getText());
-                    customer.setAdres(adress);
-                    customerJPA.addCustomer(customer);
-
-                    row[0] = customer.getId();
-                    row[1] = name.getText();
-                    row[2] = lastName.getText();
-                    row[3] = adres.getText();
-                    finalTableModel.addRow(row);
-                    jDialog.dispose();
-
-                } catch (Exception a) {
-                    JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszytskie dane !!!");
-                }
-            }
-        });
-
+        actionButton();
+        jDialog.setTitle(title);
+       // setCustomerValue();
     }
 
     public void addComponents() {
@@ -133,7 +101,6 @@ public class AddCustomerPanel extends JDialog {
         gbc.weightx = 0;
         gbc.insets = new Insets(4, 4, 4, 4);
         jDialog.setSize(280, 280);
-        jDialog.setTitle("Panel dodawania klienta");
         jDialog.setLocationRelativeTo(null);
         jDialog.setResizable(false);
     }
@@ -163,5 +130,115 @@ public class AddCustomerPanel extends JDialog {
         zipCode.setColumns(12);
         street.setColumns(12);
     }
+
+
+    public void actionButton() {
+
+        confirm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (status.equals("Add")) {
+                    createCustomer();
+                }
+                if (status.equals("Update")) {
+                    setCustomerValue();
+                    modifyCustomer();
+                }
+            }
+        });
+    }
+
+    private void createCustomer() {
+        CustomerJPA customerJPA = new CustomerJPA();
+        Adres adress = new Adres();
+        Customer customer = new Customer();
+
+        try {
+            customer.setName(name.getText());
+            customer.setLastname(lastName.getText());
+            adress.setLocality(adres.getText());
+            adress.setStreet(street.getText());
+            adress.setStreetNumber(Integer.parseInt(number.getText()));
+            adress.setZipCode(zipCode.getText());
+            customer.setAdres(adress);
+            customerJPA.addCustomer(customer);
+
+            row[0] = customer.getId();
+            row[1] = name.getText();
+            row[2] = lastName.getText();
+            row[3] = adres.getText();
+            modelCustomer.addRow(row);
+            jDialog.dispose();
+
+        } catch (Exception a) {
+            JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszytskie dane !!!");
+        }
+    }
+
+    private void modifyCustomer() {
+
+        CustomerJPA customerJPA1 = new CustomerJPA();
+        Adres adress = new Adres();
+
+        try {
+            int selectedRow = tableCustomers.getSelectedRow();
+            String valueAt2 = tableCustomers.getModel().getValueAt(selectedRow, 0).toString();
+            Customer byId = customerJPA1.getById(Integer.parseInt(valueAt2));
+
+            byId.setName(name.getText());
+            byId.setLastname(lastName.getText());
+
+            adress.setLocality(adres.getText());
+            adress.setStreet(street.getText());
+            adress.setZipCode(zipCode.getText());
+            adress.setStreetNumber(Integer.parseInt(number.getText()));
+            byId.setAdres(adress);
+
+            if (!byId.getName().equals("") && !byId.getLastname().equals("") &&
+                    !adress.getLocality().equals("") && !adress.getStreet().equals("")
+                    && !adress.getZipCode().equals("")) {
+
+                customerJPA1.mergeCustomer(byId);
+                int i = tableCustomers.getSelectedRow();
+                modelCustomer.setValueAt(name.getText(), i, 1);
+                modelCustomer.setValueAt(lastName.getText(), i, 2);
+                modelCustomer.setValueAt(adres.getText(), i, 3);
+
+                jDialog.dispose();
+            } else {
+                JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!!");
+            }
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!!");
+
+        }
+    }
+
+    public void setCustomerValue() {
+
+        int a = tableCustomers.getSelectedRow();
+        String valueAt = tableCustomers.getModel().getValueAt(a, 0).toString();
+
+        name.setText((String) modelCustomer.getValueAt(a, 1));
+        lastName.setText((String) modelCustomer.getValueAt(a, 2));
+        adres.setText((String) modelCustomer.getValueAt(a, 3));
+
+        CustomerJPA customerJPA = new CustomerJPA();
+        List<Customer> customers = customerJPA.allCustomer();
+        Integer valueAt1 = (Integer) tableCustomers.getModel().getValueAt(a, 0);
+
+        for (Customer b : customers) {
+            Adres adres = b.getAdres();
+            if (b.getId().equals(valueAt1)) {
+                street.setText(adres.getStreet());
+                number.setText((String.valueOf(adres.getStreetNumber())));
+                zipCode.setText(adres.getZipCode());
+            }
+        }
+    }
 }
+
 

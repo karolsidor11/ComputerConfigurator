@@ -91,12 +91,8 @@ public class CustomerPanel extends JPanel {
         addButton.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        createPanelAddCustomer();
 
-                        // Ta implementacja nie działa !!!
-
-//                        AddCustomerPanel addCustomerPanel = new AddCustomerPanel();
-//                        addCustomerPanel.createActionListner(confirm,modelCustomer);
+                        AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, "Add", "Panel dodawania klienta");
 
                     }
                 }
@@ -107,7 +103,9 @@ public class CustomerPanel extends JPanel {
                 super.mouseClicked(e);
 
                 if (tableCustomers.isRowSelected(tableCustomers.getSelectedRow()) == true) {
-                    createPanelUpdateCustomer();
+                    AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, "Update", "Panel modyfikacji klienta");
+                    addCustomerPanel.setCustomerValue();
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Wybierz klienta do modyfikacji !");
                 }

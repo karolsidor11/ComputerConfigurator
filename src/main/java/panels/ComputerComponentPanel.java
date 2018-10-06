@@ -26,8 +26,7 @@ public class ComputerComponentPanel extends JPanel {
     private JLabel insertComponentName, insertComponentDescription, insertPrice;
     private JTextField componentName, componentDescription, componentPrice;
     private JButton confirm;
-    private Font font ;
-
+    private Font font;
 
 
     public ComputerComponentPanel() {
@@ -48,11 +47,24 @@ public class ComputerComponentPanel extends JPanel {
         List<ComputerComponent> computerComponents = computerComponentJPA.allComputerComponent();
 
         model = new DefaultTableModel(columnNames, 0);
-        for (int i = 0; i < computerComponents.size(); i++) {
-            Integer id = computerComponents.get(i).getId();
-            String componentName = computerComponents.get(i).getComponentName();
-            String componentDescribe = computerComponents.get(i).getComponentDescribe();
-            BigDecimal price = computerComponents.get(i).getPrice();
+//        for (int i = 0; i < computerComponents.size(); i++) {
+//            Integer id = computerComponents.get(i).getId();
+//            String componentName = computerComponents.get(i).getComponentName();
+//            String componentDescribe = computerComponents.get(i).getComponentDescribe();
+//            BigDecimal price = computerComponents.get(i).getPrice();
+//
+//            Object[] objects = {id, componentName, componentDescribe, price};
+//
+//            model.addRow(objects);
+//
+//
+//        }
+        for (ComputerComponent comp : computerComponents) {
+
+            Integer id = comp.getId();
+            String componentName = comp.getComponentName();
+            String componentDescribe = comp.getComponentDescribe();
+            BigDecimal price = comp.getPrice();
 
             Object[] objects = {id, componentName, componentDescribe, price};
 
@@ -73,7 +85,7 @@ public class ComputerComponentPanel extends JPanel {
         deleteComputerComponent = new JButton("Usuń ");
         update = new JButton("Modyfikuj");
         back = new JButton("Wstecz");
-        font= new Font(Font.DIALOG, Font.PLAIN, 12);
+        font = new Font(Font.DIALOG, Font.PLAIN, 12);
         addComputerComponent.setFont(font);
         deleteComputerComponent.setFont(font);
         update.setFont(font);
@@ -215,30 +227,7 @@ public class ComputerComponentPanel extends JPanel {
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
-                ComputerComponent computerComponent = new ComputerComponent();
-
-                try {
-                    computerComponent.setComponentName(componentName.getText());
-                    computerComponent.setComponentDescribe(componentDescription.getText());
-                    computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
-
-                    computerComponentJPA.addComputerComponent(computerComponent);
-
-                    Object[] rows = new Object[4];
-                    rows[0] = computerComponent.getId();
-                    rows[1] = componentName.getText();
-                    rows[2] = componentDescription.getText();
-                    rows[3] = componentPrice.getText();
-
-                    model.addRow(rows);
-                    jDialog.dispose();
-
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!!");
-                }
-
+                addComponent();
             }
         });
     }
@@ -299,7 +288,7 @@ public class ComputerComponentPanel extends JPanel {
 
         gbc.gridy++;
         gbc.gridx = 1;
-        gbc.weighty ++;
+        gbc.weighty++;
         gbc.insets = new Insets(15, 0, 15, 5);
         gbc.anchor = GridBagConstraints.NORTH;
 
@@ -346,5 +335,31 @@ public class ComputerComponentPanel extends JPanel {
                 }
             }
         });
+    }
+
+    public void addComponent() {
+
+        ComputerComponentJPA computerComponentJPA = new ComputerComponentJPA();
+        ComputerComponent computerComponent = new ComputerComponent();
+
+        try {
+            computerComponent.setComponentName(componentName.getText());
+            computerComponent.setComponentDescribe(componentDescription.getText());
+            computerComponent.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
+
+            computerComponentJPA.addComputerComponent(computerComponent);
+
+            Object[] rows = new Object[4];
+            rows[0] = computerComponent.getId();
+            rows[1] = componentName.getText();
+            rows[2] = componentDescription.getText();
+            rows[3] = componentPrice.getText();
+
+            model.addRow(rows);
+            jDialog.dispose();
+
+        } catch (Exception e1) {
+            JOptionPane.showMessageDialog(jDialog, "Wprowadź poprawnie wszystkie dane !!!");
+        }
     }
 }

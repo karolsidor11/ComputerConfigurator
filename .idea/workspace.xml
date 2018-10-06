@@ -2,17 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04e5fed0-2452-4888-ac46-6b7c9ea0c17b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$1.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$2.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$3.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$4.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$5.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$6.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/panels/AddComputerComponentPanel.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/panels/AddComputerSetPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$2.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$3.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$4.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$5.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$6.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -35,22 +36,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CustomerPanel.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java">
+      <file leaf-file-name="AddCustomerPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4148">
-              <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+            <state relative-caret-position="1802">
+              <caret line="220" column="48" lean-forward="false" selection-start-line="220" selection-start-column="48" selection-end-line="220" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddCustomerPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java">
+      <file leaf-file-name="ComputerSetPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="47">
-              <caret line="219" column="36" lean-forward="true" selection-start-line="219" selection-start-column="36" selection-end-line="219" selection-end-column="36" />
+            <state relative-caret-position="119">
+              <caret line="91" column="48" lean-forward="true" selection-start-line="91" selection-start-column="48" selection-end-line="91" selection-end-column="48" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddComputerSetPanel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/panels/AddComputerSetPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="214">
+              <caret line="340" column="59" lean-forward="false" selection-start-line="340" selection-start-column="59" selection-end-line="340" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -120,11 +133,13 @@
         <option value="$PROJECT_DIR$/src/main/java/model/Customer.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/ComputerSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/panels/a.java" />
-        <option value="$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/frame/MainFrame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/panels/AddComputerComponentPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/panels/AddComputerSetPanel.java" />
       </list>
     </option>
   </component>
@@ -192,6 +207,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ComputerConfigurator" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ComputerConfigurator" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="panels" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ComputerConfigurator" type="b2602c69:ProjectViewProjectNode" />
@@ -502,6 +525,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -511,12 +535,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5043924" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4183835" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3961965" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32488114" sideWeight="0.4956076" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20131771" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20131771" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -569,20 +593,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="35" lean-forward="false" selection-start-line="2" selection-start-column="35" selection-end-line="2" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="29" lean-forward="false" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -746,13 +756,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/panels/a.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1270">
-          <caret line="514" column="49" lean-forward="false" selection-start-line="514" selection-start-column="49" selection-end-line="514" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/connectionProvider/Test.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/connectionProvider/ConnectionProvider.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/dao/ComputerComponentDAO.java">
@@ -784,21 +787,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="229" column="31" lean-forward="true" selection-start-line="229" selection-start-column="31" selection-end-line="229" selection-end-column="31" />
-          <folding>
-            <element signature="e#7649#7650#0" expanded="true" />
-            <element signature="e#7695#7696#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_144/src.zip!/javax/swing/AbstractButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="2021" column="0" lean-forward="false" selection-start-line="2021" selection-start-column="0" selection-end-line="2021" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="366" column="22" lean-forward="true" selection-start-line="366" selection-start-column="22" selection-end-line="366" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -811,19 +811,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/panels/AddComputerComponentPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="219" column="36" lean-forward="true" selection-start-line="219" selection-start-column="36" selection-end-line="219" selection-end-column="36" />
+        <state relative-caret-position="3094">
+          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-187">
+          <caret line="138" column="0" lean-forward="true" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4148">
-          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+        <state relative-caret-position="1802">
+          <caret line="220" column="48" lean-forward="false" selection-start-line="220" selection-start-column="48" selection-end-line="220" selection-end-column="48" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="91" column="48" lean-forward="true" selection-start-line="91" selection-start-column="48" selection-end-line="91" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/panels/AddComputerSetPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="340" column="59" lean-forward="false" selection-start-line="340" selection-start-column="59" selection-end-line="340" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

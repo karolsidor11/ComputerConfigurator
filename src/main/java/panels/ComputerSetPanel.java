@@ -87,14 +87,18 @@ public class ComputerSetPanel extends JPanel {
         addSet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createNewSet();
+                //createNewSet();
+                AddComputerSetPanel addComputerSetPanel = new AddComputerSetPanel(model, "Add", "Panel dodawania zestawu komputerowego", tableSet);
+                addComputerSetPanel.initValue();
             }
         });
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tableSet.isRowSelected(tableSet.getSelectedRow()) == true) {
-                    newUpdate();
+//                    newUpdate();
+                    AddComputerSetPanel addComputerSetPanel = new AddComputerSetPanel(model, "Update", "Panel modyfikacji zestawu komputerowego", tableSet);
+                    addComputerSetPanel.initUpdateValue();
                 } else {
                     JOptionPane.showMessageDialog(null, "Wybierz zestaw komputerowy do modyfikacji!");
                 }

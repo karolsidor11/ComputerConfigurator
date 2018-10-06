@@ -35,7 +35,6 @@ public class AddCustomerPanel extends JDialog {
         addComponents();
         actionButton();
         jDialog.setTitle(title);
-       // setCustomerValue();
     }
 
     public void addComponents() {
@@ -220,7 +219,6 @@ public class AddCustomerPanel extends JDialog {
     public void setCustomerValue() {
 
         int a = tableCustomers.getSelectedRow();
-        String valueAt = tableCustomers.getModel().getValueAt(a, 0).toString();
 
         name.setText((String) modelCustomer.getValueAt(a, 1));
         lastName.setText((String) modelCustomer.getValueAt(a, 2));

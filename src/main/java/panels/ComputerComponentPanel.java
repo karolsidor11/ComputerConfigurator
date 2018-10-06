@@ -112,7 +112,7 @@ public class ComputerComponentPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                createPanelAddComputerComponent();
+                AddComputerComponentPanel addComputerComponentPanel = new AddComputerComponentPanel(model, "Add", tableComponent, "Panel dodawania komponentu komputera");
             }
         });
         deleteComputerComponent.addActionListener(new ActionListener() {
@@ -127,7 +127,9 @@ public class ComputerComponentPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 if (tableComponent.isRowSelected(tableComponent.getSelectedRow()) == true) {
-                    createPanelUpdateComputerComponent();
+                    // createPanelUpdateComputerComponent();
+                    AddComputerComponentPanel addComputerComponentPanel = new AddComputerComponentPanel(model, "Update", tableComponent, "Panel modyfikacji komponentu komputera");
+                    addComputerComponentPanel.setComponentValue();
                 } else {
                     JOptionPane.showMessageDialog(null, "Wybierz podzespół komputera do modyfikacji !");
                 }
@@ -184,7 +186,6 @@ public class ComputerComponentPanel extends JPanel {
         jDialog.setLocationRelativeTo(null);
         jDialog.setResizable(false);
         jDialog.setLayout(new GridBagLayout());
-        // jDialog.setLayout(new FlowLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -228,6 +229,7 @@ public class ComputerComponentPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addComponent();
+
             }
         });
     }
@@ -256,7 +258,6 @@ public class ComputerComponentPanel extends JPanel {
         jDialog.setTitle("Panel modyfikacji komponentu komputera");
         jDialog.setSize(400, 200);
         jDialog.setLocationRelativeTo(null);
-        // jDialog.setLayout(new FlowLayout());
         jDialog.setResizable(false);
         jDialog.setLayout(new GridBagLayout());
 

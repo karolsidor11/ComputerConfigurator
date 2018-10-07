@@ -37,6 +37,45 @@ public class AddCustomerPanel extends JDialog {
         jDialog.setTitle(title);
     }
 
+    private void createFrame() {
+        jDialog = new JDialog();
+        jDialog.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 0;
+        gbc.insets = new Insets(4, 4, 4, 4);
+        jDialog.setSize(280, 280);
+        jDialog.setLocationRelativeTo(null);
+        jDialog.setResizable(false);
+    }
+
+    private void createComponent() {
+        insertName = new JLabel("Wprowadź imię :");
+        insertLastName = new JLabel("Wprowadź nazwisko :");
+        insertAdress = new JLabel("Wprowadź miejscowość : ");
+        insertStreet = new JLabel("Wprowadź ulicę :");
+        insertNumber = new JLabel("Wprowadź  numer :");
+        insertZipCode = new JLabel("Wprowadź kod pocztowy :");
+
+        name = new JTextField();
+        lastName = new JTextField();
+        adres = new JTextField();
+        zipCode = new JTextField();
+        number = new JTextField();
+        street = new JTextField();
+        confirm = new JButton("Zatwierdź");
+
+
+        name.setColumns(12);
+        lastName.setColumns(12);
+        adres.setColumns(12);
+        number.setColumns(12);
+        zipCode.setColumns(12);
+        street.setColumns(12);
+    }
+
     public void addComponents() {
         jDialog.add(insertName, gbc);
         gbc.gridx++;
@@ -90,48 +129,7 @@ public class AddCustomerPanel extends JDialog {
 
     }
 
-    public void createFrame() {
-        jDialog = new JDialog();
-        jDialog.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 0;
-        gbc.insets = new Insets(4, 4, 4, 4);
-        jDialog.setSize(280, 280);
-        jDialog.setLocationRelativeTo(null);
-        jDialog.setResizable(false);
-    }
-
-
-    public void createComponent() {
-        insertName = new JLabel("Wprowadź imię :");
-        insertLastName = new JLabel("Wprowadź nazwisko :");
-        insertAdress = new JLabel("Wprowadź miejscowość : ");
-        insertStreet = new JLabel("Wprowadź ulicę :");
-        insertNumber = new JLabel("Wprowadź  numer :");
-        insertZipCode = new JLabel("Wprowadź kod pocztowy :");
-
-        name = new JTextField();
-        lastName = new JTextField();
-        adres = new JTextField();
-        zipCode = new JTextField();
-        number = new JTextField();
-        street = new JTextField();
-        confirm = new JButton("Zatwierdź");
-
-
-        name.setColumns(12);
-        lastName.setColumns(12);
-        adres.setColumns(12);
-        number.setColumns(12);
-        zipCode.setColumns(12);
-        street.setColumns(12);
-    }
-
-
-    public void actionButton() {
+    private void actionButton() {
 
         confirm.addActionListener(new ActionListener() {
             @Override

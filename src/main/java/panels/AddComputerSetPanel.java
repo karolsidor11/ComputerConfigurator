@@ -174,7 +174,6 @@ public class AddComputerSetPanel extends JDialog {
             comboComponent.addItem(componentName);
         }
         comboComponent.setSelectedItem(null);
-
     }
 
     private void actionButtons() {
@@ -211,8 +210,6 @@ public class AddComputerSetPanel extends JDialog {
                     comboComponent.setSelectedItem(null);
                 }
                 jTextArea.insert(selectedItem + "-" + componentPrice + "zł" + "\n", 0);
-
-
             }
         });
         jButton.addActionListener(new ActionListener() {
@@ -270,7 +267,6 @@ public class AddComputerSetPanel extends JDialog {
             JOptionPane.showMessageDialog(null, "Wprowadź poprawnie wszystkie dane !!! ");
             e1.printStackTrace();
         }
-
     }
 
     private void modifySet() {

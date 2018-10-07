@@ -151,7 +151,6 @@ public class AddComputerComponentPanel extends JDialog {
             byId.setComponentDescribe(componentDescription.getText());
             byId.setPrice(BigDecimal.valueOf(Integer.parseInt(componentPrice.getText())));
 
-
             if (!componentName.getText().equals("") && !componentDescription.getText().equals("")) {
 
                 computerComponentJPA.mergeComponent(byId);
@@ -166,7 +165,6 @@ public class AddComputerComponentPanel extends JDialog {
             } else {
                 JOptionPane.showMessageDialog(this, "Wprowadź poprawnie wszystkie dane !!! ");
             }
-
 
         } catch (Exception e1) {
             JOptionPane.showMessageDialog(this, "Wprowadź poprawnie wszystkie dane !!!");

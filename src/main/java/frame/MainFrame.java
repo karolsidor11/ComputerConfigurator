@@ -3,6 +3,7 @@ package frame;
 import panels.ComputerComponentPanel;
 import panels.ComputerSetPanel;
 import panels.CustomerPanel;
+import panels.SearchPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,5 +104,11 @@ public class MainFrame extends JFrame {
         aboutProgram.addActionListener((e ->
                 JOptionPane.showMessageDialog(this, "     Computer Configurator \n Wersja demonstracyjna: v1.0" +
                         "\n Development by: Karol Sidor")));
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SearchPanel();
+            }
+        });
     }
 }

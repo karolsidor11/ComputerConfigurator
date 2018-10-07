@@ -1,5 +1,6 @@
 package panels;
 
+import model.Adres;
 import model.ComputerComponent;
 import model.ComputerSet;
 import model.Customer;
@@ -63,7 +64,7 @@ public class SearchPanel extends JDialog {
         jTextField.setColumns(16);
 
         jTextArea.setColumns(20);
-        jTextArea.setRows(10);
+        jTextArea.setRows(12);
         jTextArea.setFont(font);
     }
 
@@ -71,63 +72,38 @@ public class SearchPanel extends JDialog {
         this.setLayout(new GridBagLayout());
         gridBagConstraints = new GridBagConstraints();
 
-//        gridBagConstraints.gridx = 0;
-//        gridBagConstraints.gridy = 0;
-//        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-//        gridBagConstraints.insets = new Insets(3, 3, 3, 3);
-//        gridBagConstraints.anchor=GridBagConstraints.NORTH;
-//
-//
-//        add(searchAClient, gridBagConstraints);
-//        gridBagConstraints.gridx = 0;
-//        gridBagConstraints.gridy++;
-//        add(searchComponent, gridBagConstraints);
-//        gridBagConstraints.gridx = 0;
-//        gridBagConstraints.gridy++;
-//        add(searchComputerSet, gridBagConstraints);
-//        gridBagConstraints.gridx = 0;
-//        gridBagConstraints.gridy++;
-//        add(searchAdres, gridBagConstraints);
-//
-////        gridBagConstraints.gridx = 0;
-////        gridBagConstraints.gridy++;
-//        gridBagConstraints.gridx++;
-//        gridBagConstraints.gridy=0;
-//        gridBagConstraints.fill = GridBagConstraints.BOTH;
-//        add(jTextArea, gridBagConstraints);
-
-
         JPanel jPanel = new JPanel(new GridBagLayout());
 
-        gridBagConstraints.gridx=0;
-        gridBagConstraints.gridy=0;
-        gridBagConstraints.insets= new Insets(4,4,4,4);
-        gridBagConstraints.fill=GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.insets = new Insets(4, 4, 4, 4);
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 
-        jPanel.add(searchAClient,gridBagConstraints);
-        gridBagConstraints.gridy++;
-        gridBagConstraints.gridx=0;
-        jPanel.add(searchAdres,gridBagConstraints);
-        gridBagConstraints.gridy++;
-        gridBagConstraints.gridx=0;
-        jPanel.add(searchComponent,gridBagConstraints);
-        gridBagConstraints.gridy++;
-        gridBagConstraints.gridx=0;
-        jPanel.add(searchComputerSet,gridBagConstraints);
 
-        JPanel jPanel1= new JPanel(new GridBagLayout());
-        gridBagConstraints.gridx=0;
-        gridBagConstraints.gridy=0;
-        gridBagConstraints.fill=GridBagConstraints.BOTH;
+        jPanel.add(searchAClient, gridBagConstraints);
+        gridBagConstraints.gridy++;
+        gridBagConstraints.gridx = 0;
+        jPanel.add(searchAdres, gridBagConstraints);
+        gridBagConstraints.gridy++;
+        gridBagConstraints.gridx = 0;
+        jPanel.add(searchComponent, gridBagConstraints);
+        gridBagConstraints.gridy++;
+        gridBagConstraints.gridx = 0;
+        jPanel.add(searchComputerSet, gridBagConstraints);
+
+        JPanel jPanel1 = new JPanel(new GridBagLayout());
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
 
         jPanel1.add(jTextArea, gridBagConstraints);
 
-        gridBagConstraints.gridx=0;
-        gridBagConstraints.gridy=0;
-        this.add(jPanel,gridBagConstraints);
-        gridBagConstraints.gridx=1;
-        gridBagConstraints.gridy=0;
-        this.add(jPanel1,gridBagConstraints);
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        this.add(jPanel, gridBagConstraints);
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        this.add(jPanel1, gridBagConstraints);
 
         this.pack();
     }
@@ -182,6 +158,7 @@ public class SearchPanel extends JDialog {
     private EntityManager connectDataBase() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
         entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
         return entityManager;
     }
 
@@ -190,6 +167,8 @@ public class SearchPanel extends JDialog {
         searchClient();
         searchComputerComponent();
         searchComputerSet();
+        searchAdres();
+        entityManager.getTransaction().commit();
 
 
     }
@@ -202,27 +181,34 @@ public class SearchPanel extends JDialog {
                 jTextArea.setText(null);
 
                 if (object.equals(searchAClient)) {
+
                     confirm.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
 
-                            entityManager.getTransaction().begin();
-                            TypedQuery<Customer> query = entityManager.createQuery("SELECT e FROM Customer e WHERE e.name like:name", Customer.class);
-                            query.setParameter("name", jTextField.getText());
-                            List<Customer> resultList = query.getResultList();
-                            for (Customer customer : resultList) {
+                            if (jTextField.getText().equals("")) {
+                                JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
+                            } else {
 
-                                String name = customer.getName();
-                                String lastname = customer.getLastname();
-                                jTextArea.insert(name + " " + lastname + "\n", 0);
+                                TypedQuery<Customer> query = entityManager.createQuery("SELECT e FROM Customer e WHERE e.name like:name", Customer.class);
+                                query.setParameter("name", jTextField.getText());
+                                List<Customer> resultList = query.getResultList();
+                                for (Customer customer : resultList) {
+
+                                    String name = customer.getName();
+                                    String lastname = customer.getLastname();
+                                    Adres adres = customer.getAdres();
+                                    String locality = adres.getLocality();
+
+                                    jTextArea.insert(name + " " + lastname + " " + locality + "\n", 0);
+                                }
+                                jTextField.setText(null);
+                                jDialog.dispose();
                             }
-                            entityManager.getTransaction().commit();
-                            jTextField.setText(null);
-                            jDialog.dispose();
-
                         }
                     });
                 }
+
             }
         });
     }
@@ -239,26 +225,28 @@ public class SearchPanel extends JDialog {
                     confirm.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            System.out.println("TOOOOO");
 
-                            entityManager.getTransaction().begin();
+                            if (jTextField.getText().equals("")) {
+                                JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
+                            } else {
 
-                            TypedQuery<ComputerComponent> query = entityManager.createQuery(
-                                    "SELECT e FROM ComputerComponent e WHERE e.price>:cena", ComputerComponent.class);
+                                TypedQuery<ComputerComponent> query = entityManager.createQuery(
+                                        "SELECT e FROM ComputerComponent e WHERE e.price<:cena", ComputerComponent.class);
 
-                            query.setParameter("cena", BigDecimal.valueOf(Double.parseDouble(jTextField.getText())));
-                            List<ComputerComponent> resultList = query.getResultList();
+                                query.setParameter("cena", BigDecimal.valueOf(Double.parseDouble(jTextField.getText())));
+                                List<ComputerComponent> resultList = query.getResultList();
 
-                            for (ComputerComponent comp : resultList) {
+                                for (ComputerComponent comp : resultList) {
 
-                                String componentName = comp.getComponentName();
-                                BigDecimal price = comp.getPrice();
+                                    String componentName = comp.getComponentName();
+                                    BigDecimal price = comp.getPrice();
 
-                                jTextArea.insert(componentName + "-" + price + "\n", 0);
+                                    jTextArea.insert(componentName + "-" + price + "zł" + "\n", 0);
+                                }
+                                jTextField.setText(null);
+                                jDialog.dispose();
+
                             }
-                            jDialog.dispose();
-                            jTextField.setText(null);
-                            entityManager.getTransaction().commit();
                         }
                     });
                 }
@@ -281,32 +269,74 @@ public class SearchPanel extends JDialog {
                         @Override
                         public void actionPerformed(ActionEvent e) {
 
+                            if (jTextField.getText().equals("")) {
+                                JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
+                            } else {
 
-                            entityManager.getTransaction().begin();
+                                TypedQuery<ComputerSet> query = entityManager.createQuery
+                                        ("SELECT e FROM ComputerSet e WHERE e.computerPrice>:price", ComputerSet.class);
 
-                            TypedQuery<ComputerSet> query = entityManager.createQuery
-                                    ("SELECT e FROM ComputerSet e WHERE e.computerPrice>:price", ComputerSet.class);
+                                query.setParameter("price", BigDecimal.valueOf(Double.parseDouble(jTextField.getText())));
 
-                            query.setParameter("price", BigDecimal.valueOf(Double.parseDouble(jTextField.getText())));
+                                List<ComputerSet> resultList = query.getResultList();
 
-                            List<ComputerSet> resultList = query.getResultList();
+                                for (ComputerSet compSet : resultList) {
 
-                            for (ComputerSet compSet : resultList) {
+                                    String computerSetName = compSet.getComputerSetName();
+                                    String computerSetDescribe = compSet.getComputerSetDescribe();
+                                    BigDecimal computerPrice = compSet.getComputerPrice();
 
-                                String computerSetName = compSet.getComputerSetName();
-                                String computerSetDescribe = compSet.getComputerSetDescribe();
-                                BigDecimal computerPrice = compSet.getComputerPrice();
+                                    jTextArea.insert(computerSetName + " - " + computerSetDescribe + " - " + computerPrice + " zł" + "\n", 0);
+                                }
+                                jTextField.setText(null);
+                                jDialog.dispose();
 
-                                jTextArea.insert(computerSetName + " " + computerSetDescribe + " " + computerPrice + "\n", 0);
                             }
-
-                            entityManager.getTransaction().commit();
-                            jDialog.dispose();
-                            jTextField.setText(null);
                         }
 
                     });
                 }
+            }
+        });
+    }
+
+    private void searchAdres() {
+
+        searchAdres.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jTextArea.setText(null);
+                confirm.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        if (jTextField.getText().equals("")) {
+                            JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
+                        } else {
+                            TypedQuery<Customer> query = entityManager.createQuery("SELECT e FROM Customer e", Customer.class);
+
+                            List<Customer> resultList = query.getResultList();
+
+                            for (Customer customer : resultList) {
+                                Adres adres = customer.getAdres();
+
+                                String locality = adres.getLocality();
+                                if (locality.equals(jTextField.getText())) {
+
+                                    String name = customer.getName();
+                                    String lastname = customer.getLastname();
+                                    String locality1 = adres.getLocality();
+
+                                    jTextArea.insert(name + " " + lastname + " " + locality1 + "\n", 0);
+                                }
+                            }
+                            jTextField.setText(null);
+                            jDialog.dispose();
+
+                        }
+
+                    }
+                });
             }
         });
     }

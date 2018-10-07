@@ -2,42 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04e5fed0-2452-4888-ac46-6b7c9ea0c17b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/panels/SearchPanel.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$6.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/frame/MainFrame$1.class" afterPath="$PROJECT_DIR$/target/classes/frame/MainFrame$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/frame/MainFrame$2.class" afterPath="$PROJECT_DIR$/target/classes/frame/MainFrame$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/frame/MainFrame.class" afterPath="$PROJECT_DIR$/target/classes/frame/MainFrame.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$1.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$2.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$3.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$4.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerComponentPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$1.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$2.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$3.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$4.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$5.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$6.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$7.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$8.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel.class" afterPath="$PROJECT_DIR$/target/classes/panels/ComputerSetPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$1.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$2.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$3.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$4.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/panels/CustomerPanel.class" afterPath="$PROJECT_DIR$/target/classes/panels/CustomerPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/frame/MainFrame.java" afterPath="$PROJECT_DIR$/src/main/java/frame/MainFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/AddComputerComponentPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/AddComputerComponentPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/AddComputerSetPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/AddComputerSetPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/AddCustomerPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/ComputerComponentPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/ComputerSetPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/CustomerPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/panels/SearchPanel.java" afterPath="$PROJECT_DIR$/src/main/java/panels/SearchPanel.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -63,8 +29,8 @@
       <file leaf-file-name="SearchPanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/panels/SearchPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="103" column="51" lean-forward="false" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
+            <state relative-caret-position="626">
+              <caret line="208" column="23" lean-forward="false" selection-start-line="208" selection-start-column="23" selection-end-line="208" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -213,14 +179,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ComputerConfigurator" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ComputerConfigurator" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="panels" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ComputerConfigurator" type="b2602c69:ProjectViewProjectNode" />
@@ -824,8 +782,8 @@
         <state relative-caret-position="628">
           <caret line="74" column="33" lean-forward="false" selection-start-line="74" selection-start-column="33" selection-end-line="74" selection-end-column="33" />
           <folding>
-            <element signature="e#1419#1420#0" expanded="true" />
-            <element signature="e#1459#1460#0" expanded="true" />
+            <element signature="e#1419#1420#0" expanded="false" />
+            <element signature="e#1459#1460#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -851,7 +809,7 @@
         <state relative-caret-position="309">
           <caret line="345" column="1" lean-forward="false" selection-start-line="345" selection-start-column="1" selection-end-line="345" selection-end-column="1" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -866,8 +824,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/panels/SearchPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="103" column="51" lean-forward="false" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
+        <state relative-caret-position="626">
+          <caret line="208" column="23" lean-forward="false" selection-start-line="208" selection-start-column="23" selection-end-line="208" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

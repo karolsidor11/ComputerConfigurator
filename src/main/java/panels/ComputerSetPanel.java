@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComputerSetPanel extends JPanel {
-
+    //TODO nazwy zmiennych do poprawy
     private JButton addSet;
     private JButton deleteSet;
     private JButton update;
@@ -53,7 +53,7 @@ public class ComputerSetPanel extends JPanel {
         List<ComputerSet> computerSets = computerSetJPA.allList();
 
         model = new DefaultTableModel(columnName, 0);
-        for (int i = 0; i < computerSets.size(); i++) {
+        for (int i = 0; i < computerSets.size(); i++) {//TODO użyj foreach z Java 8
             Integer id = computerSets.get(i).getId();
             String computerSetName = computerSets.get(i).getComputerSetName();
             String computerSetDescribe = computerSets.get(i).getComputerSetDescribe();
@@ -94,7 +94,7 @@ public class ComputerSetPanel extends JPanel {
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (tableSet.isRowSelected(tableSet.getSelectedRow()) == true) {
+                if (tableSet.isRowSelected(tableSet.getSelectedRow()) == true) {//TODO co podpowiada Intelij przy tym if ?
 //                    newUpdate();
                     AddComputerSetPanel addComputerSetPanel = new AddComputerSetPanel(model, "Update", "Panel modyfikacji zestawu komputerowego", tableSet);
                     addComputerSetPanel.initUpdateValue();
@@ -157,8 +157,7 @@ public class ComputerSetPanel extends JPanel {
     }
 
 
-    private void createNewSet() {
-
+    private void createNewSet() {//TODO to jest nie używane.
         JDialog jDialog = new JDialog();
         jDialog.setTitle("Panel tworzenia zamówienia");
         jDialog.setSize(new Dimension(457, 360));
@@ -188,7 +187,7 @@ public class ComputerSetPanel extends JPanel {
         CustomerJPA customerJPA = new CustomerJPA();
         List<model.Customer> customers = customerJPA.allCustomer();
 
-        for (Customer a : customers) {
+        for (Customer a : customers) {//TODO użyj foreach z Java 8
             String customerName = a.getName();
             comboClient.addItem(a);
         }
@@ -198,7 +197,7 @@ public class ComputerSetPanel extends JPanel {
 
         List<ComputerComponent> computerComponents = computerComponentJPA.allComputerComponent();
 
-        for (ComputerComponent components : computerComponents) {
+        for (ComputerComponent components : computerComponents) {//TODO użyj foreach z Java 8
             String componentName = components.getComponentName();
             comboComponent.addItem(componentName);
         }
@@ -365,7 +364,7 @@ public class ComputerSetPanel extends JPanel {
         });
     }
 
-    private void newUpdate() {
+    private void newUpdate() {//TODO nieużywane
 
         JDialog jDialog = new JDialog();
         jDialog.setTitle("Panel modyfikacji  zestawu komputerowego ");
@@ -423,16 +422,16 @@ public class ComputerSetPanel extends JPanel {
         setDescription.setText((String) model.getValueAt(a, 2));
         setPrice.setText(String.valueOf(i));
 
-        for (Customer cusom : customers) {
+        for (Customer cusom : customers) {//TODO Java 8
             String name = cusom.getName();
             klient.addItem(name);
         }
-        for (ComputerComponent component : computerComponents) {
+        for (ComputerComponent component : computerComponents) {//TODO Java 8
             String componentName = component.getComponentName();
             element.addItem(componentName);
         }
 
-        for (ComputerComponent comp : computerComponents) {
+        for (ComputerComponent comp : computerComponents) {//TODO Java 8
 
             jTextArea.insert(comp.getComponentName() + "-" + comp.getPrice() + " zł" + "\n", 0);
         }
@@ -562,7 +561,7 @@ public class ComputerSetPanel extends JPanel {
                 zamowienie.add(byId);
                 int componentPrice = 0;
 
-                for (ComputerComponent cp : zamowienie) {
+                for (ComputerComponent cp : zamowienie) {//TODO Java 8
 
                     componentPrice = cp.getPrice().intValue();
                     cena = cena + componentPrice;

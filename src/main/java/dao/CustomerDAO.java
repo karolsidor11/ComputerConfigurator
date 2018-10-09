@@ -5,6 +5,7 @@ import model.Customer;
 
 import java.util.List;
 
+//TODO tak samo jak w ComputerSetDao do poprawy nazwy metod + usuń niepotrzebny import
 public interface CustomerDAO {
 
     Customer getById(Integer id);

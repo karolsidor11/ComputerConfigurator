@@ -16,8 +16,9 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class SearchPanel extends JDialog {
 
+public class SearchPanel extends JDialog {
+//TODO nazwy do poprawy
     private JTextArea jTextArea;
     private JButton searchAClient;
     private JButton searchComponent;
@@ -123,6 +124,7 @@ public class SearchPanel extends JDialog {
 
     }
 
+    //TODO Cała logika zapytań i entity manager powinny być w klasie DAO
     private void actionButons() {
         searchAClient.addActionListener(new ActionListener() {
             @Override

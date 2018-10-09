@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ComputerComponentPanel extends JPanel {
-
+    //TODO nazwy zmiennych do poprawy
     private JButton addComputerComponent;
     private JButton deleteComputerComponent;
     private JButton update;

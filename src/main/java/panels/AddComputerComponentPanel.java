@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 
 public class AddComputerComponentPanel extends JDialog {
-
+    //TODO nazwy zmiennych do poprawy
     private JTextField componentName;
     private JTextField componentDescription;
     private JTextField componentPrice;
@@ -21,7 +21,7 @@ public class AddComputerComponentPanel extends JDialog {
     private JButton confirm;
     private GridBagConstraints gbc;
     private String status;
-    private String title;
+    private String title;//TODO to pole jest nieużywane
     private DefaultTableModel model;
     private JTable tableComponent;
 
@@ -102,7 +102,7 @@ public class AddComputerComponentPanel extends JDialog {
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (status.equals("Add")) {
+                if (status.equals("Add")) {//TODO wydziel status do klasy ENUM.
                     addComputerComponent();
                 }
                 if (status.equals("Update")) {
@@ -171,7 +171,7 @@ public class AddComputerComponentPanel extends JDialog {
         }
     }
 
-    public void setComponentValue() {
+    public void setComponentValue() {//TODO czy ta metody musi być publiczna ?
         int a = tableComponent.getSelectedRow();
         componentName.setText((String) model.getValueAt(a, 1));
         componentDescription.setText((String) model.getValueAt(a, 2));

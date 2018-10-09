@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddComputerSetPanel extends JDialog {
-
+//TODO nazwy zmiennych do poprawy
     private JLabel nazwa;
     private JLabel name;
     private JLabel client;
@@ -216,7 +216,7 @@ public class AddComputerSetPanel extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (status.equals("Add")) {
+                if (status.equals("Add")) {//TODO wydziel status do klasy ENUM.
                     addNewSet();
                 }
                 if (status.equals("Update")) {

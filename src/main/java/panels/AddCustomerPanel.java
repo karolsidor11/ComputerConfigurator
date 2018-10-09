@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class AddCustomerPanel extends JDialog {
-
+    //TODO nazwy zmiennych do poprawy
     Object[] row = new Object[4];
     private JLabel insertName, insertLastName, insertAdress, insertStreet, insertNumber, insertZipCode;
     private JTextField name, lastName, adres, zipCode, number, street;
@@ -76,7 +76,7 @@ public class AddCustomerPanel extends JDialog {
         street.setColumns(12);
     }
 
-    public void addComponents() {
+    public void addComponents() {//TODO czy ta metody musi być publiczna ?
         jDialog.add(insertName, gbc);
         gbc.gridx++;
         jDialog.add(name, gbc);
@@ -135,7 +135,7 @@ public class AddCustomerPanel extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (status.equals("Add")) {
+                if (status.equals("Add")) {//TODO wydziel status do klasy ENUM.
                     createCustomer();
                 }
                 if (status.equals("Update")) {
@@ -214,7 +214,7 @@ public class AddCustomerPanel extends JDialog {
         }
     }
 
-    public void setCustomerValue() {
+    public void setCustomerValue() {//TODO czy ta metody musi być publiczna ?
 
         int a = tableCustomers.getSelectedRow();
 

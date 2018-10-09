@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class CustomerPanel extends JPanel {
-
+//TODO nazwy do poprawy
     private JButton addButton;
     private JButton deleteButton;
     private JButton update;
@@ -63,7 +63,7 @@ public class CustomerPanel extends JPanel {
         String[] columnNames = {"id", "Imię", "Nazwisko", "Adres"};
         modelCustomer = new DefaultTableModel(columnNames, 0);
 
-        for (int i = 0; i < customers.size(); i++) {
+        for (int i = 0; i < customers.size(); i++) {//TODO java 8
             Integer id = customers.get(i).getId();
             String name = customers.get(i).getName();
             String lastName = customers.get(i).getLastname();
@@ -88,7 +88,7 @@ public class CustomerPanel extends JPanel {
                     public void actionPerformed(ActionEvent e) {
 
                         AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, "Add", "Panel dodawania klienta");
-
+                        //TODO dlaczego to wydzielasz do zmiennej skoro nigdzie nie używasz
                     }
                 }
         );
@@ -97,7 +97,7 @@ public class CustomerPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                if (tableCustomers.isRowSelected(tableCustomers.getSelectedRow()) == true) {
+                if (tableCustomers.isRowSelected(tableCustomers.getSelectedRow()) == true) {//TODO co Intelij podpowiada ?
                     AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, "Update", "Panel modyfikacji klienta");
                     addCustomerPanel.setCustomerValue();
 

@@ -1,24 +1,15 @@
 package panels;
 
-import model.Adres;
-import model.ComputerComponent;
-import model.ComputerSet;
-import model.Customer;
+import daoimpl.SearchJPA;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.List;
 
 
 public class SearchPanel extends JDialog {
-//TODO nazwy do poprawy
+    //TODO nazwy do poprawy
     private JTextArea jTextArea;
     private JButton searchAClient;
     private JButton searchComponent;
@@ -28,19 +19,16 @@ public class SearchPanel extends JDialog {
     private JLabel label;
     private JTextField jTextField;
     private JButton confirm;
-    private EntityManager entityManager;
     private JDialog jDialog;
     private Font font;
+    private SearchJPA test;
 
 
     public SearchPanel() {
-        connectDataBase();
         createFrame();
         createComponents();
         addComponents();
         actionButons();
-        searching();
-
     }
 
     private void createFrame() {
@@ -126,12 +114,21 @@ public class SearchPanel extends JDialog {
 
     //TODO Cała logika zapytań i entity manager powinny być w klasie DAO
     private void actionButons() {
+        test = new SearchJPA(jTextField, jTextArea);
+
         searchAClient.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 label.setText("Wprowadż  imię  klienta :  ");
                 searchWindow();
-                EntityManager entityManager = connectDataBase();
+                jTextArea.setText(null);
+                confirm.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        test.searchClient();
+                        jDialog.dispose();
+                    }
+                });
             }
         });
         searchComputerSet.addActionListener(new ActionListener() {
@@ -139,6 +136,14 @@ public class SearchPanel extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 label.setText("Wprowadż cenę zestawu  PC : ");
                 searchWindow();
+                jTextArea.setText(null);
+                confirm.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        test.searchComputerSet();
+                        jDialog.dispose();
+                    }
+                });
             }
         });
         searchComponent.addActionListener(new ActionListener() {
@@ -146,6 +151,14 @@ public class SearchPanel extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 label.setText("Wprowadż cenę komponentu :");
                 searchWindow();
+                jTextArea.setText(null);
+                confirm.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        test.searchComponent();
+                        jDialog.dispose();
+                    }
+                });
             }
         });
         searchAdres.addActionListener(new ActionListener() {
@@ -153,194 +166,15 @@ public class SearchPanel extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 label.setText("Wprowadż adres klienta : ");
                 searchWindow();
-            }
-        });
-    }
-
-    private EntityManager connectDataBase() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("configuratorPC");
-        entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        return entityManager;
-    }
-
-
-    private void searching() {
-        searchClient();
-        searchComputerComponent();
-        searchComputerSet();
-        searchAdres();
-        entityManager.getTransaction().commit();
-
-
-    }
-
-    private void searchClient() {
-        searchAClient.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Object object = e.getSource();
-                jTextArea.setText(null);
-
-                if (object.equals(searchAClient)) {
-
-                    confirm.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-
-                            if (jTextField.getText().equals("")) {
-                                JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
-                            } else {
-
-                                TypedQuery<Customer> query = entityManager.createQuery("SELECT e FROM Customer e WHERE e.name like:name", Customer.class);
-                                query.setParameter("name", jTextField.getText());
-                                List<Customer> resultList = query.getResultList();
-                                for (Customer customer : resultList) {
-
-                                    String name = customer.getName();
-                                    String lastname = customer.getLastname();
-                                    Adres adres = customer.getAdres();
-                                    String locality = adres.getLocality();
-
-                                    jTextArea.insert(name + " " + lastname + " " + locality + "\n", 0);
-                                }
-                                jTextField.setText(null);
-                                jDialog.dispose();
-                            }
-                        }
-                    });
-                }
-
-            }
-        });
-    }
-
-    private void searchComputerComponent() {
-
-        searchComponent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Object object = e.getSource();
-                jTextArea.setText(null);
-
-                if (object.equals(searchComponent)) {
-                    confirm.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-
-                            if (jTextField.getText().equals("")) {
-                                JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
-                            } else {
-
-                                TypedQuery<ComputerComponent> query = entityManager.createQuery(
-                                        "SELECT e FROM ComputerComponent e WHERE e.price<:cena", ComputerComponent.class);
-
-                                query.setParameter("cena", BigDecimal.valueOf(Double.parseDouble(jTextField.getText())));
-                                List<ComputerComponent> resultList = query.getResultList();
-
-                                for (ComputerComponent comp : resultList) {
-
-                                    String componentName = comp.getComponentName();
-                                    BigDecimal price = comp.getPrice();
-
-                                    jTextArea.insert(componentName + "-" + price + "zł" + "\n", 0);
-                                }
-                                jTextField.setText(null);
-                                jDialog.dispose();
-
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    private void searchComputerSet() {
-
-        searchComputerSet.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Object object = e.getSource();
-                jTextArea.setText(null);
-
-                if (object.equals(searchComputerSet)) {
-
-                    confirm.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-
-                            if (jTextField.getText().equals("")) {
-                                JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
-                            } else {
-
-                                TypedQuery<ComputerSet> query = entityManager.createQuery
-                                        ("SELECT e FROM ComputerSet e WHERE e.computerPrice>:price", ComputerSet.class);
-
-                                query.setParameter("price", BigDecimal.valueOf(Double.parseDouble(jTextField.getText())));
-
-                                List<ComputerSet> resultList = query.getResultList();
-
-                                for (ComputerSet compSet : resultList) {
-
-                                    String computerSetName = compSet.getComputerSetName();
-                                    String computerSetDescribe = compSet.getComputerSetDescribe();
-                                    BigDecimal computerPrice = compSet.getComputerPrice();
-
-                                    jTextArea.insert(computerSetName + " - " + computerSetDescribe + " - " + computerPrice + " zł" + "\n", 0);
-                                }
-                                jTextField.setText(null);
-                                jDialog.dispose();
-
-                            }
-                        }
-
-                    });
-                }
-            }
-        });
-    }
-
-    private void searchAdres() {
-
-        searchAdres.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
                 jTextArea.setText(null);
                 confirm.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
-                        if (jTextField.getText().equals("")) {
-                            JOptionPane.showMessageDialog(null, "Wprowadź dane !!!");
-                        } else {
-                            TypedQuery<Customer> query = entityManager.createQuery("SELECT e FROM Customer e", Customer.class);
-
-                            List<Customer> resultList = query.getResultList();
-
-                            for (Customer customer : resultList) {
-                                Adres adres = customer.getAdres();
-
-                                String locality = adres.getLocality();
-                                if (locality.equals(jTextField.getText())) {
-
-                                    String name = customer.getName();
-                                    String lastname = customer.getLastname();
-                                    String locality1 = adres.getLocality();
-
-                                    jTextArea.insert(name + " " + lastname + " " + locality1 + "\n", 0);
-                                }
-                            }
-                            jTextField.setText(null);
-                            jDialog.dispose();
-
-                        }
-
+                        test.searchAdres();
+                        jDialog.dispose();
                     }
                 });
             }
         });
     }
-
 }

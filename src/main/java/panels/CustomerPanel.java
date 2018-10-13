@@ -3,6 +3,7 @@ package panels;
 import daoimpl.CustomerJPA;
 import frame.MainFrame;
 import model.Customer;
+import service.Status;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +15,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class CustomerPanel extends JPanel {
-//TODO nazwy do poprawy
+    //TODO nazwy do poprawy
     private JButton addButton;
     private JButton deleteButton;
     private JButton update;
@@ -86,8 +87,7 @@ public class CustomerPanel extends JPanel {
         addButton.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-
-                        AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, "Add", "Panel dodawania klienta");
+                        AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, Status.Add, "Panel dodawania klienta");
                         //TODO dlaczego to wydzielasz do zmiennej skoro nigdzie nie używasz
                     }
                 }
@@ -97,8 +97,8 @@ public class CustomerPanel extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                if (tableCustomers.isRowSelected(tableCustomers.getSelectedRow()) == true) {//TODO co Intelij podpowiada ?
-                    AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, "Update", "Panel modyfikacji klienta");
+                if (tableCustomers.isRowSelected(tableCustomers.getSelectedRow())) {//TODO co Intelij podpowiada ?
+                    AddCustomerPanel addCustomerPanel = new AddCustomerPanel(tableCustomers, modelCustomer, Status.Update, "Panel modyfikacji klienta");
                     addCustomerPanel.setCustomerValue();
 
                 } else {

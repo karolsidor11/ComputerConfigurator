@@ -3,6 +3,7 @@ package panels;
 import daoimpl.SearchJPA;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ public class SearchPanel extends JDialog {
     private JDialog jDialog;
     private Font font;
     private SearchJPA test;
+    private Border border;
 
 
     public SearchPanel() {
@@ -49,12 +51,14 @@ public class SearchPanel extends JDialog {
         confirm = new JButton("Zatwierdź");
         label = new JLabel();
         jTextField = new JTextField();
+        border = BorderFactory.createLineBorder(Color.BLACK);
         font = new Font("SansSerif", Font.PLAIN, 12);
         jTextField.setColumns(16);
 
         jTextArea.setColumns(20);
         jTextArea.setRows(12);
         jTextArea.setFont(font);
+        jTextArea.setBorder(border);
     }
 
     private void addComponents() {
@@ -84,6 +88,7 @@ public class SearchPanel extends JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new Insets(0, 0, 1, 1);
 
         jPanel1.add(jTextArea, gridBagConstraints);
 

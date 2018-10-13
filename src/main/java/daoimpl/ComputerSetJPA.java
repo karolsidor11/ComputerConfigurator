@@ -76,7 +76,7 @@ public class ComputerSetJPA implements ComputerSetDAO {
     }
 
     @Override
-    public void removeSet(ComputerSet computerSet) {
+    public void removeComputerSet(ComputerSet computerSet) {
 
         try {
 

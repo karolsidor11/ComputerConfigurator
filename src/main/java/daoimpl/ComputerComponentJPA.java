@@ -66,7 +66,7 @@ public class ComputerComponentJPA implements ComputerComponentDAO {
     }
 
     @Override
-    public void mergeComponent(ComputerComponent computerComponent) {
+    public void mergeComputerComponent(ComputerComponent computerComponent) {
 
         try {
 

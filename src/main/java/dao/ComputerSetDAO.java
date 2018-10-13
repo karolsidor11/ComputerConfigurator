@@ -15,7 +15,7 @@ public interface ComputerSetDAO {
 
     void mergeComputerSet(ComputerSet computerSet);
 
-    void removeSet(ComputerSet computerSet);
+    void removeComputerSet(ComputerSet computerSet);
 
     void removeSetById(Integer id);
 

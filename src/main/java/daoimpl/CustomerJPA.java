@@ -16,7 +16,6 @@ public class CustomerJPA implements CustomerDAO {
 
     public CustomerJPA() {
         entityManager = getEntityManager();
-
     }
 
     private static CustomerJPA getInstance() {

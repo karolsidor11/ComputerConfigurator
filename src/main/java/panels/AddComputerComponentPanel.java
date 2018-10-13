@@ -2,6 +2,7 @@ package panels;
 
 import daoimpl.ComputerComponentJPA;
 import model.ComputerComponent;
+import service.Status;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -20,13 +21,13 @@ public class AddComputerComponentPanel extends JDialog {
     private JLabel insertPrice;
     private JButton confirm;
     private GridBagConstraints gbc;
-    private String status;
-    private String title;//TODO to pole jest nieużywane
+   // private String status;
     private DefaultTableModel model;
     private JTable tableComponent;
+    private Enum status;
 
 
-    public AddComputerComponentPanel(DefaultTableModel model, String status, JTable jTable, String title) {
+    public AddComputerComponentPanel(DefaultTableModel model, Enum status, JTable jTable, String title) {
 
         this.status = status;
         this.model = model;
@@ -102,10 +103,11 @@ public class AddComputerComponentPanel extends JDialog {
         confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (status.equals("Add")) {//TODO wydziel status do klasy ENUM.
+
+                if (status.equals(Status.Add)) {//TODO wydziel status do klasy ENUM.
                     addComputerComponent();
                 }
-                if (status.equals("Update")) {
+                if (status.equals(Status.Update)) {
                     modifyComupterComponent();
                 }
             }
@@ -153,7 +155,7 @@ public class AddComputerComponentPanel extends JDialog {
 
             if (!componentName.getText().equals("") && !componentDescription.getText().equals("")) {
 
-                computerComponentJPA.mergeComponent(byId);
+                computerComponentJPA.mergeComputerComponent(byId);
 
                 model.setValueAt(byId.getId(), i, 0);
                 model.setValueAt(componentName.getText(), i, 1);

@@ -3,6 +3,7 @@ package panels;
 import daoimpl.ComputerComponentJPA;
 import frame.MainFrame;
 import model.ComputerComponent;
+import service.Status;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -95,7 +96,7 @@ public class ComputerComponentPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 AddComputerComponentPanel addComputerComponentPanel = new AddComputerComponentPanel
-                        (model, "Add", tableComponent, "Panel dodawania komponentu komputera");
+                        (model, Status.Add, tableComponent, "Panel dodawania komponentu komputera");
             }
         });
         deleteComputerComponent.addActionListener(new ActionListener() {
@@ -109,9 +110,9 @@ public class ComputerComponentPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (tableComponent.isRowSelected(tableComponent.getSelectedRow()) == true) {
+                if (tableComponent.isRowSelected(tableComponent.getSelectedRow())) {
                     AddComputerComponentPanel addComputerComponentPanel = new AddComputerComponentPanel
-                            (model, "Update", tableComponent, "Panel modyfikacji komponentu komputera");
+                            (model, Status.Update, tableComponent, "Panel modyfikacji komponentu komputera");
                     addComputerComponentPanel.setComponentValue();
                 } else {
                     JOptionPane.showMessageDialog(null, "Wybierz podzespół komputera do modyfikacji !");

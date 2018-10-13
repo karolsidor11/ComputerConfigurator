@@ -27,6 +27,8 @@ public class Customer {
     @NotNull
     private Adres adres;
 
+    public Customer() {
+    }
 
     public Customer(@NotNull Integer id, @NotNull String name, @NotNull String lastname, @NotNull Adres adres) {
         this.id = id;
@@ -35,8 +37,6 @@ public class Customer {
         this.adres = adres;
     }
 
-    public Customer() {
-    }
 
     public Integer getId() {
         return id;
@@ -72,6 +72,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return name+" "+lastname;
+        return name + " " + lastname;
     }
 }

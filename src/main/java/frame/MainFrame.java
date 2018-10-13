@@ -11,11 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
-    private JButton customer;
-    private JButton component;
-    private JButton computerSet;
+    private JButton customerButton;
+    private JButton componentButton;
+    private JButton computerSetButton;
     private JButton aboutProgram;
-    private JButton search;
+    private JButton searchButton;
     private JLabel label;
     private JPanel panel;
     private ImageIcon imageIcon;
@@ -46,28 +46,28 @@ public class MainFrame extends JFrame {
 
     private void createComponent() {
         panel = new JPanel();
-        customer = new JButton("Klienci");
-        component = new JButton("Podzespoły");
-        computerSet = new JButton("Zamówienia");
-        search = new JButton("Wyszukaj");
+        customerButton = new JButton("Klienci");
+        componentButton = new JButton("Podzespoły");
+        computerSetButton = new JButton("Zamówienia");
+        searchButton = new JButton("Wyszukaj");
         aboutProgram = new JButton("Info");
         label = new JLabel();
         imageIcon = new ImageIcon(MainFrame.class.getResource("/images/konfiguator.jpg"));
         label.setIcon(imageIcon);
         font = new Font(Font.DIALOG, Font.PLAIN, 12);
 
-        customer.setFont(font);
-        component.setFont(font);
-        computerSet.setFont(font);
+        customerButton.setFont(font);
+        componentButton.setFont(font);
+        computerSetButton.setFont(font);
         aboutProgram.setFont(font);
-        search.setFont(font);
+        searchButton.setFont(font);
 
         panel.setLayout(new BorderLayout());
         JPanel panels = new JPanel();
-        panels.add(customer);
-        panels.add(component);
-        panels.add(computerSet);
-        panels.add(search);
+        panels.add(customerButton);
+        panels.add(componentButton);
+        panels.add(computerSetButton);
+        panels.add(searchButton);
 
         JPanel about = new JPanel();
         about.add(aboutProgram);
@@ -84,27 +84,27 @@ public class MainFrame extends JFrame {
 
     }
 
-    public void actionListner() {
-        customer.addActionListener(new ActionListener() {
+    private void actionListner() {
+        customerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setContentPane(new CustomerPanel());
                 pack();
             }
         });
-        component.addActionListener(new ActionListener() {
+        componentButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setContentPane(new ComputerComponentPanel());
                 pack();
             }
         });
-        computerSet.addActionListener((e) -> {
+        computerSetButton.addActionListener((e) -> {
             setContentPane(new ComputerSetPanel());
             pack();
         });
         aboutProgram.addActionListener((e ->
                 JOptionPane.showMessageDialog(this, "     Computer Configurator \n Wersja demonstracyjna: v1.0" +
                         "\n Development by: Karol Sidor")));
-        search.addActionListener(new ActionListener() {
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new SearchPanel();

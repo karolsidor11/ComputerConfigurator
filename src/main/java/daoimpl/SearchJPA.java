@@ -5,6 +5,7 @@ import model.Adres;
 import model.ComputerComponent;
 import model.ComputerSet;
 import model.Customer;
+import service.Hibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,16 +17,16 @@ import java.util.List;
 
 public class SearchJPA implements SearchDAO {
 
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
     private JTextField jTextField;
     private JTextArea jTextArea;
 
     public SearchJPA(JTextField jTextField, JTextArea jTextArea) {
 
+        //getInstance();
+        entityManager = Hibernate.getInstance();
         this.jTextArea = jTextArea;
         this.jTextField = jTextField;
-
-        getInstance();
     }
 
     private EntityManager getInstance() {

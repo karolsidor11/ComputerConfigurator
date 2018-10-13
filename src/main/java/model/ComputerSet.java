@@ -4,7 +4,6 @@ import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,6 +37,9 @@ public class ComputerSet {
     @Valid
     private List<ComputerComponent> computerComponentList = new ArrayList<ComputerComponent>();
 
+    public ComputerSet() {
+    }
+
     public ComputerSet(@NotNull Integer id, @NotNull String computerSetName, @NotNull String computerSetDescribe,
                        @NotNull BigDecimal computerPrice, @Valid Customer customer, @Valid List<ComputerComponent> computerComponentList) {
         this.id = id;
@@ -48,8 +50,6 @@ public class ComputerSet {
         this.computerComponentList = computerComponentList;
     }
 
-    public ComputerSet() {
-    }
 
     public Integer getId() {
         return id;

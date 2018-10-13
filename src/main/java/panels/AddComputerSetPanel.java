@@ -6,6 +6,7 @@ import daoimpl.CustomerJPA;
 import model.ComputerComponent;
 import model.ComputerSet;
 import model.Customer;
+import service.Status;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddComputerSetPanel extends JDialog {
-//TODO nazwy zmiennych do poprawy
+    //TODO nazwy zmiennych do poprawy
     private JLabel nazwa;
     private JLabel name;
     private JLabel client;
@@ -37,12 +38,12 @@ public class AddComputerSetPanel extends JDialog {
     private ComputerComponentJPA computerComponentJPA;
     private List<ComputerComponent> zamowienie = new ArrayList<>();
     private DefaultTableModel model;
-    private String status;
+    private Enum status;
     private String title;
     private JTable tableSet;
 
 
-    public AddComputerSetPanel(DefaultTableModel model, String status, String title, JTable tableSet) {
+    public AddComputerSetPanel(DefaultTableModel model, Enum status, String title, JTable tableSet) {
         this.model = model;
         this.status = status;
         this.title = title;
@@ -216,10 +217,10 @@ public class AddComputerSetPanel extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (status.equals("Add")) {//TODO wydziel status do klasy ENUM.
+                if (status.equals(Status.Add)) {//TODO wydziel status do klasy ENUM.
                     addNewSet();
                 }
-                if (status.equals("Update")) {
+                if (status.equals(Status.Update)) {
                     modifySet();
                 }
             }

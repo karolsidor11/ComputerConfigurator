@@ -3,6 +3,7 @@ package panels;
 import daoimpl.CustomerJPA;
 import model.Adres;
 import model.Customer;
+import service.Status;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,10 +22,10 @@ public class AddCustomerPanel extends JDialog {
     private GridBagConstraints gbc;
     private JTable tableCustomers;
     private DefaultTableModel modelCustomer;
-    private String status;
+    private Enum status;
 
 
-    public AddCustomerPanel(JTable tableCustomers, DefaultTableModel tableModel, String status, String title) {
+    public AddCustomerPanel(JTable tableCustomers, DefaultTableModel tableModel, Enum status, String title) {
 
         this.tableCustomers = tableCustomers;
         this.modelCustomer = tableModel;
@@ -135,10 +136,10 @@ public class AddCustomerPanel extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if (status.equals("Add")) {//TODO wydziel status do klasy ENUM.
+                if (status.equals(Status.Add)) {//TODO wydziel status do klasy ENUM.
                     createCustomer();
                 }
-                if (status.equals("Update")) {
+                if (status.equals(Status.Update)) {
                     setCustomerValue();
                     modifyCustomer();
                 }
@@ -214,7 +215,7 @@ public class AddCustomerPanel extends JDialog {
         }
     }
 
-    public void setCustomerValue() {//TODO czy ta metody musi być publiczna ?
+    void setCustomerValue() {//TODO czy ta metody musi być publiczna ?
 
         int a = tableCustomers.getSelectedRow();
 

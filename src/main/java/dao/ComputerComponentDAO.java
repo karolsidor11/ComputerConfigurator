@@ -12,7 +12,7 @@ public interface ComputerComponentDAO {
 
     void addComputerComponent(ComputerComponent computerComponent);
 
-    void mergeComponent(ComputerComponent computerComponent);
+    void mergeComputerComponent(ComputerComponent computerComponent);
 
     void removeComputerComponent(ComputerComponent computerComponent);
 
